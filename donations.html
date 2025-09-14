@@ -6,6 +6,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Donations - Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .card {
+      background: rgba(255 255 255 / 0.1);
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+    }
+    .progress-bar-container {
+      background: #222;
+      border-radius: 10px;
+      width: 100%;
+      height: 20px;
+      margin-bottom: 10px;
+    }
+    .progress-bar {
+      height: 100%;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #4fd7a5, #81d9c9);
+    }
+    ul {
+      padding-left: 1.2rem;
+    }
+    button {
+      background: #4fd7a5;
+      border: none;
+      border-radius: 20px;
+      padding: 0.7rem 1.5rem;
+      color: #0a1a0f;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
@@ -47,9 +79,9 @@
           "Research funding for 10 projects"
         ],
         topDonors: [
-          { name: "Dr. Rajesh Kumar", amount: "₹ 2.5L", tier: "Platinum" },
-          { name: "Priya Sharma", amount: "₹ 1.8L", tier: "Platinum" },
-          { name: "Amit Singh", amount: "₹ 75K", tier: "Gold" }
+          { name: "Dr. Rajesh Kumar", amount: "₹ 2.5 Lakh", tier: "Platinum" },
+          { name: "Priya Sharma", amount: "₹ 1.8 Lakh", tier: "Platinum" },
+          { name: "Amit Singh", amount: "₹ 75 K", tier: "Gold" }
         ]
       },
       "Thapar University": {
@@ -66,8 +98,8 @@
           "Provided 20 research grants"
         ],
         topDonors: [
-          { name: "Anil Kapoor", amount: "₹ 1.2L", tier: "Platinum" },
-          { name: "Reema Singh", amount: "₹ 90K", tier: "Gold" }
+          { name: "Anil Kapoor", amount: "₹ 1.2 Lakh", tier: "Platinum" },
+          { name: "Reema Singh", amount: "₹ 90 K", tier: "Gold" }
         ]
       },
       "Lovely Professional University": {
@@ -83,8 +115,76 @@
           "Improved library access for 5,000 students"
         ],
         topDonors: [
-          { name: "Vikram Patel", amount: "₹ 80K", tier: "Gold" },
-          { name: "Niti Sharma", amount: "₹ 50K", tier: "Silver" }
+          { name: "Vikram Patel", amount: "₹ 80 K", tier: "Gold" },
+          { name: "Niti Sharma", amount: "₹ 50 K", tier: "Silver" }
+        ]
+      },
+      "Punjab Engineering College": {
+        campaign: {
+          name: "Engineering Advancement Fund",
+          goal: "₹ 70 Lakhs",
+          raised: "₹ 32 Lakhs",
+          donors: 140,
+          progressPercent: 45.7
+        },
+        impact: [
+          "Upgraded labs and equipment",
+          "Scholarships for 30 engineering students"
+        ],
+        topDonors: [
+          { name: "Manish Gupta", amount: "₹ 1.0 Lakh", tier: "Platinum" },
+          { name: "Rekha Singh", amount: "₹ 60 K", tier: "Gold" }
+        ]
+      },
+      "Guru Nanak Dev University": {
+        campaign: {
+          name: "Research and Development Fund",
+          goal: "₹ 60 Lakhs",
+          raised: "₹ 28 Lakhs",
+          donors: 120,
+          progressPercent: 46.7
+        },
+        impact: [
+          "Funded 15 research projects",
+          "Upgraded library resources"
+        ],
+        topDonors: [
+          {name: "Harjit Singh", amount: "₹ 75 K", tier: "Gold"},
+          {name: "Kamala Kaur", amount: "₹ 40 K", tier: "Silver"}
+        ]
+      },
+      "Chandigarh University": {
+        campaign: {
+          name: "Technology Upgrade Campaign",
+          goal: "₹ 90 Lakhs",
+          raised: "₹ 40 Lakhs",
+          donors: 190,
+          progressPercent: 44.4
+        },
+        impact: [
+          "Upgraded IT infrastructure",
+          "Sponsored student tech projects"
+        ],
+        topDonors: [
+          {name: "Sanjeev Malhotra", amount: "₹ 1.1 Lakh", tier: "Platinum"},
+          {name: "Riya Sharma", amount: "₹ 65 K", tier: "Gold"}
+        ]
+      },
+      "Punjab Agricultural University": {
+        campaign: {
+          name: "Farmers Innovation Fund",
+          goal: "₹ 55 Lakhs",
+          raised: "₹ 25 Lakhs",
+          donors: 105,
+          progressPercent: 45.5
+        },
+        impact: [
+          "Introduced smart farming techniques",
+          "Research grant for sustainable agriculture"
+        ],
+        topDonors: [
+          {name: "Baldev Singh", amount: "₹ 70 K", tier: "Gold"},
+          {name: "Manjit Kaur", amount: "₹ 50 K", tier: "Silver"}
         ]
       }
     };
@@ -112,21 +212,25 @@
         <section class="card">
           <h2>Current Campaign: ${data.campaign.name}</h2>
           <p>Goal: <strong>${data.campaign.goal}</strong> | Raised: <strong>${data.campaign.raised}</strong></p>
-          <div style="background:#222; border-radius: 10px; width: 100%; height: 20px; margin-bottom: 10px;">
-            <div style="width: ${data.campaign.progressPercent}%; height: 100%; background: linear-gradient(90deg, #4fd7a5, #81d9c9); border-radius: 10px;"></div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" style="width: ${data.campaign.progressPercent}%;"></div>
           </div>
           <p>${data.campaign.progressPercent}% of goal achieved with ${data.campaign.donors} donors</p>
-          <button class="btn" onclick="alert('Donation feature coming soon!')">Donate Now</button>
+          <button onclick="alert('Donation feature coming soon!')">Donate Now</button>
         </section>
 
         <section class="card">
           <h2>Impact Stories</h2>
-          <ul>${data.impact.map(item => `<li>${item}</li>`).join('')}</ul>
+          <ul>
+            ${data.impact.map(item => `<li>${item}</li>`).join('')}
+          </ul>
         </section>
 
         <section class="card">
           <h2>Top Donors</h2>
-          <ul>${data.topDonors.map(donor => `<li>${donor.name} - ${donor.amount} (${donor.tier})</li>`).join('')}</ul>
+          <ul>
+            ${data.topDonors.map(donor => `<li>${donor.name} - ${donor.amount} (${donor.tier})</li>`).join('')}
+          </ul>
         </section>
       `;
     }
