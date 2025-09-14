@@ -6,6 +6,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mentorship - Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .mentor-profile {
+      background: rgba(255 255 255 / 0.1);
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+    }
+    .mentor-profile h3 {
+      margin-top: 0;
+    }
+    .btn {
+      background: #4fd7a5;
+      border: none;
+      border-radius: 20px;
+      padding: 0.5rem 1rem;
+      color: #0a1a0f;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+    form label {
+      font-weight: 600;
+      margin-top: 1rem;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    form input {
+      width: 100%;
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 0.8rem;
+      outline: none;
+    }
+  </style>
 </head>
 
 <body>
@@ -26,26 +61,24 @@
 
   <main class="container">
     <h1 id="page-title">Mentorship Program</h1>
-    <p id="description">Connect with and become mentors at your institution.</p>
+    <p id="description">Connect with mentors from your institution.</p>
 
-    <div id="mentor-list">
-      <!-- Mentor profiles will be inserted here -->
-    </div>
+    <div id="mentor-list"></div>
 
     <section style="margin-top: 2rem;">
       <h2>Become a Mentor</h2>
       <form id="mentor-signup-form">
-        <label for="name">Name:</label><br />
-        <input type="text" id="name" required /><br />
+        <label for="name">Name:</label>
+        <input type="text" id="name" required />
 
-        <label for="email">Email:</label><br />
-        <input type="email" id="email" required /><br />
+        <label for="email">Email:</label>
+        <input type="email" id="email" required />
 
-        <label for="expertise">Expertise:</label><br />
-        <input type="text" id="expertise" required /><br />
+        <label for="expertise">Expertise:</label>
+        <input type="text" id="expertise" required />
 
-        <label for="experience">Years of Experience:</label><br />
-        <input type="number" id="experience" min="1" required /><br /><br />
+        <label for="experience">Years of Experience:</label>
+        <input type="number" id="experience" min="1" required />
 
         <button type="submit" class="btn">Sign Up</button>
       </form>
@@ -59,6 +92,10 @@
         { name: "Dr. Rajesh Kumar", position: "Senior Software Engineer", company: "Google India", expertise: "Software Engineering, Cloud Computing" },
         { name: "Priya Sharma", position: "Product Manager", company: "Microsoft", expertise: "Product Strategy, Leadership" }
       ],
+      "Punjab Engineering College": [
+        { name: "Amit Singh", position: "Engineering Manager", company: "Amazon", expertise: "Distributed Systems, Leadership" },
+        { name: "Neha Verma", position: "System Analyst", company: "TCS", expertise: "Systems Analysis, Security" }
+      ],
       "Thapar University": [
         { name: "Arjun Mehta", position: "Data Scientist", company: "Flipkart", expertise: "Data Science, AI" },
         { name: "Simran Kaur", position: "Civil Engineer", company: "L&T", expertise: "Infrastructure, Project Management" }
@@ -66,8 +103,16 @@
       "Lovely Professional University": [
         { name: "Vikram Patel", position: "Entrepreneur", company: "TechStartup Inc.", expertise: "Entrepreneurship, Fundraising" },
         { name: "Neha Gupta", position: "Marketing Head", company: "Infosys", expertise: "Marketing Strategy" }
+      ],
+      "Guru Nanak Dev University": [
+        { name: "Jaspreet Singh", position: "Research Scientist", company: "IIT Delhi", expertise: "Nanotechnology, Quantum Physics" }
+      ],
+      "Chandigarh University": [
+        { name: "Neeraj Sharma", position: "Software Developer", company: "SAP", expertise: "Java, Cloud Solutions" }
+      ],
+      "Punjab Agricultural University": [
+        { name: "Baljit Kaur", position: "Agricultural Scientist", company: "PAU Research Center", expertise: "Crop Science, Soil Management" }
       ]
-      // Add more mentors for other institutes as needed
     };
 
     const mentorListEl = document.getElementById('mentor-list');
@@ -75,7 +120,8 @@
     const description = document.getElementById('description');
 
     function getQueryParam(param) {
-      return new URLSearchParams(window.location.search).get(param);
+      const params = new URLSearchParams(window.location.search);
+      return params.get(param);
     }
 
     function displayMentors(institution) {
@@ -91,7 +137,7 @@
       let html = '';
       mentors.forEach(mentor => {
         html += `
-          <div class="card" style="margin-bottom: 1rem;">
+          <div class="mentor-profile">
             <h3>${mentor.name}</h3>
             <p><strong>Position:</strong> ${mentor.position} at ${mentor.company}</p>
             <p><strong>Expertise:</strong> ${mentor.expertise}</p>
@@ -121,7 +167,6 @@
         return;
       }
 
-      // Simulate signup success
       document.getElementById('signup-message').textContent = `Thank you, ${name}! We have received your mentorship request and will contact you shortly.`;
       this.reset();
     });
