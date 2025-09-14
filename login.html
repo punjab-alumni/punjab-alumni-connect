@@ -71,6 +71,18 @@
   <div class="login-container">
     <h2>Login - Punjab Alumni Connect</h2>
     <form id="loginForm">
+      <label for="institution">Select Institution</label>
+      <select id="institution" required>
+        <option value="" disabled selected>Choose your institution</option>
+        <option value="Punjab University">Punjab University</option>
+        <option value="Punjab Engineering College">Punjab Engineering College</option>
+        <option value="Thapar University">Thapar University</option>
+        <option value="Lovely Professional University">Lovely Professional University</option>
+        <option value="Guru Nanak Dev University">Guru Nanak Dev University</option>
+        <option value="Chandigarh University">Chandigarh University</option>
+        <option value="Punjab Agricultural University">Punjab Agricultural University</option>
+      </select>
+
       <label for="email">Email Address</label>
       <input type="email" id="email" required placeholder="email@example.com" />
 
@@ -83,7 +95,7 @@
   </div>
 
   <script>
-    // Credentials for each institution and role
+    // Demo credentials structured by institution and role
     const demoCredentials = {
       "Punjab University": {
         admin: { email: "admin@punjabalumni-pu.gov.in", password: "PunjabPuAdmin2025!" },
@@ -122,56 +134,52 @@
       }
     };
 
-    document.getElementById("loginForm").addEventListener("submit", function (e) {
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
 
-      const emailInput = document.getElementById("email").value.trim().toLowerCase();
-      const passwordInput = document.getElementById("password").value;
-      const messageElem = document.getElementById("message");
+      const institution = document.getElementById('institution').value;
+      const emailInput = document.getElementById('email').value.trim().toLowerCase();
+      const passwordInput = document.getElementById('password').value;
+      const messageElem = document.getElementById('message');
 
-      messageElem.textContent = "";
-      messageElem.classList.remove("error");
-
-      const params = new URLSearchParams(window.location.search);
-      const institution = params.get('institution');
+      messageElem.textContent = '';
+      messageElem.classList.remove('error');
 
       if (!institution || !demoCredentials[institution]) {
-        messageElem.textContent = "Invalid institution or no demo credentials set.";
-        messageElem.classList.add("error");
+        messageElem.textContent = 'Please select a valid institution.';
+        messageElem.classList.add('error');
         return;
       }
 
       const creds = demoCredentials[institution];
       let emailFound = false;
-      let passwordMatch = false;
+      let passwordMatched = false;
 
-      for (const role of ['admin', 'student', 'alumni']) {
+      for (const role in creds) {
         if (creds[role].email.toLowerCase() === emailInput) {
           emailFound = true;
-          if (passwordInput === creds[role].password) {
-            passwordMatch = true;
+          if (creds[role].password === passwordInput) {
+            passwordMatched = true;
             break;
           }
-          break;
         }
       }
 
       if (!emailFound) {
-        messageElem.textContent = "Wrong email address.";
-        messageElem.classList.add("error");
+        messageElem.textContent = 'Email address not found for selected institution.';
+        messageElem.classList.add('error');
         return;
       }
 
-      if (!passwordMatch) {
-        messageElem.textContent = "Wrong password.";
-        messageElem.classList.add("error");
+      if (!passwordMatched) {
+        messageElem.textContent = 'Incorrect password.';
+        messageElem.classList.add('error');
         return;
       }
 
-      messageElem.textContent = "Login successful! Redirecting...";
-      const dest = 'dashboard.html?institution=' + encodeURIComponent(institution);
+      messageElem.textContent = 'Login successful! Redirecting...';
       setTimeout(() => {
-        window.location.href = dest;
+        window.location.href = `dashboard.html?institution=${encodeURIComponent(institution)}`;
       }, 1500);
     });
   </script>
