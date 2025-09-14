@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Settings - Punjab Alumni Connect</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="alumni.html">Alumni</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="jobs.html">Jobs</a></li>
+        <li><a href="mentorship.html">Mentorship</a></li>
+        <li><a href="donations.html">Donations</a></li>
+        <li><a href="settings.html" class="active">Settings</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Account Settings</h1>
+    <p>Manage your profile and preferences</p>
+
+    <section class="card">
+      <h2>Profile Information</h2>
+      <form id="settingsForm">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" value="Dr. Rajesh Kumar" required />
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" value="rajesh@pu.ac.in" required />
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" value="+91 9876543210" required />
+
+        <label for="graduation">Graduation Year</label>
+        <select id="graduation" required>
+          <option>2018</option>
+          <option>2019</option>
+          <option>2020</option>
+          <option>2021</option>
+          <option>2022</option>
+        </select>
+
+        <h2>Professional Information</h2>
+
+        <label for="company">Current Company</label>
+        <input type="text" id="company" value="Google India" />
+
+        <label for="position">Position</label>
+        <input type="text" id="position" value="Senior Software Engineer" />
+
+        <label for="industry">Industry</label>
+        <select id="industry">
+          <option>Technology</option>
+          <option>Finance</option>
+          <option>Healthcare</option>
+          <option>Education</option>
+          <option>Government</option>
+        </select>
+
+        <h2>Notification Preferences</h2>
+
+        <label><input type="checkbox" id="notifyEvents" checked /> Event Notifications</label><br />
+        <label><input type="checkbox" id="notifyJobs" /> Job Alerts</label><br />
+        <label><input type="checkbox" id="notifyRequests" /> Connection Requests</label><br />
+        <label><input type="checkbox" id="notifyNewsletter" checked /> Monthly Newsletter</label>
+
+        <h2>Privacy Settings</h2>
+
+        <label for="profileVisibility">Profile Visibility</label>
+        <select id="profileVisibility">
+          <option>Public</option>
+          <option selected>Alumni Only</option>
+          <option>Private</option>
+        </select>
+
+        <label><input type="checkbox" id="showContact" checked /> Show Contact Information</label><br />
+        <label><input type="checkbox" id="allowMentorship" /> Allow Mentorship Requests</label><br />
+
+        <button type="submit" class="btn" style="margin-top: 20px;">Save Changes</button>
+      </form>
+      <div id="saveMsg" style="margin-top: 10px; color: #4fd7a5;"></div>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('settingsForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      // Normally here you would process and save user data
+      document.getElementById('saveMsg').textContent = 'Settings saved successfully!';
+    });
+  </script>
+</body>
+
+</html>
