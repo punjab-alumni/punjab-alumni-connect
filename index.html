@@ -756,6 +756,156 @@
       display: block;
     }
 
+    /* Alumni Profile Cards */
+    .alumni-profile {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .alumni-profile:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .alumni-avatar {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #4fd1c7 0%, #81e6d9 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #1a1d23;
+      flex-shrink: 0;
+    }
+
+    .alumni-info h4 {
+      color: white;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .alumni-info p {
+      color: #a0aec0;
+      margin-bottom: 0.3rem;
+    }
+
+    /* Job Cards */
+    .job-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(20px);
+      transition: all 0.3s ease;
+    }
+
+    .job-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1rem;
+    }
+
+    .job-title {
+      color: #4fd1c7;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .job-company {
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .job-salary {
+      color: #81e6d9;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .job-details {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .job-tag {
+      background: rgba(79, 209, 199, 0.1);
+      color: #4fd1c7;
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .apply-btn {
+      background: linear-gradient(135deg, #4fd1c7 0%, #81e6d9 100%);
+      color: #1a1d23;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .apply-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(79, 209, 199, 0.3);
+    }
+
+    /* Event Cards */
+    .event-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(20px);
+      transition: all 0.3s ease;
+    }
+
+    .event-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .event-date {
+      background: linear-gradient(135deg, #4fd1c7 0%, #81e6d9 100%);
+      color: #1a1d23;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+
+    .event-title {
+      color: white;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
     /* Responsive Design */
     @media (max-width: 768px) {
       .hero-content {
@@ -793,6 +943,16 @@
 
       .dashboard-grid {
         grid-template-columns: 1fr;
+      }
+
+      .alumni-profile {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .job-header {
+        flex-direction: column;
+        align-items: start;
       }
     }
   </style>
@@ -969,6 +1129,8 @@
       </div>
     </nav>
     <div class="dashboard-content">
+      
+      <!-- Overview Section -->
       <div id="overview-section" class="dashboard-section active">
         <div class="dashboard-header">
           <h1 class="dashboard-title">Welcome to Alumni Portal</h1>
@@ -1028,6 +1190,441 @@
         </div>
       </div>
 
+      <!-- Alumni Directory Section -->
+      <div id="alumni-section" class="dashboard-section">
+        <div class="dashboard-header">
+          <h1 class="dashboard-title">Alumni Directory</h1>
+          <p class="dashboard-subtitle">Connect with fellow graduates and expand your network</p>
+        </div>
+        
+        <div class="dashboard-card">
+          <h3>🔍 Search Alumni</h3>
+          <div class="form-group">
+            <input type="text" placeholder="Search by name, company, or batch year..." style="margin-bottom: 1rem;">
+          </div>
+          <div class="job-details">
+            <div class="job-tag">All Batches</div>
+            <div class="job-tag">Technology</div>
+            <div class="job-tag">Business</div>
+            <div class="job-tag">Healthcare</div>
+            <div class="job-tag">Government</div>
+          </div>
+        </div>
+
+        <div class="alumni-profile">
+          <div class="alumni-avatar">👨‍💼</div>
+          <div class="alumni-info">
+            <h4>Dr. Rajesh Kumar</h4>
+            <p><strong>Senior Software Engineer</strong> at Google India</p>
+            <p><strong>Batch:</strong> 2018 • <strong>Department:</strong> Computer Science</p>
+            <p><strong>Location:</strong> Bengaluru, India</p>
+            <p><strong>Expertise:</strong> Machine Learning, Cloud Computing</p>
+          </div>
+          <button class="apply-btn">Connect</button>
+        </div>
+
+        <div class="alumni-profile">
+          <div class="alumni-avatar">👩‍💼</div>
+          <div class="alumni-info">
+            <h4>Priya Sharma</h4>
+            <p><strong>Product Manager</strong> at Microsoft</p>
+            <p><strong>Batch:</strong> 2017 • <strong>Department:</strong> Electronics</p>
+            <p><strong>Location:</strong> Hyderabad, India</p>
+            <p><strong>Expertise:</strong> Product Strategy, Team Leadership</p>
+          </div>
+          <button class="apply-btn">Connect</button>
+        </div>
+
+        <div class="alumni-profile">
+          <div class="alumni-avatar">👨‍💻</div>
+          <div class="alumni-info">
+            <h4>Amit Singh</h4>
+            <p><strong>Engineering Manager</strong> at Amazon</p>
+            <p><strong>Batch:</strong> 2016 • <strong>Department:</strong> Information Technology</p>
+            <p><strong>Location:</strong> Seattle, USA</p>
+            <p><strong>Expertise:</strong> Distributed Systems, Leadership</p>
+          </div>
+          <button class="apply-btn">Connect</button>
+        </div>
+
+        <div class="alumni-profile">
+          <div class="alumni-avatar">👩‍⚕️</div>
+          <div class="alumni-info">
+            <h4>Dr. Neha Gupta</h4>
+            <p><strong>Senior Data Scientist</strong> at Flipkart</p>
+            <p><strong>Batch:</strong> 2019 • <strong>Department:</strong> Mathematics</p>
+            <p><strong>Location:</strong> Bengaluru, India</p>
+            <p><strong>Expertise:</strong> Data Science, AI/ML Research</p>
+          </div>
+          <button class="apply-btn">Connect</button>
+        </div>
+
+        <div class="alumni-profile">
+          <div class="alumni-avatar">👨‍🔬</div>
+          <div class="alumni-info">
+            <h4>Vikram Patel</h4>
+            <p><strong>Startup Founder & CEO</strong> at TechStartup Inc.</p>
+            <p><strong>Batch:</strong> 2015 • <strong>Department:</strong> Mechanical Engineering</p>
+            <p><strong>Location:</strong> Mumbai, India</p>
+            <p><strong>Expertise:</strong> Entrepreneurship, Innovation</p>
+          </div>
+          <button class="apply-btn">Connect</button>
+        </div>
+      </div>
+
+      <!-- Jobs Section -->
+      <div id="jobs-section" class="dashboard-section">
+        <div class="dashboard-header">
+          <h1 class="dashboard-title">Career Opportunities</h1>
+          <p class="dashboard-subtitle">Discover exciting job opportunities shared by alumni network</p>
+        </div>
+        
+        <div class="dashboard-card">
+          <h3>💼 Job Filters</h3>
+          <div class="job-details">
+            <div class="job-tag">All Locations</div>
+            <div class="job-tag">Remote</div>
+            <div class="job-tag">Full-time</div>
+            <div class="job-tag">Part-time</div>
+            <div class="job-tag">Internship</div>
+          </div>
+        </div>
+
+        <div class="job-card">
+          <div class="job-header">
+            <div>
+              <div class="job-title">Senior Software Engineer</div>
+              <div class="job-company">Google India • Posted by Dr. Rajesh Kumar</div>
+            </div>
+            <div class="job-salary">₹15-25 LPA</div>
+          </div>
+          <p style="color: #a0aec0; margin-bottom: 1rem;">
+            We're looking for experienced software engineers to join our cloud computing team. 
+            Work on cutting-edge technology and make impact at global scale.
+          </p>
+          <div class="job-details">
+            <div class="job-tag">Bengaluru</div>
+            <div class="job-tag">Full-time</div>
+            <div class="job-tag">3+ Years</div>
+            <div class="job-tag">Python</div>
+            <div class="job-tag">Cloud</div>
+          </div>
+          <button class="apply-btn">Apply Now</button>
+        </div>
+
+        <div class="job-card">
+          <div class="job-header">
+            <div>
+              <div class="job-title">Product Manager</div>
+              <div class="job-company">Microsoft • Posted by Priya Sharma</div>
+            </div>
+            <div class="job-salary">₹20-35 LPA</div>
+          </div>
+          <p style="color: #a0aec0; margin-bottom: 1rem;">
+            Join our product team to drive strategy and execution for Microsoft Azure services. 
+            Lead cross-functional teams and shape the future of cloud technology.
+          </p>
+          <div class="job-details">
+            <div class="job-tag">Hyderabad</div>
+            <div class="job-tag">Full-time</div>
+            <div class="job-tag">5+ Years</div>
+            <div class="job-tag">Product Strategy</div>
+            <div class="job-tag">Leadership</div>
+          </div>
+          <button class="apply-btn">Apply Now</button>
+        </div>
+
+        <div class="job-card">
+          <div class="job-header">
+            <div>
+              <div class="job-title">Data Scientist</div>
+              <div class="job-company">Flipkart • Posted by Dr. Neha Gupta</div>
+            </div>
+            <div class="job-salary">₹12-20 LPA</div>
+          </div>
+          <p style="color: #a0aec0; margin-bottom: 1rem;">
+            Work on recommendation systems and machine learning models that serve millions of customers. 
+            Join our AI/ML research team and drive innovation in e-commerce.
+          </p>
+          <div class="job-details">
+            <div class="job-tag">Bengaluru</div>
+            <div class="job-tag">Full-time</div>
+            <div class="job-tag">2+ Years</div>
+            <div class="job-tag">Machine Learning</div>
+            <div class="job-tag">Python</div>
+          </div>
+          <button class="apply-btn">Apply Now</button>
+        </div>
+
+        <div class="job-card">
+          <div class="job-header">
+            <div>
+              <div class="job-title">Frontend Developer</div>
+              <div class="job-company">TechStartup Inc. • Posted by Vikram Patel</div>
+            </div>
+            <div class="job-salary">₹8-15 LPA</div>
+          </div>
+          <p style="color: #a0aec0; margin-bottom: 1rem;">
+            Join our fast-growing startup and build amazing user experiences. 
+            Work directly with founders and have significant impact on product direction.
+          </p>
+          <div class="job-details">
+            <div class="job-tag">Mumbai</div>
+            <div class="job-tag">Full-time</div>
+            <div class="job-tag">1+ Years</div>
+            <div class="job-tag">React</div>
+            <div class="job-tag">JavaScript</div>
+          </div>
+          <button class="apply-btn">Apply Now</button>
+        </div>
+
+        <div class="job-card">
+          <div class="job-header">
+            <div>
+              <div class="job-title">DevOps Engineer</div>
+              <div class="job-company">Amazon Web Services • Posted by Amit Singh</div>
+            </div>
+            <div class="job-salary">₹18-28 LPA</div>
+          </div>
+          <p style="color: #a0aec0; margin-bottom: 1rem;">
+            Build and maintain large-scale distributed systems. Work with cutting-edge cloud technologies 
+            and help millions of customers run their applications reliably.
+          </p>
+          <div class="job-details">
+            <div class="job-tag">Remote</div>
+            <div class="job-tag">Full-time</div>
+            <div class="job-tag">4+ Years</div>
+            <div class="job-tag">AWS</div>
+            <div class="job-tag">Docker</div>
+            <div class="job-tag">Kubernetes</div>
+          </div>
+          <button class="apply-btn">Apply Now</button>
+        </div>
+      </div>
+
+      <!-- Events Section -->
+      <div id="events-section" class="dashboard-section">
+        <div class="dashboard-header">
+          <h1 class="dashboard-title">Alumni Events & Meetings</h1>
+          <p class="dashboard-subtitle">Stay connected through networking events, workshops, and reunions</p>
+        </div>
+        
+        <div class="dashboard-card">
+          <h3>📅 Upcoming Events</h3>
+          <div class="job-details">
+            <div class="job-tag">All Events</div>
+            <div class="job-tag">Networking</div>
+            <div class="job-tag">Workshops</div>
+            <div class="job-tag">Reunions</div>
+            <div class="job-tag">Virtual</div>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <div class="event-date">JAN 25, 2025</div>
+          <div class="event-title">🚀 Alumni Tech Summit 2025</div>
+          <p style="color: #a0aec0; margin-bottom: 1rem;">
+            Join industry leaders from top tech companies for a day of networking, technical talks, 
+            and career insights. Featuring keynotes from Google, Microsoft, and Amazon alumni.
+          </p>
+          <div class="job-details">
+            <div class="job-tag">Chandigarh</div>
+            <div class="job-tag">In-person</div>
+            <div class="job-tag">Technology</div>
+            <div class="job-tag">Networking</div>
+          </div>
+          <p><strong>Time:</strong> 9:00 AM - 6:00 PM</p>
+          <p><strong>Venue:</strong> Punjab Engineering College Auditorium</p>
+          <p><strong>Speakers:</strong> Dr. Rajesh Kumar (Google), Priya Sharma (Microsoft)</p>
+          <button class="apply-btn">Register Now</button>
+        </div>
+
+        <div class="event-card">
+          <div class="event-date">FEB 15, 2025</div>
+          <div class="event-title">💼 Virtual Career Fair 2025</div>
+          <p style="color: #a0aec0; margin-bottom: 1rem;">
+            Connect with 50+ companies hiring for various roles. One-on-one sessions with HR representatives 
+            and alumni working at top organizations.
+          </p>
+          <div class="job-details">
+            <div class="job-tag">Virtual</div>
+            <div class="job-tag">Online</div>
+            <div class="job-tag">Career</div>
+            <div class="job-tag">Job Fair</div>
+          </div>
+          <p><strong>Time:</strong> 10:00 AM - 4:00 PM</p>
+          <p><strong>Platform:</strong> Zoom & Custom Portal</p>
+          <p><strong>Companies:</strong> Google, Microsoft, Amazon, Flipkart, and more</p>
+          <button class="apply-btn">Register Now</button>
+        </div>
+
+        <div class="event-card">
+          <div class="event-date">MAR 10, 2025</div>
+          <div class="event-title">🎓 Class of 2020 Reunion</div>
+          <p style="color: #a0aec0; margin-bottom: 1rem;">
+            Reconnect with your batchmates after 5 years! Share your journey, celebrate successes, 
+            and strengthen bonds with dinner, music, and memories.
+          </p>
+          <div class="job-details">
+            <div class="job-tag">Chandigarh</div>
+            <div class="job-tag">In-person</div>
+            <div class="job-tag">Reunion</div>
+            <div class="job-tag">Batch 2020</div>
+          </div>
+          <p><strong>Time:</strong> 6:00 PM - 11:00 PM</p>
+          <p><strong>Venue:</strong> Hotel Taj Chandigarh</p>
+          <p><strong>Includes:</strong> Dinner, DJ, Photo Booth, Awards</p>
+          <button class="apply-btn">Register Now</button>
+        </div>
+
+        <div class="event-card">
+          <div class="event-date">MAR 22, 2025</div>
+          <div class="event-title">🏗️ Entrepreneurship Workshop</div>
+          <p style="color: #a0aec0; margin-bottom: 1rem;">
+            Learn from successful alumni entrepreneurs about starting and scaling businesses. 
+            Interactive sessions on funding, team building, and market strategy.
+          </p>
+          <div class="job-details">
+            <div class="job-tag">Mumbai</div>
+            <div class="job-tag">Workshop</div>
+            <div class="job-tag">Entrepreneurship</div>
+            <div class="job-tag">Business</div>
+          </div>
+          <p><strong>Time:</strong> 2:00 PM - 8:00 PM</p>
+          <p><strong>Venue:</strong> IIT Bombay Incubation Center</p>
+          <p><strong>Speaker:</strong> Vikram Patel (TechStartup Inc. CEO)</p>
+          <button class="apply-btn">Register Now</button>
+        </div>
+
+        <div class="event-card">
+          <div class="event-date">APR 5, 2025</div>
+          <div class="event-title">🌐 Global Alumni Meetup</div>
+          <p style="color: #a0aec0; margin-bottom: 1rem;">
+            Virtual meetup connecting alumni from around the world. Share experiences of working 
+            internationally and discuss global career opportunities.
+          </p>
+          <div class="job-details">
+            <div class="job-tag">Virtual</div>
+            <div class="job-tag">Global</div>
+            <div class="job-tag">Networking</div>
+            <div class="job-tag">International</div>
+          </div>
+          <p><strong>Time:</strong> 8:00 PM IST (Multiple Timezones)</p>
+          <p><strong>Platform:</strong> Virtual Event Portal</p>
+          <p><strong>Regions:</strong> USA, Europe, Asia, Australia</p>
+          <button class="apply-btn">Register Now</button>
+        </div>
+      </div>
+
+      <!-- Mentorship Section -->
+      <div id="mentorship-section" class="dashboard-section">
+        <div class="dashboard-header">
+          <h1 class="dashboard-title">Mentorship Program</h1>
+          <p class="dashboard-subtitle">Connect with experienced alumni mentors or become a mentor yourself</p>
+        </div>
+        
+        <div class="dashboard-grid">
+          <div class="dashboard-card">
+            <h3>🎯 Find a Mentor</h3>
+            <p><strong>Get guidance from experienced alumni</strong></p>
+            <p>• Career advancement strategies</p>
+            <p>• Industry-specific insights</p>
+            <p>• Skill development roadmaps</p>
+            <p>• Interview preparation</p>
+            <p>• Network building tips</p>
+            <button class="donate-btn">Find Mentors</button>
+          </div>
+          
+          <div class="dashboard-card">
+            <h3>🌟 Become a Mentor</h3>
+            <p><strong>Share your experience with junior alumni</strong></p>
+            <p>• Guide career transitions</p>
+            <p>• Share industry knowledge</p>
+            <p>• Build leadership skills</p>
+            <p>• Give back to community</p>
+            <p>• Expand your network</p>
+            <button class="donate-btn">Become Mentor</button>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <h3>🏆 Featured Mentors</h3>
+        </div>
+
+        <div class="alumni-profile">
+          <div class="alumni-avatar">👨‍💼</div>
+          <div class="alumni-info">
+            <h4>Dr. Rajesh Kumar - Technology Mentor</h4>
+            <p><strong>Senior Software Engineer</strong> at Google India</p>
+            <p><strong>Expertise:</strong> Software Engineering, Cloud Computing, Career Growth</p>
+            <p><strong>Experience:</strong> 8 years in tech industry</p>
+            <p><strong>Mentees:</strong> 15 successful mentorship sessions</p>
+            <p><strong>Specializes in:</strong> Technical interviews, System design, Leadership transition</p>
+          </div>
+          <button class="apply-btn">Request Mentorship</button>
+        </div>
+
+        <div class="alumni-profile">
+          <div class="alumni-avatar">👩‍💼</div>
+          <div class="alumni-info">
+            <h4>Priya Sharma - Product Management Mentor</h4>
+            <p><strong>Product Manager</strong> at Microsoft</p>
+            <p><strong>Expertise:</strong> Product Strategy, Team Leadership, Business Analysis</p>
+            <p><strong>Experience:</strong> 7 years in product management</p>
+            <p><strong>Mentees:</strong> 12 successful career transitions</p>
+            <p><strong>Specializes in:</strong> PM interviews, Strategy planning, Stakeholder management</p>
+          </div>
+          <button class="apply-btn">Request Mentorship</button>
+        </div>
+
+        <div class="alumni-profile">
+          <div class="alumni-avatar">👨‍🔬</div>
+          <div class="alumni-info">
+            <h4>Vikram Patel - Entrepreneurship Mentor</h4>
+            <p><strong>Startup Founder & CEO</strong> at TechStartup Inc.</p>
+            <p><strong>Expertise:</strong> Entrepreneurship, Fundraising, Business Development</p>
+            <p><strong>Experience:</strong> 6 years building startups</p>
+            <p><strong>Mentees:</strong> 20+ entrepreneurs guided</p>
+            <p><strong>Specializes in:</strong> Startup strategy, Funding, Team building</p>
+          </div>
+          <button class="apply-btn">Request Mentorship</button>
+        </div>
+
+        <div class="dashboard-card">
+          <h3>📊 Mentorship Statistics</h3>
+          <p><strong>Active Mentors:</strong> 150+</p>
+          <p><strong>Total Mentorship Sessions:</strong> 2,500+</p>
+          <p><strong>Success Rate:</strong> 89% of mentees achieved career goals</p>
+          <p><strong>Average Session Duration:</strong> 45 minutes</p>
+          <p><strong>Most Popular Topics:</strong> Career transition, Technical skills, Leadership</p>
+        </div>
+
+        <div class="dashboard-card">
+          <h3>🎓 Mentorship Areas</h3>
+          <div class="job-details">
+            <div class="job-tag">Software Engineering</div>
+            <div class="job-tag">Product Management</div>
+            <div class="job-tag">Data Science</div>
+            <div class="job-tag">Entrepreneurship</div>
+            <div class="job-tag">Consulting</div>
+            <div class="job-tag">Finance</div>
+            <div class="job-tag">Marketing</div>
+            <div class="job-tag">Leadership</div>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <h3>📝 How Mentorship Works</h3>
+          <p><strong>1. Browse Mentors:</strong> Find mentors in your field of interest</p>
+          <p><strong>2. Send Request:</strong> Submit mentorship request with your goals</p>
+          <p><strong>3. Get Matched:</strong> Mentor reviews and accepts your request</p>
+          <p><strong>4. Schedule Sessions:</strong> Book convenient time slots</p>
+          <p><strong>5. Meet & Learn:</strong> Video calls, chat, or in-person meetings</p>
+          <p><strong>6. Track Progress:</strong> Set goals and measure achievements</p>
+        </div>
+      </div>
+
+      <!-- Donations Section -->
       <div id="donations-section" class="dashboard-section">
         <div class="dashboard-header">
           <h1 class="dashboard-title">Support Your Institution</h1>
@@ -1075,9 +1672,24 @@
             <p><strong>Silver (₹ 25K+):</strong></p>
             <p>• 12 generous alumni</p>
           </div>
+          <div class="dashboard-card">
+            <h3>🏗️ Funded Projects</h3>
+            <p><strong>Smart Classroom Initiative:</strong> ₹ 15 Lakhs</p>
+            <p><strong>Library Digitization:</strong> ₹ 8 Lakhs</p>
+            <p><strong>Student Innovation Lab:</strong> ₹ 12 Lakhs</p>
+            <p><strong>Sports Complex Renovation:</strong> ₹ 10.6 Lakhs</p>
+          </div>
+          <div class="dashboard-card">
+            <h3>📊 Donation Impact</h3>
+            <p><strong>Students Benefited:</strong> 2,500+</p>
+            <p><strong>Infrastructure Projects:</strong> 15 completed</p>
+            <p><strong>Scholarships Awarded:</strong> ₹ 25 Lakhs</p>
+            <p><strong>Research Funding:</strong> ₹ 18 Lakhs</p>
+          </div>
         </div>
       </div>
 
+      <!-- Settings Section -->
       <div id="settings-section" class="dashboard-section">
         <div class="dashboard-header">
           <h1 class="dashboard-title">Account Settings</h1>
@@ -1169,54 +1781,6 @@
         </div>
         <button class="save-btn">💾 Save Changes</button>
       </div>
-
-      <div id="alumni-section" class="dashboard-section">
-        <div class="dashboard-header">
-          <h1 class="dashboard-title">Alumni Directory</h1>
-          <p class="dashboard-subtitle">Connect with fellow graduates</p>
-        </div>
-        <div class="dashboard-card">
-          <h3>👥 Alumni Network</h3>
-          <p>Alumni directory feature is under development.</p>
-          <p>Coming soon: Search, filter, and connect with alumni from your institution.</p>
-        </div>
-      </div>
-
-      <div id="events-section" class="dashboard-section">
-        <div class="dashboard-header">
-          <h1 class="dashboard-title">Events & Meetings</h1>
-          <p class="dashboard-subtitle">Stay connected through alumni events</p>
-        </div>
-        <div class="dashboard-card">
-          <h3>📅 Event Management</h3>
-          <p>Events management feature is under development.</p>
-          <p>Coming soon: Register for events, create meetings, and stay updated.</p>
-        </div>
-      </div>
-
-      <div id="jobs-section" class="dashboard-section">
-        <div class="dashboard-header">
-          <h1 class="dashboard-title">Job Opportunities</h1>
-          <p class="dashboard-subtitle">Explore career opportunities from alumni network</p>
-        </div>
-        <div class="dashboard-card">
-          <h3>💼 Job Portal</h3>
-          <p>Job portal feature is under development.</p>
-          <p>Coming soon: Browse jobs, post opportunities, and advance your career.</p>
-        </div>
-      </div>
-
-      <div id="mentorship-section" class="dashboard-section">
-        <div class="dashboard-header">
-          <h1 class="dashboard-title">Mentorship Program</h1>
-          <p class="dashboard-subtitle">Find mentors or become one</p>
-        </div>
-        <div class="dashboard-card">
-          <h3>🤝 Mentorship Hub</h3>
-          <p>Mentorship matching feature is under development.</p>
-          <p>Coming soon: Connect with mentors, offer guidance, and grow professionally.</p>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -1287,6 +1851,14 @@
           });
         });
 
+        // Apply buttons
+        const applyButtons = document.querySelectorAll('.apply-btn');
+        applyButtons.forEach(btn => {
+          btn.addEventListener('click', () => {
+            this.showNotification('Feature coming soon!', 'info');
+          });
+        });
+
         // Save button on Settings
         const saveBtn = document.querySelector('.save-btn');
         if (saveBtn) {
@@ -1336,39 +1908,39 @@
         switch (institutionName) {
           case 'Punjab University':
             details = `
-                            <p><strong>Name:</strong> Punjab University</p>
-                            <p><strong>Location:</strong> Chandigarh</p>
-                            <p><strong>Alumni Network:</strong> 50,000+</p>
-                            <p><strong>Active Students:</strong> 15,000</p>
-                            <p><strong>Established:</strong> 1882</p>
-                        `;
+              <p><strong>Name:</strong> Punjab University</p>
+              <p><strong>Location:</strong> Chandigarh</p>
+              <p><strong>Alumni Network:</strong> 50,000+</p>
+              <p><strong>Active Students:</strong> 15,000</p>
+              <p><strong>Established:</strong> 1882</p>
+            `;
             break;
           case 'Punjab Engineering College':
             details = `
-                            <p><strong>Name:</strong> Punjab Engineering College</p>
-                            <p><strong>Location:</strong> Chandigarh</p>
-                            <p><strong>Alumni Network:</strong> 25,000+</p>
-                            <p><strong>Active Students:</strong> 3,000</p>
-                            <p><strong>Established:</strong> 1921</p>
-                        `;
+              <p><strong>Name:</strong> Punjab Engineering College</p>
+              <p><strong>Location:</strong> Chandigarh</p>
+              <p><strong>Alumni Network:</strong> 25,000+</p>
+              <p><strong>Active Students:</strong> 3,000</p>
+              <p><strong>Established:</strong> 1921</p>
+            `;
             break;
           case 'Thapar University':
             details = `
-                            <p><strong>Name:</strong> Thapar University</p>
-                            <p><strong>Location:</strong> Patiala</p>
-                            <p><strong>Alumni Network:</strong> 35,000+</p>
-                            <p><strong>Active Students:</strong> 8,000</p>
-                            <p><strong>Established:</strong> 1956</p>
-                        `;
+              <p><strong>Name:</strong> Thapar University</p>
+              <p><strong>Location:</strong> Patiala</p>
+              <p><strong>Alumni Network:</strong> 35,000+</p>
+              <p><strong>Active Students:</strong> 8,000</p>
+              <p><strong>Established:</strong> 1956</p>
+            `;
             break;
           case 'Lovely Professional University':
             details = `
-                            <p><strong>Name:</strong> Lovely Professional University</p>
-                            <p><strong>Location:</strong> Phagwara</p>
-                            <p><strong>Alumni Network:</strong> 45,000+</p>
-                            <p><strong>Active Students:</strong> 30,000</p>
-                            <p><strong>Established:</strong> 2005</p>
-                        `;
+              <p><strong>Name:</strong> Lovely Professional University</p>
+              <p><strong>Location:</strong> Phagwara</p>
+              <p><strong>Alumni Network:</strong> 45,000+</p>
+              <p><strong>Active Students:</strong> 30,000</p>
+              <p><strong>Established:</strong> 2005</p>
+            `;
             break;
           default:
             details = '<p>Select an institution to view details</p>';
@@ -1420,23 +1992,23 @@
       showNotification(message, type = 'info') {
         const notification = document.createElement('div');
         notification.style.cssText = `
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    z-index: 10000;
-                    background: ${type === 'success'
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          z-index: 10000;
+          background: ${type === 'success'
             ? '#10b981'
             : type === 'info'
               ? '#3b82f6'
               : '#ef4444'};
-                    color: white;
-                    padding: 1rem 2rem;
-                    border-radius: 10px;
-                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-                    font-weight: 600;
-                    animation: slideInNotification 0.3s ease-out;
-                    max-width: 300px;
-                `;
+          color: white;
+          padding: 1rem 2rem;
+          border-radius: 10px;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+          font-weight: 600;
+          animation: slideInNotification 0.3s ease-out;
+          max-width: 300px;
+        `;
 
         notification.textContent = message;
         document.body.appendChild(notification);
@@ -1456,28 +2028,28 @@
     // Add notification animations
     const notificationStyles = document.createElement('style');
     notificationStyles.textContent = `
-            @keyframes slideInNotification {
-                from {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-                to {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-            }
+      @keyframes slideInNotification {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
 
-            @keyframes slideOutNotification {
-                from {
-                    transform: translateX(0);
-                    opacity: 1;
-                }
-                to {
-                    transform: translateX(100%);
-                    opacity: 0;
-                }
-            }
-        `;
+      @keyframes slideOutNotification {
+        from {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+      }
+    `;
     document.head.appendChild(notificationStyles);
 
     // Initialize the app when DOM is loaded
