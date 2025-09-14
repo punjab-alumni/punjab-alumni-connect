@@ -134,7 +134,7 @@
       }
     };
 
-    document.getElementById('loginForm').addEventListener('submit', function (e) {
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
       e.preventDefault();
 
       const institution = document.getElementById('institution').value;
@@ -154,12 +154,14 @@
       const creds = demoCredentials[institution];
       let emailFound = false;
       let passwordMatched = false;
+      let loggedRole = null;
 
       for (const role in creds) {
         if (creds[role].email.toLowerCase() === emailInput) {
           emailFound = true;
           if (creds[role].password === passwordInput) {
             passwordMatched = true;
+            loggedRole = role;
             break;
           }
         }
@@ -177,9 +179,10 @@
         return;
       }
 
-      // Store session info in localStorage
+      // Save session info
       localStorage.setItem('loggedInInstitution', institution);
       localStorage.setItem('loggedInEmail', emailInput);
+      localStorage.setItem('loggedInRole', loggedRole);
 
       messageElem.textContent = 'Login successful! Redirecting...';
 
@@ -188,7 +191,7 @@
       }, 1500);
     });
 
-    // If already logged in, redirect to dashboard immediately
+    // Auto redirect if already logged in
     window.addEventListener('DOMContentLoaded', () => {
       const institution = localStorage.getItem('loggedInInstitution');
       if (institution) {
