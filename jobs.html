@@ -13,9 +13,11 @@
       margin-bottom: 1rem;
       border-radius: 10px;
     }
+
     .job-card h3 {
       margin-top: 0;
     }
+
     .job-tag {
       display: inline-block;
       background: #4fd7a5;
@@ -26,6 +28,7 @@
       margin-right: 5px;
       margin-top: 5px;
     }
+
     .apply-btn {
       margin-top: 10px;
       background: #4fd7a5;
@@ -35,6 +38,22 @@
       color: #0a1a0f;
       font-weight: 700;
       cursor: pointer;
+    }
+
+    header ul.nav-list li button {
+      background: none;
+      border: none;
+      color: #4fd7a5;
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+    }
+
+    header ul.nav-list li button:hover {
+      background-color: #36b390;
+      color: #0a1a0f;
+      font-weight: bold;
+      border-radius: 6px;
     }
   </style>
 </head>
@@ -51,6 +70,7 @@
         <li><a href="mentorship.html">Mentorship</a></li>
         <li><a href="donations.html">Donations</a></li>
         <li><a href="settings.html">Settings</a></li>
+        <li><button id="logout-btn">Logout</button></li>
       </ul>
     </nav>
   </header>
@@ -170,11 +190,7 @@
 
     const jobListEl = document.getElementById('job-list');
     const pageTitle = document.getElementById('page-title');
-
-    function getQueryParam(param) {
-      const params = new URLSearchParams(window.location.search);
-      return params.get(param);
-    }
+    const logoutBtn = document.getElementById('logout-btn');
 
     function displayJobs(institution) {
       pageTitle.textContent = `${institution} - Job Opportunities`;
@@ -202,8 +218,20 @@
       jobListEl.innerHTML = html;
     }
 
+    logoutBtn.addEventListener('click', () => {
+      localStorage.clear();
+      window.location.href = 'login.html';
+    });
+
     window.addEventListener('DOMContentLoaded', () => {
-      const institution = getQueryParam('institution') || 'Punjab University';
+      const institution = localStorage.getItem('loggedInInstitution');
+      const email = localStorage.getItem('loggedInEmail');
+
+      if (!institution || !email) {
+        window.location.href = 'login.html';
+        return;
+      }
+
       displayJobs(institution);
     });
   </script>
