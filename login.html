@@ -83,34 +83,53 @@
   </div>
 
   <script>
-    const DEMO_ACCOUNTS = [
-      { email: "user@punjabalumni.gov.in", password: "Punjab2025!" },
-      { email: "test.alumni@punjab.edu.in", password: "Alumni1234#" }
-    ];
+    const demoCredentials = {
+      "Punjab University": { email: "user@punjabalumni-pu.gov.in", password: "PunjabPu2025!" },
+      "Punjab Engineering College": { email: "user@punjabalumni-pec.ac.in", password: "PunjabPEC2025!" },
+      "Thapar University": { email: "user@punjabalumni-thapar.in", password: "PunjabThapar2025!" },
+      "Lovely Professional University": { email: "user@punjabalumni-lpu.co.in", password: "PunjabLPU2025!" },
+      "Guru Nanak Dev University": { email: "user@punjabalumni-gndu.ac.in", password: "PunjabGNDU2025!" },
+      "Chandigarh University": { email: "user@punjabalumni-cu.in", password: "PunjabCU2025!" },
+      "Punjab Agricultural University": { email: "user@punjabalumni-pau.ac.in", password: "PunjabPAU2025!" }
+    };
 
     document.getElementById("loginForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
+      const emailInput = document.getElementById("email").value.trim();
+      const passwordInput = document.getElementById("password").value;
       const messageElem = document.getElementById("message");
       messageElem.textContent = "";
       messageElem.classList.remove("error");
 
-      const valid = DEMO_ACCOUNTS.some(acc => acc.email === email && acc.password === password);
+      const params = new URLSearchParams(window.location.search);
+      const institution = params.get('institution');
 
-      if (valid) {
-        messageElem.textContent = "Login successful! Redirecting...";
-        const params = new URLSearchParams(window.location.search);
-        const institution = params.get('institution') || '';
-        const destination = 'dashboard.html' + (institution ? '?institution=' + encodeURIComponent(institution) : '');
-        setTimeout(() => {
-          window.location.href = destination;
-        }, 1500);
-      } else {
-        messageElem.textContent = "Invalid demo credentials. Please try again.";
+      if (!institution || !demoCredentials[institution]) {
+        messageElem.textContent = "Invalid institution or no demo credentials set.";
         messageElem.classList.add("error");
+        return;
       }
+
+      const validCreds = demoCredentials[institution];
+
+      if (emailInput !== validCreds.email) {
+        messageElem.textContent = "Wrong email address.";
+        messageElem.classList.add("error");
+        return;
+      }
+
+      if (passwordInput !== validCreds.password) {
+        messageElem.textContent = "Wrong password.";
+        messageElem.classList.add("error");
+        return;
+      }
+
+      messageElem.textContent = "Login successful! Redirecting...";
+      const dest = 'dashboard.html?institution=' + encodeURIComponent(institution);
+      setTimeout(() => {
+        window.location.href = dest;
+      }, 1500);
     });
   </script>
 </body>
