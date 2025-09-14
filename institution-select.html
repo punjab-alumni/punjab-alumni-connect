@@ -7,6 +7,18 @@
   <title>Select Institution - Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    /* Simple styling for search input */
+    #institutionSearch {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+  </style>
 </head>
 
 <body>
@@ -29,7 +41,10 @@
       <h1>Select Your Institution</h1>
       <p>Choose your alma mater to continue</p>
 
-      <div class="institutions-grid">
+      <input type="text" id="institutionSearch" placeholder="Search Institutions..." />
+
+      <div class="institutions-grid" id="institutionGrid">
+        <!-- Institution cards repeated here as before -->
         <a href="login.html?institution=Punjab+University" class="institution-card">
           <div class="institution-logo">🏛️</div>
           <h3>Punjab University</h3>
@@ -106,10 +121,22 @@
           <p><strong>Domain:</strong> pau.edu</p>
           <div class="institution-type">Agricultural University</div>
         </a>
-
       </div>
     </div>
   </main>
+
+  <script>
+    const searchInput = document.getElementById('institutionSearch');
+    const institutionCards = document.querySelectorAll('.institution-card');
+
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase();
+      institutionCards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(query) ? 'block' : 'none';
+      });
+    });
+  </script>
 </body>
 
 </html>
