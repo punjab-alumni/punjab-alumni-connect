@@ -4,38 +4,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Donations - Punjab Alumni Connect</title>
+  <title>Dashboard - Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
+    /* Simple card styling */
     .card {
       background: rgba(255 255 255 / 0.1);
       padding: 1rem;
       border-radius: 10px;
       margin-bottom: 1.5rem;
     }
-    .progress-bar-container {
-      background: #222;
-      border-radius: 10px;
-      width: 100%;
-      height: 20px;
-      margin-bottom: 10px;
+
+    .card ul {
+      list-style-type: none;
+      padding-left: 0;
     }
-    .progress-bar {
-      height: 100%;
-      border-radius: 10px;
-      background: linear-gradient(90deg, #4fd7a5, #81d9c9);
+
+    .card ul li {
+      padding: 0.3rem 0;
     }
-    ul {
-      padding-left: 1.2rem;
+
+    nav ul.nav-list {
+      list-style: none;
+      display: flex;
+      gap: 12px;
+      padding: 0;
+      background: rgba(255 255 255 / 0.1);
+      border-radius: 8px;
+      margin: 0 0 1rem;
     }
-    button {
+
+    nav ul.nav-list li a {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      display: block;
+      border-radius: 6px;
+    }
+
+    nav ul.nav-list li a.active,
+    nav ul.nav-list li a:hover {
       background: #4fd7a5;
-      border: none;
-      border-radius: 20px;
-      padding: 0.7rem 1.5rem;
       color: #0a1a0f;
-      font-weight: 700;
-      cursor: pointer;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -45,199 +56,234 @@
     <nav>
       <ul class="nav-list">
         <li><a href="index.html">Home</a></li>
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="alumni.html">Alumni</a></li>
-        <li><a href="events.html">Events</a></li>
-        <li><a href="jobs.html">Jobs</a></li>
-        <li><a href="mentorship.html">Mentorship</a></li>
-        <li><a href="donations.html" class="active">Donations</a></li>
-        <li><a href="settings.html">Settings</a></li>
+        <li><a href="#" id="dashboard-link" class="active">Dashboard</a></li>
+        <li><a href="#" id="alumni-link">Alumni</a></li>
+        <li><a href="#" id="events-link">Events</a></li>
+        <li><a href="#" id="jobs-link">Jobs</a></li>
+        <li><a href="#" id="mentorship-link">Mentorship</a></li>
+        <li><a href="#" id="donations-link">Donations</a></li>
+        <li><a href="settings.html" id="settings-link">Settings</a></li>
       </ul>
     </nav>
   </header>
 
-  <main class="container">
-    <h1 id="page-title">Support Your Institution</h1>
-    <p id="description">Contribute to your alma mater's growth and success.</p>
-
-    <div id="donation-content"></div>
+  <main class="container dashboard-content">
+    <section>
+      <h1 id="institution-name">Institution Dashboard</h1>
+      <p id="institution-info">Loading institution details...</p>
+      <div id="stats-cards"></div>
+      <div id="news-cards"></div>
+      <div id="quick-links"></div>
+    </section>
   </main>
 
   <script>
-    const donationsData = {
+    const institutionsInfo = {
       "Punjab University": {
-        campaign: {
-          name: "Infrastructure Development Fund",
-          goal: "₹ 1 Crore",
-          raised: "₹ 45.6 Lakhs",
-          donors: 234,
-          progressPercent: 45.6
+        location: "Chandigarh",
+        established: 1882,
+        students: 15000,
+        alumni: 50000,
+        website: "https://www.pu.ac.in",
+        stats: {
+          alumniNetwork: "50,000+",
+          activeInstitutions: 12,
+          connectionsMade: "25,000+",
+          jobPlacements: "3,200+",
+          mentorshipSessions: "5,600+"
         },
-        impact: [
-          "Upgraded 5 computer labs",
-          "Scholarship aid to 50 students",
-          "Research funding for 10 projects"
-        ],
-        topDonors: [
-          { name: "Dr. Rajesh Kumar", amount: "₹ 2.5 Lakh", tier: "Platinum" },
-          { name: "Priya Sharma", amount: "₹ 1.8 Lakh", tier: "Platinum" },
-          { name: "Amit Singh", amount: "₹ 75 K", tier: "Gold" }
+        news: [
+          "Upcoming Tech Summit - Jan 15, 2026",
+          "Virtual Career Fair - Feb 20, 2026",
+          "Alumni Reunion - March 30, 2026"
         ]
       },
       "Thapar University": {
-        campaign: {
-          name: "Student Innovation Lab Fund",
-          goal: "₹ 80 Lakhs",
-          raised: "₹ 38 Lakhs",
-          donors: 180,
-          progressPercent: 47.5
+        location: "Patiala",
+        established: 1956,
+        students: 8000,
+        alumni: 35000,
+        website: "https://www.thapar.edu",
+        stats: {
+          alumniNetwork: "35,000+",
+          activeInstitutions: 5,
+          connectionsMade: "10,000+",
+          jobPlacements: "1,200+",
+          mentorshipSessions: "2,500+"
         },
-        impact: [
-          "Funded 3 new innovation labs",
-          "Sponsored internships for 25 students",
-          "Provided 20 research grants"
-        ],
-        topDonors: [
-          { name: "Anil Kapoor", amount: "₹ 1.2 Lakh", tier: "Platinum" },
-          { name: "Reema Singh", amount: "₹ 90 K", tier: "Gold" }
+        news: [
+          "Career Fair 2026 - Feb 20, 2026",
+          "Entrepreneurship Workshop - Apr 10, 2026"
         ]
       },
       "Lovely Professional University": {
-        campaign: {
-          name: "Library Digitization Campaign",
-          goal: "₹ 50 Lakhs",
-          raised: "₹ 22 Lakhs",
-          donors: 110,
-          progressPercent: 44
+        location: "Phagwara",
+        established: 2005,
+        students: 30000,
+        alumni: 45000,
+        website: "https://www.lpu.co.in",
+        stats: {
+          alumniNetwork: "45,000+",
+          activeInstitutions: 7,
+          connectionsMade: "15,000+",
+          jobPlacements: "2,800+",
+          mentorshipSessions: "3,500+"
         },
-        impact: [
-          "Digitized 10,000+ books",
-          "Improved library access for 5,000 students"
-        ],
-        topDonors: [
-          { name: "Vikram Patel", amount: "₹ 80 K", tier: "Gold" },
-          { name: "Niti Sharma", amount: "₹ 50 K", tier: "Silver" }
+        news: [
+          "Virtual Global Alumni Meet - Jan 30, 2026",
+          "Student Innovation Day - Mar 15, 2026"
         ]
       },
       "Punjab Engineering College": {
-        campaign: {
-          name: "Engineering Advancement Fund",
-          goal: "₹ 70 Lakhs",
-          raised: "₹ 32 Lakhs",
-          donors: 140,
-          progressPercent: 45.7
+        location: "Chandigarh",
+        established: 1921,
+        students: 3000,
+        alumni: 25000,
+        website: "http://www.pec.edu.in",
+        stats: {
+          alumniNetwork: "25,000+",
+          activeInstitutions: 3,
+          connectionsMade: "5,000+",
+          jobPlacements: "1,100+",
+          mentorshipSessions: "2,000+"
         },
-        impact: [
-          "Upgraded labs and equipment",
-          "Scholarships for 30 engineering students"
-        ],
-        topDonors: [
-          { name: "Manish Gupta", amount: "₹ 1.0 Lakh", tier: "Platinum" },
-          { name: "Rekha Singh", amount: "₹ 60 K", tier: "Gold" }
+        news: [
+          "Engineering Workshop - Apr 5, 2026",
+          "Alumni Meet - Dec 10, 2025"
         ]
       },
       "Guru Nanak Dev University": {
-        campaign: {
-          name: "Research and Development Fund",
-          goal: "₹ 60 Lakhs",
-          raised: "₹ 28 Lakhs",
-          donors: 120,
-          progressPercent: 46.7
+        location: "Amritsar",
+        established: 1969,
+        students: 25000,
+        alumni: 40000,
+        website: "http://www.gndu.ac.in",
+        stats: {
+          alumniNetwork: "40,000+",
+          activeInstitutions: 6,
+          connectionsMade: "12,000+",
+          jobPlacements: "2,500+",
+          mentorshipSessions: "4,000+"
         },
-        impact: [
-          "Funded 15 research projects",
-          "Upgraded library resources"
-        ],
-        topDonors: [
-          {name: "Harjit Singh", amount: "₹ 75 K", tier: "Gold"},
-          {name: "Kamala Kaur", amount: "₹ 40 K", tier: "Silver"}
+        news: [
+          "Annual Cultural Fest - Jan 20, 2026",
+          "Research Conference - Feb 15, 2026"
         ]
       },
       "Chandigarh University": {
-        campaign: {
-          name: "Technology Upgrade Campaign",
-          goal: "₹ 90 Lakhs",
-          raised: "₹ 40 Lakhs",
-          donors: 190,
-          progressPercent: 44.4
+        location: "Chandigarh",
+        established: 2012,
+        students: 28000,
+        alumni: 35000,
+        website: "https://www.chandigarhuniversity.ac.in",
+        stats: {
+          alumniNetwork: "35,000+",
+          activeInstitutions: 4,
+          connectionsMade: "8,000+",
+          jobPlacements: "1,800+",
+          mentorshipSessions: "3,200+"
         },
-        impact: [
-          "Upgraded IT infrastructure",
-          "Sponsored student tech projects"
-        ],
-        topDonors: [
-          {name: "Sanjeev Malhotra", amount: "₹ 1.1 Lakh", tier: "Platinum"},
-          {name: "Riya Sharma", amount: "₹ 65 K", tier: "Gold"}
+        news: [
+          "Innovation Meetup - Mar 25, 2026",
+          "Spring Fest - Apr 10, 2026"
         ]
       },
       "Punjab Agricultural University": {
-        campaign: {
-          name: "Farmers Innovation Fund",
-          goal: "₹ 55 Lakhs",
-          raised: "₹ 25 Lakhs",
-          donors: 105,
-          progressPercent: 45.5
+        location: "Ludhiana",
+        established: 1962,
+        students: 22000,
+        alumni: 30000,
+        website: "http://www.pau.edu",
+        stats: {
+          alumniNetwork: "30,000+",
+          activeInstitutions: 2,
+          connectionsMade: "6,000+",
+          jobPlacements: "1,100+",
+          mentorshipSessions: "2,700+"
         },
-        impact: [
-          "Introduced smart farming techniques",
-          "Research grant for sustainable agriculture"
-        ],
-        topDonors: [
-          {name: "Baldev Singh", amount: "₹ 70 K", tier: "Gold"},
-          {name: "Manjit Kaur", amount: "₹ 50 K", tier: "Silver"}
+        news: [
+          "Agricultural Expo - Jan 18, 2026",
+          "Farmers Meet - Feb 12, 2026"
         ]
       }
     };
-
-    const donationContentEl = document.getElementById('donation-content');
-    const pageTitle = document.getElementById('page-title');
-    const description = document.getElementById('description');
 
     function getQueryParam(param) {
       const params = new URLSearchParams(window.location.search);
       return params.get(param);
     }
 
-    function displayDonations(institution) {
-      pageTitle.textContent = `${institution} - Support Your Institution`;
-      description.textContent = `Help ${institution} grow through your generous donations.`;
+    function displayDashboard(institution) {
+      const info = institutionsInfo[institution];
+      const institutionNameEl = document.getElementById('institution-name');
+      const institutionInfoEl = document.getElementById('institution-info');
+      const statsCardsEl = document.getElementById('stats-cards');
+      const newsCardsEl = document.getElementById('news-cards');
+      const quickLinksEl = document.getElementById('quick-links');
 
-      const data = donationsData[institution];
-      if (!data) {
-        donationContentEl.innerHTML = "<p>No donation campaigns found for this institution.</p>";
+      institutionNameEl.textContent = institution + " Dashboard";
+      if (!info) {
+        institutionInfoEl.textContent = "Information not available for selected institution.";
+        statsCardsEl.innerHTML = "";
+        newsCardsEl.innerHTML = "";
+        quickLinksEl.innerHTML = "";
         return;
       }
 
-      donationContentEl.innerHTML = `
-        <section class="card">
-          <h2>Current Campaign: ${data.campaign.name}</h2>
-          <p>Goal: <strong>${data.campaign.goal}</strong> | Raised: <strong>${data.campaign.raised}</strong></p>
-          <div class="progress-bar-container">
-            <div class="progress-bar" style="width: ${data.campaign.progressPercent}%;"></div>
-          </div>
-          <p>${data.campaign.progressPercent}% of goal achieved with ${data.campaign.donors} donors</p>
-          <button onclick="alert('Donation feature coming soon!')">Donate Now</button>
-        </section>
+      institutionInfoEl.innerHTML = `
+        <p><strong>Location:</strong> ${info.location}</p>
+        <p><strong>Established:</strong> ${info.established}</p>
+        <p><strong>Students:</strong> ${info.students.toLocaleString()}</p>
+        <p><strong>Alumni:</strong> ${info.alumni.toLocaleString()}+</p>
+        <p><strong>Website:</strong> <a href="${info.website}" target="_blank">${info.website}</a></p>`;
 
-        <section class="card">
-          <h2>Impact Stories</h2>
+      statsCardsEl.innerHTML = `
+        <div class="card">
+          <h3>Platform Statistics</h3>
           <ul>
-            ${data.impact.map(item => `<li>${item}</li>`).join('')}
+            <li><strong>Alumni Network:</strong> ${info.stats.alumniNetwork}</li>
+            <li><strong>Active Institutions:</strong> ${info.stats.activeInstitutions}</li>
+            <li><strong>Connections Made:</strong> ${info.stats.connectionsMade}</li>
+            <li><strong>Job Placements:</strong> ${info.stats.jobPlacements}</li>
+            <li><strong>Mentorship Sessions:</strong> ${info.stats.mentorshipSessions}</li>
           </ul>
-        </section>
+        </div>`;
 
-        <section class="card">
-          <h2>Top Donors</h2>
+      newsCardsEl.innerHTML = `
+        <div class="card">
+          <h3>Recent News & Events</h3>
           <ul>
-            ${data.topDonors.map(donor => `<li>${donor.name} - ${donor.amount} (${donor.tier})</li>`).join('')}
+            ${info.news.map(item => `<li>${item}</li>`).join("")}
           </ul>
-        </section>
+        </div>`;
+
+      quickLinksEl.innerHTML = `
+        <div class="card">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="alumni.html?institution=${encodeURIComponent(institution)}">Alumni Directory</a></li>
+            <li><a href="jobs.html?institution=${encodeURIComponent(institution)}">Job Opportunities</a></li>
+            <li><a href="mentorship.html?institution=${encodeURIComponent(institution)}">Mentorship Program</a></li>
+            <li><a href="donations.html?institution=${encodeURIComponent(institution)}">Support & Donations</a></li>
+          </ul>
+        </div>
       `;
+    }
+
+    function updateNavigationLinks(institution) {
+      document.getElementById('dashboard-link').href = `dashboard.html?institution=${encodeURIComponent(institution)}`;
+      document.getElementById('alumni-link').href = `alumni.html?institution=${encodeURIComponent(institution)}`;
+      document.getElementById('events-link').href = `events.html?institution=${encodeURIComponent(institution)}`;
+      document.getElementById('jobs-link').href = `jobs.html?institution=${encodeURIComponent(institution)}`;
+      document.getElementById('mentorship-link').href = `mentorship.html?institution=${encodeURIComponent(institution)}`;
+      document.getElementById('donations-link').href = `donations.html?institution=${encodeURIComponent(institution)}`;
+      document.getElementById('settings-link').href = `settings.html?institution=${encodeURIComponent(institution)}`;
     }
 
     window.addEventListener('DOMContentLoaded', () => {
       const institution = getQueryParam('institution') || 'Punjab University';
-      displayDonations(institution);
+      displayDashboard(institution);
+      updateNavigationLinks(institution);
     });
   </script>
 </body>
