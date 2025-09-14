@@ -30,13 +30,16 @@
 
     input[type="text"],
     input[type="email"],
-    input[type="password"] {
+    input[type="password"],
+    input[type="file"] {
       width: 100%;
       padding: 10px;
       border-radius: 8px;
       border: none;
       margin-bottom: 15px;
       outline: none;
+      background: rgba(255 255 255 / 0.1);
+      color: white;
     }
 
     .btn-save {
@@ -67,6 +70,18 @@
       padding: 1rem;
       background: rgba(255 255 255 / 0.05);
       border-radius: 10px;
+      text-align: center;
+    }
+
+    #profile-preview {
+      display: block;
+      margin: 10px auto 20px auto;
+      width: 120px;
+      height: 120px;
+      border-radius: 60px;
+      object-fit: cover;
+      border: 2px solid #4fd7a5;
+      background: #222;
     }
   </style>
 </head>
@@ -78,7 +93,12 @@
       Loading account details...
     </div>
 
+    <img id="profile-preview" src="" alt="Profile Photo" />
+
     <form id="settingsForm">
+      <label for="profile-photo">Upload Profile Photo</label>
+      <input type="file" id="profile-photo" accept="image/*" />
+
       <label for="password">New Password</label>
       <input type="password" id="password" placeholder="Enter new password" required />
 
@@ -89,6 +109,8 @@
     </form>
 
     <div id="save-message"></div>
+
+    <button id="logout-btn" style="margin-top: 20px; width: 100%; padding: 12px; background: #ef4444; border: none; border-radius: 25px; font-weight: 700; font-size: 1rem; color: white; cursor: pointer;">Logout</button>
   </div>
 
   <script>
@@ -96,9 +118,24 @@
       return new URLSearchParams(window.location.search).get(param);
     }
 
+    function loadProfilePhoto() {
+      const photoDataUrl = localStorage.getItem('profilePhoto');
+      const previewImg = document.getElementById('profile-preview');
+      if (photoDataUrl) {
+        previewImg.src = photoDataUrl;
+      } else {
+        previewImg.src = 'https://via.placeholder.com/120?text=No+Photo';
+      }
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
-      const institution = getQueryParam('institution') || 'Punjab University';
-      const email = getQueryParam('email') || 'demouser@domain.com';
+      const institution = localStorage.getItem('loggedInInstitution');
+      const email = localStorage.getItem('loggedInEmail');
+
+      if (!institution || !email) {
+        window.location.href = 'login.html';
+        return;
+      }
 
       const accountInfoDiv = document.getElementById('account-info');
       accountInfoDiv.innerHTML = `
@@ -106,25 +143,44 @@
         <p><strong>Institution:</strong> ${institution}</p>
       `;
 
-      document.getElementById('settingsForm').addEventListener('submit', function (e) {
+      loadProfilePhoto();
+
+      const profileInput = document.getElementById('profile-photo');
+      profileInput.addEventListener('change', () => {
+        const file = profileInput.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = e => {
+            const previewImg = document.getElementById('profile-preview');
+            previewImg.src = e.target.result;
+            localStorage.setItem('profilePhoto', e.target.result);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      const saveMsg = document.getElementById('save-message');
+      document.getElementById('settingsForm').addEventListener('submit', e => {
         e.preventDefault();
 
         const passwordInput = document.getElementById('password').value;
         const confirmPasswordInput = document.getElementById('confirm-password').value;
-        const messageDiv = document.getElementById('save-message');
 
         if (passwordInput !== confirmPasswordInput) {
-          messageDiv.textContent = "Passwords do not match.";
-          messageDiv.style.color = "#ef4444"; // red
+          saveMsg.style.color = "#ef4444";
+          saveMsg.textContent = "Passwords do not match.";
           return;
         }
 
-        // Since this is demo, no backend call. Show success.
-        messageDiv.style.color = "#4fd7a5"; // green
-        messageDiv.textContent = "Password changed successfully!";
+        // For demo, just show success message; no backend
+        saveMsg.style.color = "#4fd7a5";
+        saveMsg.textContent = "Password changed successfully!";
+        e.target.reset();
+      });
 
-        // Optionally clear inputs
-        this.reset();
+      document.getElementById('logout-btn').addEventListener('click', () => {
+        localStorage.clear();
+        window.location.href = 'login.html';
       });
     });
   </script>
