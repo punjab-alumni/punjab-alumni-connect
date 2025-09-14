@@ -4,29 +4,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Events & Meetings - Punjab Alumni Connect</title>
+  <title>Events - Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
     .event-card {
       background: rgba(255 255 255 / 0.1);
       padding: 1rem;
-      border-radius: 10px;
       margin-bottom: 1rem;
+      border-radius: 10px;
     }
-    .event-date {
-      font-weight: bold;
-      margin-bottom: 0.5rem;
+
+    .event-card h3 {
+      margin-top: 0;
     }
-    .btn {
-      background: #4fd7a5;
+
+    header ul.nav-list li button {
+      background: none;
       border: none;
-      border-radius: 20px;
-      padding: 0.5rem 1rem;
-      color: #0a1a0f;
-      font-weight: 600;
+      color: #4fd7a5;
       cursor: pointer;
-      margin-top: 0.5rem;
-      display: inline-block;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+    }
+
+    header ul.nav-list li button:hover {
+      background-color: #36b390;
+      color: #0a1a0f;
+      font-weight: bold;
+      border-radius: 6px;
     }
   </style>
 </head>
@@ -43,141 +48,89 @@
         <li><a href="mentorship.html">Mentorship</a></li>
         <li><a href="donations.html">Donations</a></li>
         <li><a href="settings.html">Settings</a></li>
+        <li><button id="logout-btn">Logout</button></li>
       </ul>
     </nav>
   </header>
 
   <main class="container">
-    <h1 id="page-title">Alumni Events & Meetings</h1>
-    <p id="description">Event details and schedules for your institution.</p>
-
+    <h1 id="page-title">Upcoming Events</h1>
     <div id="events-list"></div>
   </main>
 
   <script>
     const eventsData = {
       "Punjab University": [
-        {
-          date: "Jan 15, 2026",
-          title: "Alumni Tech Summit 2026",
-          location: "Punjab Engineering College Auditorium, Chandigarh",
-          time: "9:00 AM - 6:00 PM",
-          description: "Industry leaders and alumni from top tech companies will share insights."
-        },
-        {
-          date: "Mar 25, 2026",
-          title: "Spring Alumni Reunion",
-          location: "Punjab University Campus",
-          time: "6:00 PM - 11:00 PM",
-          description: "Reconnect with batchmates and celebrate achievements."
-        }
+        { title: "Tech Summit 2026", date: "2026-01-15", location: "Chandigarh", description: "Annual technology summit showcasing research and innovation." },
+        { title: "Virtual Career Fair", date: "2026-02-20", location: "Online", description: "Connect with companies and explore job opportunities remotely." },
+        { title: "Alumni Reunion", date: "2026-03-30", location: "Chandigarh", description: "Celebrate with fellow alumni and network." }
       ],
       "Thapar University": [
-        {
-          date: "Feb 20, 2026",
-          title: "Career Fair 2026",
-          location: "Thapar Auditorium, Patiala",
-          time: "10:00 AM - 4:00 PM",
-          description: "Opportunities with leading employers and startups."
-        },
-        {
-          date: "Apr 10, 2026",
-          title: "Entrepreneurship Workshop",
-          location: "IIT Bombay Incubation Center, Mumbai",
-          time: "2:00 PM - 8:00 PM",
-          description: "Learn from alumni startup founders about scaling businesses."
-        }
+        { title: "Career Fair 2026", date: "2026-02-20", location: "Patiala", description: "Meet potential employers and learn about industry trends." },
+        { title: "Entrepreneurship Workshop", date: "2026-04-10", location: "Patiala", description: "Workshop on starting and growing startups." }
       ],
       "Lovely Professional University": [
-        {
-          date: "Jan 30, 2026",
-          title: "Virtual Global Alumni Meet",
-          location: "Online",
-          time: "8:00 PM IST",
-          description: "Connect globally with alumni worldwide."
-        },
-        {
-          date: "Mar 15, 2026",
-          title: "Student Innovation Day",
-          location: "LPU Campus, Phagwara",
-          time: "9:00 AM - 5:00 PM",
-          description: "Showcase of student and alumni innovative projects."
-        }
+        { title: "Global Alumni Meet", date: "2026-01-30", location: "Online", description: "Virtual meet for alumni worldwide." },
+        { title: "Student Innovation Day", date: "2026-03-15", location: "Phagwara", description: "Showcase of student projects and innovations." }
       ],
       "Punjab Engineering College": [
-        {
-          date: "Apr 5, 2026",
-          title: "Engineering Workshop",
-          location: "PEC Auditorium, Chandigarh",
-          time: "10:00 AM - 3:00 PM",
-          description: "Advance your engineering skills with expert sessions."
-        }
+        { title: "Engineering Workshop", date: "2026-04-05", location: "Chandigarh", description: "Hands-on workshop on latest engineering tools." },
+        { title: "Alumni Meet", date: "2026-12-10", location: "Chandigarh", description: "Networking event for alumni." }
       ],
       "Guru Nanak Dev University": [
-        {
-          date: "Jan 20, 2026",
-          title: "Annual Cultural Fest",
-          location: "GNDU Campus, Amritsar",
-          time: "All Day",
-          description: "Celebrate culture and achievements with alumni and students."
-        }
+        { title: "Annual Cultural Fest", date: "2026-01-20", location: "Amritsar", description: "Cultural activities and celebrations." },
+        { title: "Research Conference", date: "2026-02-15", location: "Amritsar", description: "Conference presenting latest research." }
       ],
       "Chandigarh University": [
-        {
-          date: "Mar 25, 2026",
-          title: "Innovation Meetup",
-          location: "CU Tech Park, Chandigarh",
-          time: "11:00 AM - 4:00 PM",
-          description: "Networking event for innovators and entrepreneurs."
-        }
+        { title: "Innovation Meetup", date: "2026-03-25", location: "Chandigarh", description: "Meetup for entrepreneurs and innovators." },
+        { title: "Spring Fest", date: "2026-04-10", location: "Chandigarh", description: "Annual spring festival." }
       ],
       "Punjab Agricultural University": [
-        {
-          date: "Jan 18, 2026",
-          title: "Agricultural Expo",
-          location: "PAU Grounds, Ludhiana",
-          time: "9:00 AM - 5:00 PM",
-          description: "Showcasing latest agriculture technologies and research."
-        }
+        { title: "Agricultural Expo", date: "2026-01-18", location: "Ludhiana", description: "Exhibition of agricultural technologies." },
+        { title: "Farmers Meet", date: "2026-02-12", location: "Ludhiana", description: "Networking event for local farmers." }
       ]
     };
 
-    const eventsListEl = document.getElementById('events-list');
+    const eventsList = document.getElementById('events-list');
     const pageTitle = document.getElementById('page-title');
-    const description = document.getElementById('description');
-
-    function getQueryParam(param) {
-      const params = new URLSearchParams(window.location.search);
-      return params.get(param);
-    }
+    const logoutBtn = document.getElementById('logout-btn');
 
     function displayEvents(institution) {
-      pageTitle.textContent = `${institution} Alumni Events & Meetings`;
-      description.textContent = `Explore upcoming events, workshops and reunions for ${institution}.`;
+      pageTitle.textContent = `${institution} - Upcoming Events`;
 
       const events = eventsData[institution] || [];
-      if(events.length === 0) {
-        eventsListEl.innerHTML = "<p>No upcoming events for this institution.</p>";
+      if (events.length === 0) {
+        eventsList.innerHTML = "<p>No upcoming events available for this institution.</p>";
         return;
       }
+
       let html = "";
-      events.forEach(ev => {
-        html += `
-          <div class="event-card">
-            <div class="event-date">${ev.date}</div>
-            <h2>${ev.title}</h2>
-            <p><strong>Location:</strong> ${ev.location}</p>
-            <p><strong>Time:</strong> ${ev.time}</p>
-            <p>${ev.description}</p>
-            <button class="btn" onclick="alert('Registration coming soon!')">Register Now</button>
-          </div>
-        `;
+      events.forEach(event => {
+        html += `<div class="event-card">
+          <h3>${event.title}</h3>
+          <p><strong>Date:</strong> ${event.date}</p>
+          <p><strong>Location:</strong> ${event.location}</p>
+          <p>${event.description}</p>
+        </div>`;
       });
-      eventsListEl.innerHTML = html;
+
+      eventsList.innerHTML = html;
     }
 
+    logoutBtn.addEventListener('click', () => {
+      localStorage.clear();
+      window.location.href = 'login.html';
+    });
+
     window.addEventListener('DOMContentLoaded', () => {
-      const institution = getQueryParam('institution') || 'Punjab University';
+      const institution = localStorage.getItem('loggedInInstitution');
+      const email = localStorage.getItem('loggedInEmail');
+
+      if (!institution || !email) {
+        window.location.href = 'login.html';
+        return;
+      }
+
       displayEvents(institution);
     });
   </script>
