@@ -215,7 +215,16 @@
     const description = document.getElementById('description');
     const logoutBtn = document.getElementById('logout-btn');
 
-    function displayDonations(institution) {
+    window.addEventListener('DOMContentLoaded', () => {
+      const institution = sessionStorage.getItem('loggedInInstitution');
+      const email = sessionStorage.getItem('loggedInEmail');
+      const role = sessionStorage.getItem('loggedInRole');
+
+      if (!institution || !email || !role) {
+        window.location.href = 'login.html';
+        return;
+      }
+
       pageTitle.textContent = `${institution} - Support Your Institution`;
       description.textContent = `Help ${institution} grow through your generous donations.`;
 
@@ -250,23 +259,11 @@
           </ul>
         </section>
       `;
-    }
-
-    logoutBtn.addEventListener('click', () => {
-      localStorage.clear();
-      window.location.href = 'login.html';
     });
 
-    window.addEventListener('DOMContentLoaded', () => {
-      const institution = localStorage.getItem('loggedInInstitution');
-      const email = localStorage.getItem('loggedInEmail');
-
-      if (!institution || !email) {
-        window.location.href = 'login.html';
-        return;
-      }
-
-      displayDonations(institution);
+    logoutBtn.addEventListener('click', () => {
+      sessionStorage.clear();
+      window.location.href = 'login.html';
     });
   </script>
 </body>
