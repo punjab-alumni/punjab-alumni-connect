@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alumni Directory - Punjab Alumni Connect</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="alumni.html" class="active">Alumni</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="jobs.html">Jobs</a></li>
+        <li><a href="mentorship.html">Mentorship</a></li>
+        <li><a href="donations.html">Donations</a></li>
+        <li><a href="settings.html">Settings</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section>
+      <h1>Alumni Directory</h1>
+      <p>Connect and network with fellow graduates across industries.</p>
+
+      <input type="text" id="search-input" placeholder="Search alumni by name, company or department" style="width:100%; padding:10px; margin:20px 0; border-radius:8px; border:none;">
+
+      <div id="alumni-list">
+        <div class="card alumni-profile">
+          <div class="alumni-avatar">👨‍💻</div>
+          <div class="alumni-info">
+            <h3>Dr. Rajesh Kumar</h3>
+            <p>Senior Software Engineer at Google India</p>
+            <p>Batch: 2018 | Department: Computer Science</p>
+            <p>Expertise: Machine Learning, Cloud Computing</p>
+            <button class="btn">Connect</button>
+          </div>
+        </div>
+
+        <div class="card alumni-profile">
+          <div class="alumni-avatar">👩‍💼</div>
+          <div class="alumni-info">
+            <h3>Priya Sharma</h3>
+            <p>Product Manager at Microsoft</p>
+            <p>Batch: 2017 | Department: Electronics</p>
+            <p>Expertise: Product Strategy, Team Leadership</p>
+            <button class="btn">Connect</button>
+          </div>
+        </div>
+
+        <div class="card alumni-profile">
+          <div class="alumni-avatar">👨‍🔧</div>
+          <div class="alumni-info">
+            <h3>Amit Singh</h3>
+            <p>Engineering Manager at Amazon</p>
+            <p>Batch: 2016 | Department: Information Technology</p>
+            <p>Expertise: Distributed Systems, Leadership</p>
+            <button class="btn">Connect</button>
+          </div>
+        </div>
+
+        <div class="card alumni-profile">
+          <div class="alumni-avatar">👩‍⚕️</div>
+          <div class="alumni-info">
+            <h3>Dr. Neha Gupta</h3>
+            <p>Senior Data Scientist at Flipkart</p>
+            <p>Batch: 2019 | Department: Mathematics</p>
+            <p>Expertise: Data Science, AI/ML Research</p>
+            <button class="btn">Connect</button>
+          </div>
+        </div>
+
+        <div class="card alumni-profile">
+          <div class="alumni-avatar">🧑‍💼</div>
+          <div class="alumni-info">
+            <h3>Vikram Patel</h3>
+            <p>Startup Founder & CEO at TechStartup Inc.</p>
+            <p>Batch: 2015 | Department: Mechanical Engineering</p>
+            <p>Expertise: Entrepreneurship, Innovation</p>
+            <button class="btn">Connect</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Simple client side search filter
+
+    const searchInput = document.getElementById('search-input');
+    const alumniProfiles = Array.from(document.querySelectorAll('.alumni-profile'));
+
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase();
+      alumniProfiles.forEach(profile => {
+        const text = profile.textContent.toLowerCase();
+        profile.style.display = text.includes(query) ? 'flex' : 'none';
+      });
+    });
+
+    // Connect buttons - just a placeholder action
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        alert('Connect feature coming soon!');
+      });
+    });
+  </script>
+</body>
+
+</html>
