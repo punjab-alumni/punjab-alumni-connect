@@ -15,16 +15,20 @@
       border-radius: 10px;
       align-items: center;
     }
+
     .alumni-avatar {
       font-size: 3rem;
       margin-right: 1rem;
     }
+
     .alumni-info h3 {
       margin: 0 0 0.5rem 0;
     }
+
     .alumni-info p {
       margin: 0.2rem 0;
     }
+
     .btn {
       margin-top: 0.5rem;
       padding: 0.5rem 1rem;
@@ -58,12 +62,13 @@
     <h1 id="page-title">Alumni Directory</h1>
     <p id="description">Connect and network with fellow graduates.</p>
 
-    <input type="text" id="search" placeholder="Search alumni by name, company, or department" style="width:100%; padding:10px; margin-bottom:20px; border-radius:6px;"/>
+    <input type="text" id="search" placeholder="Search alumni by name, company, or department" style="width:100%; padding:10px; margin-bottom:20px; border-radius:6px;" />
 
     <div id="alumni-list"></div>
   </main>
 
   <script>
+    // Alumni database categorized by institution
     const alumniData = {
       "Punjab University": [
         {
