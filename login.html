@@ -7,7 +7,6 @@
   <title>Login - Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Centered login form styles */
     .login-container {
       max-width: 400px;
       margin: 80px auto;
@@ -84,22 +83,24 @@
   </div>
 
   <script>
-    const DEMO_EMAIL = "user@punjabalumni.gov.in";
-    const DEMO_PASSWORD = "Punjab2025!";
+    const DEMO_ACCOUNTS = [
+      { email: "user@punjabalumni.gov.in", password: "Punjab2025!" },
+      { email: "test.alumni@punjab.edu.in", password: "Alumni1234#" }
+    ];
 
     document.getElementById("loginForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
-
       const messageElem = document.getElementById("message");
       messageElem.textContent = "";
       messageElem.classList.remove("error");
 
-      if (email === DEMO_EMAIL && password === DEMO_PASSWORD) {
+      const valid = DEMO_ACCOUNTS.some(acc => acc.email === email && acc.password === password);
+
+      if (valid) {
         messageElem.textContent = "Login successful! Redirecting...";
-        // Redirect preserving institution parameter
         const params = new URLSearchParams(window.location.search);
         const institution = params.get('institution') || '';
         const destination = 'dashboard.html' + (institution ? '?institution=' + encodeURIComponent(institution) : '');
