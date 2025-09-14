@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Events & Meetings - Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
 
 <body>
@@ -26,50 +25,104 @@
   </header>
 
   <main class="container">
-    <h1>Alumni Events & Meetings</h1>
-    <p>Stay connected with networking events, workshops, reunions, and more.</p>
+    <h1 id="page-title">Alumni Events & Meetings</h1>
+    <p id="description">Event details and schedules for your institution.</p>
 
-    <div class="card event-card">
-      <div class="event-date">JAN 15, 2026</div>
-      <h2 class="event-title">🚀 Alumni Tech Summit 2026</h2>
-      <p>
-        Join industry leaders and alumni from Google, Microsoft, Amazon, for technical talks,
-        panel discussions, and networking opportunities.
-      </p>
-      <p><strong>Location:</strong> Chandigarh - Punjab Engineering College Auditorium</p>
-      <p><strong>Time:</strong> 9:00 AM - 6:00 PM</p>
-      <button class="btn" onclick="alert('Registration coming soon!')">Register Now</button>
-    </div>
+    <div id="events-list"></div>
+  </main>
 
-    <div class="card event-card">
-      <div class="event-date">FEB 20, 2026</div>
-      <h2 class="event-title">💼 Virtual Career Fair 2026</h2>
-      <p>
-        Connect with 50+ top companies online. Gain access to job openings, one-on-one interviews,
-        and career advice from alumni.
-      </p>
-      <p><strong>Platform:</strong> Zoom & Custom Portal</p>
-      <p><strong>Time:</strong> 10:00 AM - 4:00 PM</p>
-      <button class="btn" onclick="alert('Registration coming soon!')">Register Now</button>
-    </div>
+  <script>
+    const eventsData = {
+      "Punjab University": [
+        {
+          date: "Jan 15, 2026",
+          title: "Alumni Tech Summit 2026",
+          location: "Punjab Engineering College Auditorium, Chandigarh",
+          time: "9:00 AM - 6:00 PM",
+          description: "Industry leaders and alumni from top tech companies will share insights."
+        },
+        {
+          date: "Mar 25, 2026",
+          title: "Spring Alumni Reunion",
+          location: "Punjab University Campus",
+          time: "6:00 PM - 11:00 PM",
+          description: "Reconnect with batchmates and celebrate achievements."
+        }
+      ],
+      "Thapar University": [
+        {
+          date: "Feb 20, 2026",
+          title: "Career Fair 2026",
+          location: "Thapar Auditorium, Patiala",
+          time: "10:00 AM - 4:00 PM",
+          description: "Opportunities with leading employers and startups."
+        },
+        {
+          date: "Apr 10, 2026",
+          title: "Entrepreneurship Workshop",
+          location: "IIT Bombay Incubation Center, Mumbai",
+          time: "2:00 PM - 8:00 PM",
+          description: "Learn from alumni startup founders about scaling businesses."
+        }
+      ],
+      "Lovely Professional University": [
+        {
+          date: "Jan 30, 2026",
+          title: "Virtual Global Alumni Meet",
+          location: "Online",
+          time: "8:00 PM IST",
+          description: "Connect globally with alumni worldwide."
+        },
+        {
+          date: "Mar 15, 2026",
+          title: "Student Innovation Day",
+          location: "LPU Campus, Phagwara",
+          time: "9:00 AM - 5:00 PM",
+          description: "Showcase of student and alumni innovative projects."
+        }
+      ],
+      // Add more institutions and events as needed...
+    };
 
-    <div class="card event-card">
-      <div class="event-date">MAR 30, 2026</div>
-      <h2 class="event-title">🎓 Class of 2020 Reunion</h2>
-      <p>
-        Celebrate and reconnect with your batchmates! Dinner, music, awards, and memories to cherish.
-      </p>
-      <p><strong>Location:</strong> Hotel Taj Chandigarh</p>
-      <p><strong>Time:</strong> 6:00 PM - 11:00 PM</p>
-      <button class="btn" onclick="alert('Registration coming soon!')">Register Now</button>
-    </div>
+    const eventsListEl = document.getElementById('events-list');
+    const pageTitle = document.getElementById('page-title');
+    const description = document.getElementById('description');
 
-    <div class="card event-card">
-      <div class="event-date">APR 22, 2026</div>
-      <h2 class="event-title">🏗️ Entrepreneurship Workshop</h2>
-      <p>
-        Learn from alumni entrepreneurs about startup success, fundraising, and growth. Interactive Q&A and networking.
-      </p>
-      <p><strong>Location:</strong> Mumbai - IIT Bombay Incubation Center</p>
-      <p><strong>Time:</strong> 2:00 PM - 8:00 PM</p>
-      <button class="btn" onclick="alert('Registration coming soon!')">Register
+    function getQueryParam(param) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(param);
+    }
+
+    function displayEvents(institution) {
+      pageTitle.textContent = `${institution} Alumni Events & Meetings`;
+      description.textContent = `Explore upcoming events, workshops and reunions for ${institution}.`;
+
+      const events = eventsData[institution] || [];
+      if(events.length === 0) {
+        eventsListEl.innerHTML = "<p>No upcoming events for this institution.</p>";
+        return;
+      }
+      let html = "";
+      events.forEach(ev => {
+        html += `
+          <div class="card event-card">
+            <div class="event-date">${ev.date}</div>
+            <h2 class="event-title">${ev.title}</h2>
+            <p><strong>Location:</strong> ${ev.location}</p>
+            <p><strong>Time:</strong> ${ev.time}</p>
+            <p>${ev.description}</p>
+            <button class="btn" onclick="alert('Registration coming soon!')">Register Now</button>
+          </div>
+        `;
+      });
+      eventsListEl.innerHTML = html;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const institution = getQueryParam('institution') || 'Punjab University';
+      displayEvents(institution);
+    });
+  </script>
+</body>
+
+</html>
