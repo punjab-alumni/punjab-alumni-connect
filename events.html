@@ -120,10 +120,6 @@
       }
     };
 
-    const eventsList = document.getElementById('events-list');
-    const pageTitle = document.getElementById('page-title');
-    const logoutBtn = document.getElementById('logout-btn');
-
     function createEventCard(event) {
       return `
         <div class="event-card">
@@ -135,18 +131,20 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      const institution = localStorage.getItem('loggedInInstitution');
-      const email = localStorage.getItem('loggedInEmail');
-      const role = localStorage.getItem('loggedInRole');
+      const institution = sessionStorage.getItem('loggedInInstitution');
+      const role = sessionStorage.getItem('loggedInRole');
+      const email = sessionStorage.getItem('loggedInEmail');
 
-      if (!institution || !email || !role) {
+      if (!institution || !role || !email) {
         window.location.href = 'login.html';
         return;
       }
 
-      pageTitle.textContent = `${institution} - Upcoming Events`;
+      document.getElementById('page-title').textContent = `${institution} - Upcoming Events`;
 
       const data = eventsData[institution];
+      const eventsList = document.getElementById('events-list');
+
       if (!data) {
         eventsList.innerHTML = "<p>No events available for this institution.</p>";
         return;
@@ -161,11 +159,10 @@
         eventsList.innerHTML += `<h2>Alumni Events</h2>` + data.alumniEvents.map(createEventCard).join('');
       }
 
-    });
-
-    logoutBtn.addEventListener('click', () => {
-      localStorage.clear();
-      window.location.href = 'login.html';
+      document.getElementById('logout-btn').addEventListener('click', () => {
+        sessionStorage.clear();
+        window.location.href = 'login.html';
+      });
     });
   </script>
 </body>
