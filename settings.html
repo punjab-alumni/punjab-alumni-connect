@@ -83,6 +83,19 @@
       border: 2px solid #4fd7a5;
       background: #222;
     }
+
+    #logout-btn {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background: #ef4444;
+      border: none;
+      border-radius: 25px;
+      font-weight: 700;
+      font-size: 1rem;
+      color: white;
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -108,31 +121,16 @@
       <button type="submit" class="btn-save">Save Changes</button>
     </form>
 
-    <div id="save-message"></div>
-
-    <button id="logout-btn" style="margin-top: 20px; width: 100%; padding: 12px; background: #ef4444; border: none; border-radius: 25px; font-weight: 700; font-size: 1rem; color: white; cursor: pointer;">Logout</button>
+    <button id="logout-btn">Logout</button>
   </div>
 
   <script>
-    function getQueryParam(param) {
-      return new URLSearchParams(window.location.search).get(param);
-    }
-
-    function loadProfilePhoto() {
-      const photoDataUrl = localStorage.getItem('profilePhoto');
-      const previewImg = document.getElementById('profile-preview');
-      if (photoDataUrl) {
-        previewImg.src = photoDataUrl;
-      } else {
-        previewImg.src = 'https://via.placeholder.com/120?text=No+Photo';
-      }
-    }
-
     window.addEventListener('DOMContentLoaded', () => {
-      const institution = localStorage.getItem('loggedInInstitution');
-      const email = localStorage.getItem('loggedInEmail');
+      const institution = sessionStorage.getItem('loggedInInstitution');
+      const email = sessionStorage.getItem('loggedInEmail');
+      const role = sessionStorage.getItem('loggedInRole');
 
-      if (!institution || !email) {
+      if (!institution || !email || !role) {
         window.location.href = 'login.html';
         return;
       }
@@ -142,6 +140,16 @@
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Institution:</strong> ${institution}</p>
       `;
+
+      function loadProfilePhoto() {
+        const photoDataUrl = sessionStorage.getItem('profilePhoto');
+        const previewImg = document.getElementById('profile-preview');
+        if (photoDataUrl) {
+          previewImg.src = photoDataUrl;
+        } else {
+          previewImg.src = 'https://via.placeholder.com/120?text=No+Photo';
+        }
+      }
 
       loadProfilePhoto();
 
@@ -153,7 +161,7 @@
           reader.onload = e => {
             const previewImg = document.getElementById('profile-preview');
             previewImg.src = e.target.result;
-            localStorage.setItem('profilePhoto', e.target.result);
+            sessionStorage.setItem('profilePhoto', e.target.result);
           };
           reader.readAsDataURL(file);
         }
@@ -165,6 +173,7 @@
 
         const passwordInput = document.getElementById('password').value;
         const confirmPasswordInput = document.getElementById('confirm-password').value;
+        const saveMsg = document.getElementById('save-message');
 
         if (passwordInput !== confirmPasswordInput) {
           saveMsg.style.color = "#ef4444";
@@ -172,14 +181,13 @@
           return;
         }
 
-        // For demo, just show success message; no backend
         saveMsg.style.color = "#4fd7a5";
         saveMsg.textContent = "Password changed successfully!";
         e.target.reset();
       });
 
       document.getElementById('logout-btn').addEventListener('click', () => {
-        localStorage.clear();
+        sessionStorage.clear();
         window.location.href = 'login.html';
       });
     });
