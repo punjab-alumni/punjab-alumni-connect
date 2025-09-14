@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mentorship - Punjab Alumni Connect</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body>
+  <header>
+    <nav>
+      <ul class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="alumni.html">Alumni</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="jobs.html">Jobs</a></li>
+        <li><a href="mentorship.html" class="active">Mentorship</a></li>
+        <li><a href="donations.html">Donations</a></li>
+        <li><a href="settings.html">Settings</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Mentorship Program</h1>
+    <p>Connect with experienced alumni mentors or become a mentor yourself.</p>
+
+    <div class="mentorship-forms">
+      <section class="card mentorship-section">
+        <h2>Find a Mentor</h2>
+        <input type="text" id="mentorSearch" placeholder="Search mentors by name or expertise" style="width:100%; padding:10px; margin-bottom:10px; border-radius:6px; border:none;">
+        <button class="btn" onclick="alert('Mentor search coming soon')">Search</button>
+
+        <div id="mentorResults" style="margin-top:20px;">
+          <!-- Mentor profiles will appear here -->
+          <div class="card mentorship-profile">
+            <div class="mentorship-avatar">👨‍💻</div>
+            <h3>Dr. Rajesh Kumar</h3>
+            <p>Senior Software Engineer, Google India</p>
+            <p>Expertise: Software Engineering, AI, Cloud</p>
+            <button class="btn" onclick="alert('Request sent!')">Request Mentorship</button>
+          </div>
+
+          <div class="card mentorship-profile">
+            <div class="mentorship-avatar">👩‍💼</div>
+            <h3>Priya Sharma</h3>
+            <p>Product Manager, Microsoft</p>
+            <p>Expertise: Product Strategy, Leadership</p>
+            <button class="btn" onclick="alert('Request sent!')">Request Mentorship</button>
+          </div>
+
+          <div class="card mentorship-profile">
+            <div class="mentorship-avatar">👨‍🔧</div>
+            <h3>Vikram Patel</h3>
+            <p>Entrepreneur & CEO, TechStartup Inc.</p>
+            <p>Expertise: Entrepreneurship, Fundraising</p>
+            <button class="btn" onclick="alert('Request sent!')">Request Mentorship</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card mentorship-section">
+        <h2>Become a Mentor</h2>
+        <form id="mentorForm">
+          <label for="mentorName">Name</label>
+          <input type="text" id="mentorName" required />
+
+          <label for="mentorEmail">Email</label>
+          <input type="email" id="mentorEmail" required />
+
+          <label for="mentorExpertise">Expertise</label>
+          <input type="text" id="mentorExpertise" required />
+
+          <label for="mentorExperience">Years of Experience</label>
+          <input type="number" id="mentorExperience" min="1" required />
+
+          <button type="submit" class="btn">Sign Up as Mentor</button>
+        </form>
+
+        <div id="mentorSignupMessage" style="margin-top:10px; color:#4fd7a5;"></div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('mentorForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('mentorName').value.trim();
+      const email = document.getElementById('mentorEmail').value.trim();
+      const expertise = document.getElementById('mentorExpertise').value.trim();
+      const experience = document.getElementById('mentorExperience').value.trim();
+
+      if (!name || !email || !expertise || !experience) {
+        alert('Please fill in all fields.');
+        return;
+      }
+      // Here you can add form submission logic like sending data to server
+      document.getElementById('mentorSignupMessage').textContent = `Thank you, ${name}! Your mentor profile submission is received. We will contact you soon.`;
+      this.reset();
+    });
+  </script>
+
+  <style>
+    /* Additional styles for mentorship page */
+    .mentorship-forms {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .mentorship-section {
+      flex: 1 1 45%;
+      padding: 1.5rem;
+      border-radius: 12px;
+      background: rgba(255 255 255 / 0.05);
+      backdrop-filter: blur(10px);
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      margin-bottom: 0.4rem;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+    }
+    .mentorship-profile {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 10px;
+      background: rgba(255 255 255 / 0.1);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .mentorship-avatar {
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #4fd7a5, #81d9c9);
+      padding: 10px;
+      border-radius: 50%;
+      color: #0d1a0a;
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      user-select: none;
+    }
+  </style>
+</html>
