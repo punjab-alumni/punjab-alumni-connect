@@ -1,0 +1,192 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0a0e13 0%, #1a1d23 50%, #0f1419 100%);
+  color: white;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Navigation */
+nav {
+  background: rgba(255 255 255 / 0.05);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-list {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  gap: 2rem;
+}
+
+nav a {
+  color: #a0aec0;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+nav a:hover,
+nav a.active {
+  color: #4fd1c7;
+  background: rgba(79 209 199 / 0.3);
+}
+
+/* Hero Section */
+.hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4rem 2rem;
+  flex-wrap: wrap;
+  gap: 4rem;
+}
+
+.hero-text {
+  flex: 1 1 500px;
+}
+
+.hero-text h1 {
+  font-size: 3rem;
+  background: linear-gradient(135deg, #4fd1c7, #81d9e6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+
+.hero-text h2 {
+  font-size: 2rem;
+  color: #a0aec0;
+  margin-bottom: 1rem;
+}
+
+.hero-text p {
+  font-size: 1.1rem;
+  color: #cbd5e1;
+  margin-bottom: 2rem;
+}
+
+.btn-primary {
+  display: inline-block;
+  background: #4fd1c7;
+  color: #0f1419;
+  padding: 1rem 2rem;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #36b5ad;
+}
+
+/* Hero Features */
+.hero-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  flex: 1 1 400px;
+}
+
+.feature-card {
+  background: rgba(255 255 255 / 0.05);
+  border-radius: 15px;
+  padding: 1.5rem;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  transition: background 0.3s ease;
+}
+
+.feature-card:hover {
+  background: rgba(255 255 255 / 0.1);
+}
+
+.feature-card .feature-icon {
+  font-size: 3rem;
+  color: #0f1419;
+  background: linear-gradient(135deg, #4fd1c7, #81d9e6);
+  border-radius: 15px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+/* Buttons used in dashboard */
+.btn {
+  background: #4fd1c7;
+  color: #0f1419;
+  padding: 0.8rem 1.5rem;
+  font-weight: 700;
+  border-radius: 25px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #36b5ad;
+}
+
+/* Common Card style */
+.card {
+  background: rgba(255 255 255 / 0.05);
+  padding: 1.5rem;
+  border-radius: 15px;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(10px);
+  transition: background 0.3s ease;
+}
+
+.card:hover {
+  background: rgba(255 255 255 / 0.1);
+}
+
+/* Text and headers */
+h1, h2, h3, h4 {
+  color: white;
+  margin-bottom: 1rem;
+}
+
+p {
+  color: #cbd5e1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-section {
+    flex-direction: column;
+    padding: 2rem;
+  }
+
+  .hero-text, .hero-features {
+    flex: none;
+  }
+
+  nav .nav-list {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
