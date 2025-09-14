@@ -274,17 +274,18 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      const institution = localStorage.getItem('loggedInInstitution');
-      const email = localStorage.getItem('loggedInEmail');
+      const institution = sessionStorage.getItem('loggedInInstitution');
+      const email = sessionStorage.getItem('loggedInEmail');
+      const role = sessionStorage.getItem('loggedInRole');
 
-      if (!institution || !email) {
+      if (!institution || !email || !role) {
         window.location.href = 'login.html'; // Not logged in, redirect
         return;
       }
 
       displayDashboard(institution);
 
-      // Update navigation links to keep session, not passing institution in URL now
+      // Update navigation links for session persistence (no params required)
       document.getElementById('alumni-link').href = 'alumni.html';
       document.getElementById('jobs-link').href = 'jobs.html';
       document.getElementById('events-link').href = 'events.html';
@@ -292,9 +293,9 @@
       document.getElementById('donations-link').href = 'donations.html';
       document.getElementById('settings-link').href = 'settings.html';
 
-      // Logout button clears session and redirects to login
+      // Logout clears session and redirects
       document.getElementById('logout-btn').addEventListener('click', () => {
-        localStorage.clear();
+        sessionStorage.clear();
         window.location.href = 'login.html';
       });
     });
