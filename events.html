@@ -6,6 +6,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Events & Meetings - Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .event-card {
+      background: rgba(255 255 255 / 0.1);
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+    .event-date {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .btn {
+      background: #4fd7a5;
+      border: none;
+      border-radius: 20px;
+      padding: 0.5rem 1rem;
+      color: #0a1a0f;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      display: inline-block;
+    }
+  </style>
 </head>
 
 <body>
@@ -81,7 +104,42 @@
           description: "Showcase of student and alumni innovative projects."
         }
       ],
-      // Add more institutions and events as needed...
+      "Punjab Engineering College": [
+        {
+          date: "Apr 5, 2026",
+          title: "Engineering Workshop",
+          location: "PEC Auditorium, Chandigarh",
+          time: "10:00 AM - 3:00 PM",
+          description: "Advance your engineering skills with expert sessions."
+        }
+      ],
+      "Guru Nanak Dev University": [
+        {
+          date: "Jan 20, 2026",
+          title: "Annual Cultural Fest",
+          location: "GNDU Campus, Amritsar",
+          time: "All Day",
+          description: "Celebrate culture and achievements with alumni and students."
+        }
+      ],
+      "Chandigarh University": [
+        {
+          date: "Mar 25, 2026",
+          title: "Innovation Meetup",
+          location: "CU Tech Park, Chandigarh",
+          time: "11:00 AM - 4:00 PM",
+          description: "Networking event for innovators and entrepreneurs."
+        }
+      ],
+      "Punjab Agricultural University": [
+        {
+          date: "Jan 18, 2026",
+          title: "Agricultural Expo",
+          location: "PAU Grounds, Ludhiana",
+          time: "9:00 AM - 5:00 PM",
+          description: "Showcasing latest agriculture technologies and research."
+        }
+      ]
     };
 
     const eventsListEl = document.getElementById('events-list');
@@ -105,9 +163,9 @@
       let html = "";
       events.forEach(ev => {
         html += `
-          <div class="card event-card">
+          <div class="event-card">
             <div class="event-date">${ev.date}</div>
-            <h2 class="event-title">${ev.title}</h2>
+            <h2>${ev.title}</h2>
             <p><strong>Location:</strong> ${ev.location}</p>
             <p><strong>Time:</strong> ${ev.time}</p>
             <p>${ev.description}</p>
