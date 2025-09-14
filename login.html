@@ -179,10 +179,10 @@
         return;
       }
 
-      // Save session info
-      localStorage.setItem('loggedInInstitution', institution);
-      localStorage.setItem('loggedInEmail', emailInput);
-      localStorage.setItem('loggedInRole', loggedRole);
+      // Save session info in sessionStorage for auto logout on close
+      sessionStorage.setItem('loggedInInstitution', institution);
+      sessionStorage.setItem('loggedInEmail', emailInput);
+      sessionStorage.setItem('loggedInRole', loggedRole);
 
       messageElem.textContent = 'Login successful! Redirecting...';
 
@@ -193,7 +193,7 @@
 
     // Auto redirect if already logged in
     window.addEventListener('DOMContentLoaded', () => {
-      const institution = localStorage.getItem('loggedInInstitution');
+      const institution = sessionStorage.getItem('loggedInInstitution');
       if (institution) {
         window.location.href = 'dashboard.html';
       }
