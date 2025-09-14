@@ -83,14 +83,43 @@
   </div>
 
   <script>
+    // Credentials for each institution broken down by role
     const demoCredentials = {
-      "Punjab University": { email: "user@punjabalumni-pu.gov.in", password: "PunjabPu2025!" },
-      "Punjab Engineering College": { email: "user@punjabalumni-pec.ac.in", password: "PunjabPEC2025!" },
-      "Thapar University": { email: "user@punjabalumni-thapar.in", password: "PunjabThapar2025!" },
-      "Lovely Professional University": { email: "user@punjabalumni-lpu.co.in", password: "PunjabLPU2025!" },
-      "Guru Nanak Dev University": { email: "user@punjabalumni-gndu.ac.in", password: "PunjabGNDU2025!" },
-      "Chandigarh University": { email: "user@punjabalumni-cu.in", password: "PunjabCU2025!" },
-      "Punjab Agricultural University": { email: "user@punjabalumni-pau.ac.in", password: "PunjabPAU2025!" }
+      "Punjab University": {
+        admin: { email: "admin@punjabalumni-pu.gov.in", password: "PunjabPuAdmin2025!" },
+        student: { email: "student@punjabalumni-pu.gov.in", password: "PunjabPuStudent2025!" },
+        alumni: { email: "user@punjabalumni-pu.gov.in", password: "PunjabPuAlumni2025!" }
+      },
+      "Punjab Engineering College": {
+        admin: { email: "admin@punjabalumni-pec.ac.in", password: "PunjabPECAdmin2025!" },
+        student: { email: "student@punjabalumni-pec.ac.in", password: "PunjabPECStudent2025!" },
+        alumni: { email: "user@punjabalumni-pec.ac.in", password: "PunjabPECAlumni2025!" }
+      },
+      "Thapar University": {
+        admin: { email: "admin@punjabalumni-thapar.in", password: "PunjabThaparAdmin2025!" },
+        student: { email: "student@punjabalumni-thapar.in", password: "PunjabThaparStudent2025!" },
+        alumni: { email: "user@punjabalumni-thapar.in", password: "PunjabThaparAlumni2025!" }
+      },
+      "Lovely Professional University": {
+        admin: { email: "admin@punjabalumni-lpu.co.in", password: "PunjabLPUAdmin2025!" },
+        student: { email: "student@punjabalumni-lpu.co.in", password: "PunjabLPUStudent2025!" },
+        alumni: { email: "user@punjabalumni-lpu.co.in", password: "PunjabLPUAlumni2025!" }
+      },
+      "Guru Nanak Dev University": {
+        admin: { email: "admin@punjabalumni-gndu.ac.in", password: "PunjabGNDUAdmin2025!" },
+        student: { email: "student@punjabalumni-gndu.ac.in", password: "PunjabGNDUStudent2025!" },
+        alumni: { email: "user@punjabalumni-gndu.ac.in", password: "PunjabGNDUAlumni2025!" }
+      },
+      "Chandigarh University": {
+        admin: { email: "admin@punjabalumni-cu.in", password: "PunjabCUAdmin2025!" },
+        student: { email: "student@punjabalumni-cu.in", password: "PunjabCUStudent2025!" },
+        alumni: { email: "user@punjabalumni-cu.in", password: "PunjabCUAlumni2025!" }
+      },
+      "Punjab Agricultural University": {
+        admin: { email: "admin@punjabalumni-pau.ac.in", password: "PunjabPAUAdmin2025!" },
+        student: { email: "student@punjabalumni-pau.ac.in", password: "PunjabPAUStudent2025!" },
+        alumni: { email: "user@punjabalumni-pau.ac.in", password: "PunjabPAUAlumni2025!" }
+      }
     };
 
     document.getElementById("loginForm").addEventListener("submit", function (e) {
@@ -99,6 +128,7 @@
       const emailInput = document.getElementById("email").value.trim();
       const passwordInput = document.getElementById("password").value;
       const messageElem = document.getElementById("message");
+
       messageElem.textContent = "";
       messageElem.classList.remove("error");
 
@@ -111,15 +141,29 @@
         return;
       }
 
-      const validCreds = demoCredentials[institution];
+      const creds = demoCredentials[institution];
+      const roles = ["admin", "student", "alumni"];
+      let emailMatch = false;
+      let passwordMatch = false;
 
-      if (emailInput !== validCreds.email) {
+      for (let role of roles) {
+        if (emailInput === creds[role].email) {
+          emailMatch = true;
+          if (passwordInput === creds[role].password) {
+            passwordMatch = true;
+            break;
+          }
+          break;
+        }
+      }
+
+      if (!emailMatch) {
         messageElem.textContent = "Wrong email address.";
         messageElem.classList.add("error");
         return;
       }
 
-      if (passwordInput !== validCreds.password) {
+      if (!passwordMatch) {
         messageElem.textContent = "Wrong password.";
         messageElem.classList.add("error");
         return;
