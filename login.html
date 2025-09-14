@@ -29,7 +29,8 @@
     }
 
     input[type="email"],
-    input[type="password"] {
+    input[type="password"],
+    select {
       width: 100%;
       padding: 10px;
       border-radius: 8px;
@@ -95,7 +96,6 @@
   </div>
 
   <script>
-    // Demo credentials structured by institution and role
     const demoCredentials = {
       "Punjab University": {
         admin: { email: "admin@punjabalumni-pu.gov.in", password: "PunjabPuAdmin2025!" },
@@ -134,7 +134,7 @@
       }
     };
 
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
       e.preventDefault();
 
       const institution = document.getElementById('institution').value;
@@ -177,10 +177,23 @@
         return;
       }
 
+      // Store session info in localStorage
+      localStorage.setItem('loggedInInstitution', institution);
+      localStorage.setItem('loggedInEmail', emailInput);
+
       messageElem.textContent = 'Login successful! Redirecting...';
+
       setTimeout(() => {
-        window.location.href = `dashboard.html?institution=${encodeURIComponent(institution)}`;
+        window.location.href = 'dashboard.html';
       }, 1500);
+    });
+
+    // If already logged in, redirect to dashboard immediately
+    window.addEventListener('DOMContentLoaded', () => {
+      const institution = localStorage.getItem('loggedInInstitution');
+      if (institution) {
+        window.location.href = 'dashboard.html';
+      }
     });
   </script>
 </body>
