@@ -192,7 +192,16 @@
     const pageTitle = document.getElementById('page-title');
     const logoutBtn = document.getElementById('logout-btn');
 
-    function displayJobs(institution) {
+    window.addEventListener('DOMContentLoaded', () => {
+      const institution = sessionStorage.getItem('loggedInInstitution');
+      const email = sessionStorage.getItem('loggedInEmail');
+      const role = sessionStorage.getItem('loggedInRole');
+
+      if (!institution || !email || !role) {
+        window.location.href = 'login.html';
+        return;
+      }
+
       pageTitle.textContent = `${institution} - Job Opportunities`;
 
       const jobs = jobsData[institution] || [];
@@ -216,23 +225,11 @@
       });
 
       jobListEl.innerHTML = html;
-    }
-
-    logoutBtn.addEventListener('click', () => {
-      localStorage.clear();
-      window.location.href = 'login.html';
     });
 
-    window.addEventListener('DOMContentLoaded', () => {
-      const institution = localStorage.getItem('loggedInInstitution');
-      const email = localStorage.getItem('loggedInEmail');
-
-      if (!institution || !email) {
-        window.location.href = 'login.html';
-        return;
-      }
-
-      displayJobs(institution);
+    logoutBtn.addEventListener('click', () => {
+      sessionStorage.clear();
+      window.location.href = 'login.html';
     });
   </script>
 </body>
