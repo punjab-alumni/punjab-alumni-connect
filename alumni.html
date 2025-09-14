@@ -6,7 +6,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Alumni Directory - Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .alumni-profile {
+      display: flex;
+      background: rgba(255 255 255 / 0.1);
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      align-items: center;
+    }
+    .alumni-avatar {
+      font-size: 3rem;
+      margin-right: 1rem;
+    }
+    .alumni-info h3 {
+      margin: 0 0 0.5rem 0;
+    }
+    .alumni-info p {
+      margin: 0.2rem 0;
+    }
+    .btn {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: #4fd7a5;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #0a1a0f;
+    }
+  </style>
 </head>
 
 <body>
@@ -29,7 +58,7 @@
     <h1 id="page-title">Alumni Directory</h1>
     <p id="description">Connect and network with fellow graduates.</p>
 
-    <input type="text" id="search" placeholder="Search alumni by name, company, or department" style="width:100%; padding:10px; margin:20px 0; border-radius:6px;" />
+    <input type="text" id="search" placeholder="Search alumni by name, company, or department" style="width:100%; padding:10px; margin-bottom:20px; border-radius:6px;"/>
 
     <div id="alumni-list"></div>
   </main>
@@ -107,8 +136,37 @@
           department: "Business Management",
           expertise: "Marketing Strategy, Leadership"
         }
+      ],
+      "Guru Nanak Dev University": [
+        {
+          name: "Jaspreet Singh",
+          position: "Research Scientist",
+          company: "IIT Delhi",
+          batch: "2014",
+          department: "Physics",
+          expertise: "Nanotechnology, Quantum Physics"
+        }
+      ],
+      "Chandigarh University": [
+        {
+          name: "Neeraj Sharma",
+          position: "Software Developer",
+          company: "SAP",
+          batch: "2018",
+          department: "Computer Applications",
+          expertise: "Java, Cloud Solutions"
+        }
+      ],
+      "Punjab Agricultural University": [
+        {
+          name: "Baljit Kaur",
+          position: "Agricultural Scientist",
+          company: "PAU Research Center",
+          batch: "2017",
+          department: "Agronomy",
+          expertise: "Crop Science, Soil Management"
+        }
       ]
-      // Add more institutions and their alumni as needed
     };
 
     const alumniList = document.getElementById('alumni-list');
@@ -116,7 +174,6 @@
     const description = document.getElementById('description');
     const searchInput = document.getElementById('search');
 
-    // Function to get URL parameter
     function getQueryParam(param) {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get(param);
@@ -124,7 +181,7 @@
 
     function displayAlumni(institution) {
       pageTitle.textContent = `${institution} Alumni Directory`;
-      description.textContent = `Browse alumni from ${institution} and connect with fellow graduates.`;
+      description.textContent = `Browse and connect with alumni from ${institution}.`;
 
       const list = alumniData[institution] || [];
       if (list.length === 0) {
@@ -135,29 +192,21 @@
       let html = '';
       list.forEach(alum => {
         html += `
-          <div class="card alumni-profile">
+          <div class="alumni-profile">
             <div class="alumni-avatar">👤</div>
             <div class="alumni-info">
               <h3>${alum.name}</h3>
               <p>${alum.position} at ${alum.company}</p>
               <p>Batch: ${alum.batch} | Department: ${alum.department}</p>
               <p>Expertise: ${alum.expertise}</p>
-              <button class="btn connect-btn">Connect</button>
+              <button class="btn" onclick="alert('Feature coming soon!')">Connect</button>
             </div>
           </div>
         `;
       });
       alumniList.innerHTML = html;
-
-      // Add event listeners to Connect buttons
-      document.querySelectorAll('.connect-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          alert('Connect feature is coming soon!');
-        });
-      });
     }
 
-    // Filter alumni on search input
     searchInput.addEventListener('input', () => {
       const query = searchInput.value.toLowerCase();
       document.querySelectorAll('.alumni-profile').forEach(profile => {
@@ -166,7 +215,6 @@
       });
     });
 
-    // On page load, read institution and display alumni
     window.addEventListener('DOMContentLoaded', () => {
       const institution = getQueryParam('institution') || 'Punjab University';
       displayAlumni(institution);
