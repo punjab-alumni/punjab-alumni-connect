@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard - Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 
 <body>
@@ -28,94 +27,138 @@
   <main class="container dashboard-content">
     <section>
       <h1 id="institution-name">Institution Dashboard</h1>
-      <p id="institution-details">Loading institution information...</p>
-
-      <div class="dashboard-cards">
-        <div class="card">
-          <h3>Platform Statistics</h3>
-          <ul>
-            <li><strong>Alumni Network:</strong> 175,000+</li>
-            <li><strong>Active Institutions:</strong> 12</li>
-            <li><strong>Connections Made:</strong> 25,000+</li>
-            <li><strong>Job Placements:</strong> 3,200+</li>
-            <li><strong>Mentorship Sessions:</strong> 5,600+</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <h3>Recent News & Events</h3>
-          <ul>
-            <li>Upcoming Tech Summit - Jan 15, 2026</li>
-            <li>Virtual Career Fair - Feb 20, 2026</li>
-            <li>Alumni Reunion - March 30, 2026</li>
-          </ul>
-        </div>
-
-        <div class="card">
-          <h3>Quick Links</h3>
-          <ul>
-            <li><a href="alumni.html">Alumni Directory</a></li>
-            <li><a href="jobs.html">Job Opportunities</a></li>
-            <li><a href="mentorship.html">Mentorship Program</a></li>
-            <li><a href="donations.html">Support & Donations</a></li>
-          </ul>
-        </div>
-      </div>
-
+      <p id="institution-info">Loading institution details...</p>
+      <div id="stats-cards"></div>
+      <div id="news-cards"></div>
+      <div id="quick-links"></div>
     </section>
   </main>
 
   <script>
-    // Read 'institution' parameter from URL
-    function getInstitutionFromURL() {
+    const institutionsInfo = {
+      "Punjab University": {
+        location: "Chandigarh",
+        established: 1882,
+        students: 15000,
+        alumni: 50000,
+        website: "https://www.pu.ac.in",
+        stats: {
+          alumniNetwork: "50,000+",
+          activeInstitutions: 12,
+          connectionsMade: "25,000+",
+          jobPlacements: "3,200+",
+          mentorshipSessions: "5,600+"
+        },
+        news: [
+          "Upcoming Tech Summit - Jan 15, 2026",
+          "Virtual Career Fair - Feb 20, 2026",
+          "Alumni Reunion - March 30, 2026"
+        ]
+      },
+      "Thapar University": {
+        location: "Patiala",
+        established: 1956,
+        students: 8000,
+        alumni: 35000,
+        website: "https://www.thapar.edu",
+        stats: {
+          alumniNetwork: "35,000+",
+          activeInstitutions: 5,
+          connectionsMade: "10,000+",
+          jobPlacements: "1,200+",
+          mentorshipSessions: "2,500+"
+        },
+        news: [
+          "Career Fair 2026 - Feb 20, 2026",
+          "Entrepreneurship Workshop - Apr 10, 2026"
+        ]
+      },
+      "Lovely Professional University": {
+        location: "Phagwara",
+        established: 2005,
+        students: 30000,
+        alumni: 45000,
+        website: "https://www.lpu.co.in",
+        stats: {
+          alumniNetwork: "45,000+",
+          activeInstitutions: 7,
+          connectionsMade: "15,000+",
+          jobPlacements: "2,800+",
+          mentorshipSessions: "3,500+"
+        },
+        news: [
+          "Virtual Global Alumni Meet - Jan 30, 2026",
+          "Student Innovation Day - Mar 15, 2026"
+        ]
+      }
+      // Add more institutions as needed
+    };
+
+    function getQueryParam(param) {
       const params = new URLSearchParams(window.location.search);
-      return params.get('institution') || 'Selected Institution';
+      return params.get(param);
     }
 
-    // Populate institution-specific info
-    function populateInstitutionData(institution) {
-      const instNameElem = document.getElementById('institution-name');
-      const instDetailsElem = document.getElementById('institution-details');
+    function displayDashboard(institution) {
+      const info = institutionsInfo[institution];
+      const institutionNameEl = document.getElementById('institution-name');
+      const institutionInfoEl = document.getElementById('institution-info');
+      const statsCardsEl = document.getElementById('stats-cards');
+      const newsCardsEl = document.getElementById('news-cards');
+      const quickLinksEl = document.getElementById('quick-links');
 
-      instNameElem.textContent = institution + ' Dashboard';
+      institutionNameEl.textContent = institution + " Dashboard";
+      if (!info) {
+        institutionInfoEl.textContent = "Information not available for selected institution.";
+        statsCardsEl.innerHTML = "";
+        newsCardsEl.innerHTML = "";
+        quickLinksEl.innerHTML = "";
+        return;
+      }
 
-      const institutionsInfo = {
-        'Punjab University': `
-          <p><strong>Location:</strong> Chandigarh</p>
-          <p><strong>Established:</strong> 1882</p>
-          <p><strong>Students:</strong> 15,000</p>
-          <p><strong>Alumni:</strong> 50,000+</p>
-          <p><strong>Website:</strong> <a href="https://www.pu.ac.in" target="_blank">pu.ac.in</a></p>
-        `,
-        'Punjab Engineering College': `
-          <p><strong>Location:</strong> Chandigarh</p>
-          <p><strong>Established:</strong> 1921</p>
-          <p><strong>Students:</strong> 3,000</p>
-          <p><strong>Alumni:</strong> 25,000+</p>
-          <p><strong>Website:</strong> <a href="https://www.pec.ac.in" target="_blank">pec.ac.in</a></p>
-        `,
-        'Thapar University': `
-          <p><strong>Location:</strong> Patiala</p>
-          <p><strong>Established:</strong> 1956</p>
-          <p><strong>Students:</strong> 8,000</p>
-          <p><strong>Alumni:</strong> 35,000+</p>
-          <p><strong>Website:</strong> <a href="https://www.thapar.edu" target="_blank">thapar.edu</a></p>
-        `,
-        'Lovely Professional University': `
-          <p><strong>Location:</strong> Phagwara</p>
-          <p><strong>Established:</strong> 2005</p>
-          <p><strong>Students:</strong> 30,000</p>
-          <p><strong>Alumni:</strong> 45,000+</p>
-          <p><strong>Website:</strong> <a href="https://www.lpu.in" target="_blank">lpu.in</a></p>
-        `
-      };
+      institutionInfoEl.innerHTML = `
+        <p><strong>Location:</strong> ${info.location}</p>
+        <p><strong>Established:</strong> ${info.established}</p>
+        <p><strong>Students:</strong> ${info.students.toLocaleString()}</p>
+        <p><strong>Alumni:</strong> ${info.alumni.toLocaleString()}+</p>
+        <p><strong>Website:</strong> <a href="${info.website}" target="_blank">${info.website}</a></p>`;
 
-      instDetailsElem.innerHTML = institutionsInfo[institution] || '<p>Information not available.</p>';
+      statsCardsEl.innerHTML = `
+        <div class="card">
+          <h3>Platform Statistics</h3>
+          <ul>
+            <li><strong>Alumni Network:</strong> ${info.stats.alumniNetwork}</li>
+            <li><strong>Active Institutions:</strong> ${info.stats.activeInstitutions}</li>
+            <li><strong>Connections Made:</strong> ${info.stats.connectionsMade}</li>
+            <li><strong>Job Placements:</strong> ${info.stats.jobPlacements}</li>
+            <li><strong>Mentorship Sessions:</strong> ${info.stats.mentorshipSessions}</li>
+          </ul>
+        </div>`;
+
+      newsCardsEl.innerHTML = `
+        <div class="card">
+          <h3>Recent News & Events</h3>
+          <ul>
+            ${info.news.map(item => `<li>${item}</li>`).join("")}
+          </ul>
+        </div>`;
+
+      quickLinksEl.innerHTML = `
+        <div class="card">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="alumni.html?institution=${encodeURIComponent(institution)}">Alumni Directory</a></li>
+            <li><a href="jobs.html?institution=${encodeURIComponent(institution)}">Job Opportunities</a></li>
+            <li><a href="mentorship.html?institution=${encodeURIComponent(institution)}">Mentorship Program</a></li>
+            <li><a href="donations.html?institution=${encodeURIComponent(institution)}">Support & Donations</a></li>
+          </ul>
+        </div>
+      `;
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const institution = getInstitutionFromURL();
-      populateInstitutionData(institution);
+    window.addEventListener('DOMContentLoaded', () => {
+      const institution = getQueryParam('institution') || 'Punjab University';
+      displayDashboard(institution);
     });
   </script>
 </body>
