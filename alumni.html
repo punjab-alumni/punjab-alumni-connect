@@ -54,6 +54,7 @@
         <li><a href="mentorship.html">Mentorship</a></li>
         <li><a href="donations.html">Donations</a></li>
         <li><a href="settings.html">Settings</a></li>
+        <li><button id="logout-btn" style="background:none;border:none;color:#4fd7a5;cursor:pointer;">Logout</button></li>
       </ul>
     </nav>
   </header>
@@ -177,11 +178,7 @@
     const pageTitle = document.getElementById('page-title');
     const description = document.getElementById('description');
     const searchInput = document.getElementById('search');
-
-    function getQueryParam(param) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
-    }
+    const logoutBtn = document.getElementById('logout-btn');
 
     function displayAlumni(institution) {
       pageTitle.textContent = `${institution} Alumni Directory`;
@@ -219,8 +216,20 @@
       });
     });
 
+    logoutBtn.addEventListener('click', () => {
+      localStorage.clear();
+      window.location.href = 'login.html';
+    });
+
     window.addEventListener('DOMContentLoaded', () => {
-      const institution = getQueryParam('institution') || 'Punjab University';
+      const institution = localStorage.getItem('loggedInInstitution');
+      const email = localStorage.getItem('loggedInEmail');
+
+      if (!institution || !email) {
+        window.location.href = 'login.html';  // redirect if not logged in
+        return;
+      }
+
       displayAlumni(institution);
     });
   </script>
