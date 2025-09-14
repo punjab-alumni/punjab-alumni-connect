@@ -7,19 +7,53 @@
   <title>Dashboard - Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Basic dashboard card styling */
     .card {
       background: rgba(255 255 255 / 0.1);
       padding: 1rem;
       border-radius: 10px;
       margin-bottom: 1.5rem;
     }
+
     .card ul {
       list-style-type: none;
       padding-left: 0;
     }
+
     .card ul li {
       padding: 0.3rem 0;
+    }
+
+    nav ul.nav-list {
+      list-style: none;
+      display: flex;
+      gap: 12px;
+      padding: 0;
+      background: rgba(255 255 255 / 0.1);
+      border-radius: 8px;
+      margin: 0 0 1rem;
+      align-items: center;
+    }
+
+    nav ul.nav-list li a,
+    nav ul.nav-list li button {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      display: block;
+      border-radius: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+
+    nav ul.nav-list li a.active,
+    nav ul.nav-list li a:hover,
+    nav ul.nav-list li button:hover {
+      background: #4fd7a5;
+      color: #0a1a0f;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -29,13 +63,14 @@
     <nav>
       <ul class="nav-list">
         <li><a href="index.html">Home</a></li>
-        <li><a href="dashboard.html" class="active">Dashboard</a></li>
-        <li><a href="alumni.html">Alumni</a></li>
-        <li><a href="events.html">Events</a></li>
-        <li><a href="jobs.html">Jobs</a></li>
-        <li><a href="mentorship.html">Mentorship</a></li>
-        <li><a href="donations.html">Donations</a></li>
-        <li><a href="settings.html">Settings</a></li>
+        <li><a href="dashboard.html" id="dashboard-link" class="active">Dashboard</a></li>
+        <li><a href="alumni.html" id="alumni-link">Alumni</a></li>
+        <li><a href="events.html" id="events-link">Events</a></li>
+        <li><a href="jobs.html" id="jobs-link">Jobs</a></li>
+        <li><a href="mentorship.html" id="mentorship-link">Mentorship</a></li>
+        <li><a href="donations.html" id="donations-link">Donations</a></li>
+        <li><a href="settings.html" id="settings-link">Settings</a></li>
+        <li><button id="logout-btn">Logout</button></li>
       </ul>
     </nav>
   </header>
@@ -181,11 +216,6 @@
       }
     };
 
-    function getQueryParam(param) {
-      const params = new URLSearchParams(window.location.search);
-      return params.get(param);
-    }
-
     function displayDashboard(institution) {
       const info = institutionsInfo[institution];
       const institutionNameEl = document.getElementById('institution-name');
@@ -234,18 +264,39 @@
         <div class="card">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="alumni.html?institution=${encodeURIComponent(institution)}">Alumni Directory</a></li>
-            <li><a href="jobs.html?institution=${encodeURIComponent(institution)}">Job Opportunities</a></li>
-            <li><a href="mentorship.html?institution=${encodeURIComponent(institution)}">Mentorship Program</a></li>
-            <li><a href="donations.html?institution=${encodeURIComponent(institution)}">Support & Donations</a></li>
+            <li><a href="alumni.html">Alumni Directory</a></li>
+            <li><a href="jobs.html">Job Opportunities</a></li>
+            <li><a href="mentorship.html">Mentorship Program</a></li>
+            <li><a href="donations.html">Support & Donations</a></li>
           </ul>
         </div>
       `;
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      const institution = getQueryParam('institution') || 'Punjab University';
+      const institution = localStorage.getItem('loggedInInstitution');
+      const email = localStorage.getItem('loggedInEmail');
+
+      if (!institution || !email) {
+        window.location.href = 'login.html'; // Not logged in, redirect
+        return;
+      }
+
       displayDashboard(institution);
+
+      // Update navigation links to keep session, not passing institution in URL now
+      document.getElementById('alumni-link').href = 'alumni.html';
+      document.getElementById('jobs-link').href = 'jobs.html';
+      document.getElementById('events-link').href = 'events.html';
+      document.getElementById('mentorship-link').href = 'mentorship.html';
+      document.getElementById('donations-link').href = 'donations.html';
+      document.getElementById('settings-link').href = 'settings.html';
+
+      // Logout button clears session and redirects to login
+      document.getElementById('logout-btn').addEventListener('click', () => {
+        localStorage.clear();
+        window.location.href = 'login.html';
+      });
     });
   </script>
 </body>
