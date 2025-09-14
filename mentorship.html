@@ -84,57 +84,76 @@
   </main>
 
   <script>
-    const mentorsData = {
+    // Alumni as mentors with 3+ per university
+    const alumniAsMentors = {
       "Punjab University": [
         { name: "Dr. Rajesh Kumar", expertise: "Machine Learning, Cloud Computing", contact: "rajesh.kumar@pu.edu", bio: "Expert in AI and cloud technologies with 10+ years experience." },
-        { name: "Priya Sharma", expertise: "Product Management, Leadership", contact: "priya.sharma@pu.edu", bio: "Seasoned Product Manager passionate about mentoring." }
+        { name: "Priya Sharma", expertise: "Product Management, Leadership", contact: "priya.sharma@pu.edu", bio: "Seasoned Product Manager passionate about mentoring." },
+        { name: "Amit Joshi", expertise: "Cybersecurity, Network Architecture", contact: "amit.joshi@pu.edu", bio: "Security analyst and mentor for cybersecurity students." }
       ],
       "Thapar University": [
         { name: "Arjun Mehta", expertise: "Data Science, AI", contact: "arjun.mehta@thapar.edu", bio: "Helping students excel in analytics." },
-        { name: "Simran Kaur", expertise: "Civil Engineering, Project Management", contact: "simran.kaur@thapar.edu", bio: "Experienced civil engineer and mentor." }
+        { name: "Simran Kaur", expertise: "Civil Engineering, Project Management", contact: "simran.kaur@thapar.edu", bio: "Experienced civil engineer and mentor." },
+        { name: "Harpreet Singh", expertise: "Software Engineering, Agile Processes", contact: "harpreet.singh@thapar.edu", bio: "Senior software developer and coach." }
       ],
       "Lovely Professional University": [
         { name: "Vikram Patel", expertise: "Entrepreneurship, Innovation", contact: "vikram.patel@lpu.co.in", bio: "Startup founder and innovation enthusiast." },
-        { name: "Neha Gupta", expertise: "Marketing, Leadership", contact: "neha.gupta@lpu.co.in", bio: "Marketing head passionate about mentoring young professionals." }
+        { name: "Neha Gupta", expertise: "Marketing, Leadership", contact: "neha.gupta@lpu.co.in", bio: "Marketing head passionate about mentoring young professionals." },
+        { name: "Sanjay Kumar", expertise: "Electrical Engineering, R&D", contact: "sanjay.kumar@lpu.co.in", bio: "Research leader with focus on sustainable tech." }
       ],
       "Punjab Engineering College": [
-        { name: "Amit Singh", expertise: "Distributed Systems, Leadership", contact: "amit.singh@pec.edu.in", bio: "Engineering manager and leadership coach." }
+        { name: "Amit Singh", expertise: "Distributed Systems, Leadership", contact: "amit.singh@pec.edu.in", bio: "Engineering manager and leadership coach." },
+        { name: "Kavita Mehta", expertise: "Automation, Robotics", contact: "kavita.mehta@pec.edu.in", bio: "Robotics expert mentoring automation students." },
+        { name: "Rohan Sharma", expertise: "Data Analytics, Cloud Computing", contact: "rohan.sharma@pec.edu.in", bio: "Cloud architect and mentor." }
       ],
       "Guru Nanak Dev University": [
-        { name: "Jaspreet Singh", expertise: "Nanotechnology, Quantum Physics", contact: "jaspreet.singh@gndu.ac.in", bio: "Research scientist and mentor." }
+        { name: "Jaspreet Singh", expertise: "Nanotechnology, Quantum Physics", contact: "jaspreet.singh@gndu.ac.in", bio: "Research scientist and mentor." },
+        { name: "Manpreet Kaur", expertise: "Environmental Science, Sustainability", contact: "manpreet.kaur@gndu.ac.in", bio: "Mentoring in environmental research." },
+        { name: "Balraj Gill", expertise: "Mechanical Engineering, Design", contact: "balraj.gill@gndu.ac.in", bio: "Engineer and design consultant." }
       ],
       "Chandigarh University": [
-        { name: "Neeraj Sharma", expertise: "Cloud Solutions, DevOps", contact: "neeraj.sharma@cu.in", bio: "Cloud engineer focused on career mentoring." }
+        { name: "Neeraj Sharma", expertise: "Cloud Solutions, DevOps", contact: "neeraj.sharma@cu.in", bio: "Cloud engineer focused on career mentoring." },
+        { name: "Mira Singh", expertise: "Software Testing, QA", contact: "mira.singh@cu.in", bio: "QA lead and student mentor." },
+        { name: "Ravi Kumar", expertise: "Network Security, Systems", contact: "ravi.kumar@cu.in", bio: "Security analyst with strong mentorship skills." }
       ],
       "Punjab Agricultural University": [
-        { name: "Baljit Kaur", expertise: "Agronomy, Soil Science", contact: "baljit.kaur@pau.ac.in", bio: "Agricultural scientist mentoring research projects." }
+        { name: "Baljit Kaur", expertise: "Agronomy, Soil Science", contact: "baljit.kaur@pau.ac.in", bio: "Agricultural scientist mentoring research projects." },
+        { name: "Gurpreet Singh", expertise: "Crop Genomics, Biotechnology", contact: "gurpreet.singh@pau.ac.in", bio: "Researcher in plant science and mentor." },
+        { name: "Simran Kaur", expertise: "Farm Management, Sustainability", contact: "simran.kaur@pau.ac.in", bio: "Advisor on sustainable farming methods." }
       ]
     };
 
-    const studentsData = {
+    // Students as mentees with at least 2 per university
+    const studentsAsMentees = {
       "Punjab University": [
         { name: "Student A", department: "Computer Science", email: "studenta@pu.edu" },
-        { name: "Student B", department: "Electronics", email: "studentb@pu.edu" }
+        { name: "Student B", department: "Electronics", email: "studentb@pu.edu" },
+        { name: "Student C", department: "Mechanical Engineering", email: "studentc@pu.edu" }
       ],
       "Thapar University": [
-        { name: "Student C", department: "Mathematics", email: "studentc@thapar.edu" },
-        { name: "Student D", department: "Civil Engineering", email: "studentd@thapar.edu" }
+        { name: "Student D", department: "Mathematics", email: "studentd@thapar.edu" },
+        { name: "Student E", department: "Civil Engineering", email: "studente@thapar.edu" },
+        { name: "Student F", department: "Electrical Engineering", email: "studentf@thapar.edu" }
       ],
       "Lovely Professional University": [
-        { name: "Student E", department: "Mechanical Engineering", email: "studente@lpu.co.in" },
-        { name: "Student F", department: "Business Management", email: "studentf@lpu.co.in" }
+        { name: "Student G", department: "Mechanical Engineering", email: "studentg@lpu.co.in" },
+        { name: "Student H", department: "Business Management", email: "studenth@lpu.co.in" }
       ],
       "Punjab Engineering College": [
-        { name: "Student G", department: "Information Technology", email: "studentg@pec.edu.in" }
+        { name: "Student I", department: "Information Technology", email: "studenti@pec.edu.in" },
+        { name: "Student J", department: "Computer Science", email: "studentj@pec.edu.in" }
       ],
       "Guru Nanak Dev University": [
-        { name: "Student H", department: "Physics", email: "studenth@gndu.ac.in" }
+        { name: "Student K", department: "Physics", email: "studentk@gndu.ac.in" },
+        { name: "Student L", department: "Chemistry", email: "studentl@gndu.ac.in" }
       ],
       "Chandigarh University": [
-        { name: "Student I", department: "Computer Applications", email: "studenti@cu.in" }
+        { name: "Student M", department: "Computer Applications", email: "studentm@cu.in" },
+        { name: "Student N", department: "Electronics", email: "studentn@cu.in" }
       ],
       "Punjab Agricultural University": [
-        { name: "Student J", department: "Agronomy", email: "studentj@pau.ac.in" }
+        { name: "Student O", department: "Agronomy", email: "studento@pau.ac.in" },
+        { name: "Student P", department: "Plant Pathology", email: "studentp@pau.ac.in" }
       ]
     };
 
@@ -181,26 +200,25 @@
       const description = document.getElementById('description');
 
       if (role === 'student') {
-        description.textContent = 'Connect with experienced mentors from your institution.';
-        const mentors = mentorsData[institution] || [];
-        mentorsList.innerHTML = mentors.length
-          ? mentors.map(createMentorCard).join('')
-          : '<p>No mentors available.</p>';
+        description.textContent = 'Connect with experienced alumni mentors from your institution.';
+        const mentors = alumniAsMentors[institution] || [];
+        mentorsList.innerHTML = mentors.length ?
+          mentors.map(createMentorCard).join('') : '<p>No mentors available.</p>';
         studentsList.innerHTML = '';
       } else if (role === 'alumni') {
         description.textContent = 'Connect with students seeking mentorship from your institution.';
-        const students = studentsData[institution] || [];
-        studentsList.innerHTML = students.length
-          ? students.map(createStudentCard).join('')
-          : '<p>No students available for mentorship.</p>';
+        const students = studentsAsMentees[institution] || [];
+        studentsList.innerHTML = students.length ?
+          students.map(createStudentCard).join('') : '<p>No students available for mentorship.</p>';
         mentorsList.innerHTML = '';
       } else if (role === 'admin') {
-        description.textContent = 'Manage mentors and students mentorship connections.';
-        const mentors = mentorsData[institution] || [];
-        const students = studentsData[institution] || [];
-
-        mentorsList.innerHTML = '<h2>Mentors</h2>' + (mentors.length ? mentors.map(createMentorCard).join('') : '<p>No mentors available.</p>');
-        studentsList.innerHTML = '<h2>Students</h2>' + (students.length ? students.map(createStudentCard).join('') : '<p>No students available.</p>');
+        description.textContent = 'Manage both mentors (alumni) and students mentorship connections.';
+        const mentors = alumniAsMentors[institution] || [];
+        const students = studentsAsMentees[institution] || [];
+        mentorsList.innerHTML = '<h2>Mentors (Alumni)</h2>' +
+          (mentors.length ? mentors.map(createMentorCard).join('') : '<p>No mentors available.</p>');
+        studentsList.innerHTML = '<h2>Students</h2>' +
+          (students.length ? students.map(createStudentCard).join('') : '<p>No students available.</p>');
       }
 
       document.getElementById('logout-btn').addEventListener('click', () => {
