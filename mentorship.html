@@ -4,41 +4,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mentorship - Punjab Alumni Connect</title>
+  <title>Events - Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    .mentor-profile {
+    .event-card {
       background: rgba(255 255 255 / 0.1);
       padding: 1rem;
       margin-bottom: 1rem;
       border-radius: 10px;
     }
-    .mentor-profile h3 {
+
+    .event-card h3 {
       margin-top: 0;
     }
-    .btn {
-      background: #4fd7a5;
+
+    header ul.nav-list li button {
+      background: none;
       border: none;
-      border-radius: 20px;
-      padding: 0.5rem 1rem;
-      color: #0a1a0f;
-      font-weight: 600;
+      color: #4fd7a5;
       cursor: pointer;
-      margin-top: 0.5rem;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
     }
-    form label {
-      font-weight: 600;
-      margin-top: 1rem;
-      display: block;
-      margin-bottom: 0.3rem;
-    }
-    form input {
-      width: 100%;
-      padding: 8px;
-      border-radius: 8px;
-      border: none;
-      margin-bottom: 0.8rem;
-      outline: none;
+
+    header ul.nav-list li button:hover {
+      background-color: #36b390;
+      color: #0a1a0f;
+      font-weight: bold;
+      border-radius: 6px;
     }
   </style>
 </head>
@@ -50,130 +43,95 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="dashboard.html">Dashboard</a></li>
         <li><a href="alumni.html">Alumni</a></li>
-        <li><a href="events.html">Events</a></li>
+        <li><a href="events.html" class="active">Events</a></li>
         <li><a href="jobs.html">Jobs</a></li>
-        <li><a href="mentorship.html" class="active">Mentorship</a></li>
+        <li><a href="mentorship.html">Mentorship</a></li>
         <li><a href="donations.html">Donations</a></li>
         <li><a href="settings.html">Settings</a></li>
+        <li><button id="logout-btn">Logout</button></li>
       </ul>
     </nav>
   </header>
 
   <main class="container">
-    <h1 id="page-title">Mentorship Program</h1>
-    <p id="description">Connect with mentors from your institution.</p>
-
-    <div id="mentor-list"></div>
-
-    <section style="margin-top: 2rem;">
-      <h2>Become a Mentor</h2>
-      <form id="mentor-signup-form">
-        <label for="name">Name:</label>
-        <input type="text" id="name" required />
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" required />
-
-        <label for="expertise">Expertise:</label>
-        <input type="text" id="expertise" required />
-
-        <label for="experience">Years of Experience:</label>
-        <input type="number" id="experience" min="1" required />
-
-        <button type="submit" class="btn">Sign Up</button>
-      </form>
-      <div id="signup-message" style="margin-top: 10px; color: #4fd7a5;"></div>
-    </section>
+    <h1 id="page-title">Upcoming Events</h1>
+    <div id="events-list"></div>
   </main>
 
   <script>
-    const mentorsData = {
+    const eventsData = {
       "Punjab University": [
-        { name: "Dr. Rajesh Kumar", position: "Senior Software Engineer", company: "Google India", expertise: "Software Engineering, Cloud Computing" },
-        { name: "Priya Sharma", position: "Product Manager", company: "Microsoft", expertise: "Product Strategy, Leadership" }
-      ],
-      "Punjab Engineering College": [
-        { name: "Amit Singh", position: "Engineering Manager", company: "Amazon", expertise: "Distributed Systems, Leadership" },
-        { name: "Neha Verma", position: "System Analyst", company: "TCS", expertise: "Systems Analysis, Security" }
+        { title: "Tech Summit 2026", date: "2026-01-15", location: "Chandigarh", description: "Annual technology summit showcasing research and innovation." },
+        { title: "Virtual Career Fair", date: "2026-02-20", location: "Online", description: "Connect with companies and explore job opportunities remotely." },
+        { title: "Alumni Reunion", date: "2026-03-30", location: "Chandigarh", description: "Celebrate with fellow alumni and network." }
       ],
       "Thapar University": [
-        { name: "Arjun Mehta", position: "Data Scientist", company: "Flipkart", expertise: "Data Science, AI" },
-        { name: "Simran Kaur", position: "Civil Engineer", company: "L&T", expertise: "Infrastructure, Project Management" }
+        { title: "Career Fair 2026", date: "2026-02-20", location: "Patiala", description: "Meet potential employers and learn about industry trends." },
+        { title: "Entrepreneurship Workshop", date: "2026-04-10", location: "Patiala", description: "Workshop on starting and growing startups." }
       ],
       "Lovely Professional University": [
-        { name: "Vikram Patel", position: "Entrepreneur", company: "TechStartup Inc.", expertise: "Entrepreneurship, Fundraising" },
-        { name: "Neha Gupta", position: "Marketing Head", company: "Infosys", expertise: "Marketing Strategy" }
+        { title: "Global Alumni Meet", date: "2026-01-30", location: "Online", description: "Virtual meet for alumni worldwide." },
+        { title: "Student Innovation Day", date: "2026-03-15", location: "Phagwara", description: "Showcase of student projects and innovations." }
+      ],
+      "Punjab Engineering College": [
+        { title: "Engineering Workshop", date: "2026-04-05", location: "Chandigarh", description: "Hands-on workshop on latest engineering tools." },
+        { title: "Alumni Meet", date: "2025-12-10", location: "Chandigarh", description: "Networking event for alumni." }
       ],
       "Guru Nanak Dev University": [
-        { name: "Jaspreet Singh", position: "Research Scientist", company: "IIT Delhi", expertise: "Nanotechnology, Quantum Physics" }
+        { title: "Annual Cultural Fest", date: "2026-01-20", location: "Amritsar", description: "Cultural activities and celebrations." },
+        { title: "Research Conference", date: "2026-02-15", location: "Amritsar", description: "Conference presenting latest research." }
       ],
       "Chandigarh University": [
-        { name: "Neeraj Sharma", position: "Software Developer", company: "SAP", expertise: "Java, Cloud Solutions" }
+        { title: "Innovation Meetup", date: "2026-03-25", location: "Chandigarh", description: "Meetup for entrepreneurs and innovators." },
+        { title: "Spring Fest", date: "2026-04-10", location: "Chandigarh", description: "Annual spring festival." }
       ],
       "Punjab Agricultural University": [
-        { name: "Baljit Kaur", position: "Agricultural Scientist", company: "PAU Research Center", expertise: "Crop Science, Soil Management" }
+        { title: "Agricultural Expo", date: "2026-01-18", location: "Ludhiana", description: "Exhibition of agricultural technologies." },
+        { title: "Farmers Meet", date: "2026-02-12", location: "Ludhiana", description: "Networking event for local farmers." }
       ]
     };
 
-    const mentorListEl = document.getElementById('mentor-list');
+    const eventsList = document.getElementById('events-list');
     const pageTitle = document.getElementById('page-title');
-    const description = document.getElementById('description');
+    const logoutBtn = document.getElementById('logout-btn');
 
-    function getQueryParam(param) {
-      const params = new URLSearchParams(window.location.search);
-      return params.get(param);
-    }
+    function displayEvents(institution) {
+      pageTitle.textContent = `${institution} - Upcoming Events`;
 
-    function displayMentors(institution) {
-      pageTitle.textContent = `${institution} Mentorship Program`;
-      description.textContent = `Connect with esteemed mentors from ${institution}.`;
-
-      const mentors = mentorsData[institution] || [];
-      if (mentors.length === 0) {
-        mentorListEl.innerHTML = '<p>No mentors available for this institution currently.</p>';
+      const events = eventsData[institution] || [];
+      if (events.length === 0) {
+        eventsList.innerHTML = "<p>No upcoming events available for this institution.</p>";
         return;
       }
 
-      let html = '';
-      mentors.forEach(mentor => {
-        html += `
-          <div class="mentor-profile">
-            <h3>${mentor.name}</h3>
-            <p><strong>Position:</strong> ${mentor.position} at ${mentor.company}</p>
-            <p><strong>Expertise:</strong> ${mentor.expertise}</p>
-            <button class="btn connect-btn">Request Mentorship</button>
-          </div>
-        `;
+      let html = "";
+      events.forEach(event => {
+        html += `<div class="event-card">
+          <h3>${event.title}</h3>
+          <p><strong>Date:</strong> ${event.date}</p>
+          <p><strong>Location:</strong> ${event.location}</p>
+          <p>${event.description}</p>
+        </div>`;
       });
-      mentorListEl.innerHTML = html;
 
-      document.querySelectorAll('.connect-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          alert('Mentorship request feature coming soon!');
-        });
-      });
+      eventsList.innerHTML = html;
     }
 
-    document.getElementById('mentor-signup-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const expertise = document.getElementById('expertise').value.trim();
-      const experience = document.getElementById('experience').value.trim();
-
-      if (!name || !email || !expertise || !experience) {
-        alert('Please fill in all fields');
-        return;
-      }
-
-      document.getElementById('signup-message').textContent = `Thank you, ${name}! We have received your mentorship request and will contact you shortly.`;
-      this.reset();
+    logoutBtn.addEventListener('click', () => {
+      localStorage.clear();
+      window.location.href = 'login.html';
     });
 
     window.addEventListener('DOMContentLoaded', () => {
-      const institution = getQueryParam('institution') || 'Punjab University';
-      displayMentors(institution);
+      const institution = localStorage.getItem('loggedInInstitution');
+      const email = localStorage.getItem('loggedInEmail');
+
+      if (!institution || !email) {
+        window.location.href = 'login.html';
+        return;
+      }
+
+      displayEvents(institution);
     });
   </script>
 </body>
