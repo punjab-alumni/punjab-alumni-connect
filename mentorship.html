@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mentorship - Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 
 <body>
@@ -26,133 +25,112 @@
   </header>
 
   <main class="container">
-    <h1>Mentorship Program</h1>
-    <p>Connect with experienced alumni mentors or become a mentor yourself.</p>
+    <h1 id="page-title">Mentorship Program</h1>
+    <p id="description">Connect with and become mentors at your institution.</p>
 
-    <div class="mentorship-forms">
-      <section class="card mentorship-section">
-        <h2>Find a Mentor</h2>
-        <input type="text" id="mentorSearch" placeholder="Search mentors by name or expertise" style="width:100%; padding:10px; margin-bottom:10px; border-radius:6px; border:none;">
-        <button class="btn" onclick="alert('Mentor search coming soon')">Search</button>
-
-        <div id="mentorResults" style="margin-top:20px;">
-          <!-- Mentor profiles will appear here -->
-          <div class="card mentorship-profile">
-            <div class="mentorship-avatar">👨‍💻</div>
-            <h3>Dr. Rajesh Kumar</h3>
-            <p>Senior Software Engineer, Google India</p>
-            <p>Expertise: Software Engineering, AI, Cloud</p>
-            <button class="btn" onclick="alert('Request sent!')">Request Mentorship</button>
-          </div>
-
-          <div class="card mentorship-profile">
-            <div class="mentorship-avatar">👩‍💼</div>
-            <h3>Priya Sharma</h3>
-            <p>Product Manager, Microsoft</p>
-            <p>Expertise: Product Strategy, Leadership</p>
-            <button class="btn" onclick="alert('Request sent!')">Request Mentorship</button>
-          </div>
-
-          <div class="card mentorship-profile">
-            <div class="mentorship-avatar">👨‍🔧</div>
-            <h3>Vikram Patel</h3>
-            <p>Entrepreneur & CEO, TechStartup Inc.</p>
-            <p>Expertise: Entrepreneurship, Fundraising</p>
-            <button class="btn" onclick="alert('Request sent!')">Request Mentorship</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="card mentorship-section">
-        <h2>Become a Mentor</h2>
-        <form id="mentorForm">
-          <label for="mentorName">Name</label>
-          <input type="text" id="mentorName" required />
-
-          <label for="mentorEmail">Email</label>
-          <input type="email" id="mentorEmail" required />
-
-          <label for="mentorExpertise">Expertise</label>
-          <input type="text" id="mentorExpertise" required />
-
-          <label for="mentorExperience">Years of Experience</label>
-          <input type="number" id="mentorExperience" min="1" required />
-
-          <button type="submit" class="btn">Sign Up as Mentor</button>
-        </form>
-
-        <div id="mentorSignupMessage" style="margin-top:10px; color:#4fd7a5;"></div>
-      </section>
+    <div id="mentor-list">
+      <!-- Mentor profiles will be inserted here -->
     </div>
+
+    <section style="margin-top: 2rem;">
+      <h2>Become a Mentor</h2>
+      <form id="mentor-signup-form">
+        <label for="name">Name:</label><br />
+        <input type="text" id="name" required /><br />
+
+        <label for="email">Email:</label><br />
+        <input type="email" id="email" required /><br />
+
+        <label for="expertise">Expertise:</label><br />
+        <input type="text" id="expertise" required /><br />
+
+        <label for="experience">Years of Experience:</label><br />
+        <input type="number" id="experience" min="1" required /><br /><br />
+
+        <button type="submit" class="btn">Sign Up</button>
+      </form>
+      <div id="signup-message" style="margin-top: 10px; color: #4fd7a5;"></div>
+    </section>
   </main>
 
   <script>
-    document.getElementById('mentorForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const name = document.getElementById('mentorName').value.trim();
-      const email = document.getElementById('mentorEmail').value.trim();
-      const expertise = document.getElementById('mentorExpertise').value.trim();
-      const experience = document.getElementById('mentorExperience').value.trim();
+    const mentorsData = {
+      "Punjab University": [
+        { name: "Dr. Rajesh Kumar", position: "Senior Software Engineer", company: "Google India", expertise: "Software Engineering, Cloud Computing" },
+        { name: "Priya Sharma", position: "Product Manager", company: "Microsoft", expertise: "Product Strategy, Leadership" }
+      ],
+      "Thapar University": [
+        { name: "Arjun Mehta", position: "Data Scientist", company: "Flipkart", expertise: "Data Science, AI" },
+        { name: "Simran Kaur", position: "Civil Engineer", company: "L&T", expertise: "Infrastructure, Project Management" }
+      ],
+      "Lovely Professional University": [
+        { name: "Vikram Patel", position: "Entrepreneur", company: "TechStartup Inc.", expertise: "Entrepreneurship, Fundraising" },
+        { name: "Neha Gupta", position: "Marketing Head", company: "Infosys", expertise: "Marketing Strategy" }
+      ]
+      // Add more mentors for other institutes as needed
+    };
 
-      if (!name || !email || !expertise || !experience) {
-        alert('Please fill in all fields.');
+    const mentorListEl = document.getElementById('mentor-list');
+    const pageTitle = document.getElementById('page-title');
+    const description = document.getElementById('description');
+
+    function getQueryParam(param) {
+      return new URLSearchParams(window.location.search).get(param);
+    }
+
+    function displayMentors(institution) {
+      pageTitle.textContent = `${institution} Mentorship Program`;
+      description.textContent = `Connect with esteemed mentors from ${institution}.`;
+
+      const mentors = mentorsData[institution] || [];
+      if (mentors.length === 0) {
+        mentorListEl.innerHTML = '<p>No mentors available for this institution currently.</p>';
         return;
       }
-      // Here you can add form submission logic like sending data to server
-      document.getElementById('mentorSignupMessage').textContent = `Thank you, ${name}! Your mentor profile submission is received. We will contact you soon.`;
+
+      let html = '';
+      mentors.forEach(mentor => {
+        html += `
+          <div class="card" style="margin-bottom: 1rem;">
+            <h3>${mentor.name}</h3>
+            <p><strong>Position:</strong> ${mentor.position} at ${mentor.company}</p>
+            <p><strong>Expertise:</strong> ${mentor.expertise}</p>
+            <button class="btn connect-btn">Request Mentorship</button>
+          </div>
+        `;
+      });
+      mentorListEl.innerHTML = html;
+
+      document.querySelectorAll('.connect-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          alert('Mentorship request feature coming soon!');
+        });
+      });
+    }
+
+    document.getElementById('mentor-signup-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const expertise = document.getElementById('expertise').value.trim();
+      const experience = document.getElementById('experience').value.trim();
+
+      if (!name || !email || !expertise || !experience) {
+        alert('Please fill in all fields');
+        return;
+      }
+
+      // Simulate signup success
+      document.getElementById('signup-message').textContent = `Thank you, ${name}! We have received your mentorship request and will contact you shortly.`;
       this.reset();
     });
-  </script>
 
-  <style>
-    /* Additional styles for mentorship page */
-    .mentorship-forms {
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      margin-top: 2rem;
-    }
-    .mentorship-section {
-      flex: 1 1 45%;
-      padding: 1.5rem;
-      border-radius: 12px;
-      background: rgba(255 255 255 / 0.05);
-      backdrop-filter: blur(10px);
-    }
-    label {
-      display: block;
-      margin-top: 1rem;
-      margin-bottom: 0.4rem;
-    }
-    input[type="text"],
-    input[type="email"],
-    input[type="number"] {
-      width: 100%;
-      padding: 10px;
-      border-radius: 6px;
-      border: none;
-      outline: none;
-    }
-    .mentorship-profile {
-      margin-top: 1rem;
-      padding: 1rem;
-      border-radius: 10px;
-      background: rgba(255 255 255 / 0.1);
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    .mentorship-avatar {
-      font-size: 2.5rem;
-      background: linear-gradient(135deg, #4fd7a5, #81d9c9);
-      padding: 10px;
-      border-radius: 50%;
-      color: #0d1a0a;
-      width: 50px;
-      height: 50px;
-      text-align: center;
-      line-height: 50px;
-      user-select: none;
-    }
-  </style>
+    window.addEventListener('DOMContentLoaded', () => {
+      const institution = getQueryParam('institution') || 'Punjab University';
+      displayMentors(institution);
+    });
+  </script>
+</body>
+
 </html>
