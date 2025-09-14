@@ -26,90 +26,150 @@
   </header>
 
   <main class="container">
-    <section>
-      <h1>Alumni Directory</h1>
-      <p>Connect and network with fellow graduates across industries.</p>
+    <h1 id="page-title">Alumni Directory</h1>
+    <p id="description">Connect and network with fellow graduates.</p>
 
-      <input type="text" id="search-input" placeholder="Search alumni by name, company or department" style="width:100%; padding:10px; margin:20px 0; border-radius:8px; border:none;">
+    <input type="text" id="search" placeholder="Search alumni by name, company, or department" style="width:100%; padding:10px; margin:20px 0; border-radius:6px;" />
 
-      <div id="alumni-list">
-        <div class="card alumni-profile">
-          <div class="alumni-avatar">👨‍💻</div>
-          <div class="alumni-info">
-            <h3>Dr. Rajesh Kumar</h3>
-            <p>Senior Software Engineer at Google India</p>
-            <p>Batch: 2018 | Department: Computer Science</p>
-            <p>Expertise: Machine Learning, Cloud Computing</p>
-            <button class="btn">Connect</button>
-          </div>
-        </div>
-
-        <div class="card alumni-profile">
-          <div class="alumni-avatar">👩‍💼</div>
-          <div class="alumni-info">
-            <h3>Priya Sharma</h3>
-            <p>Product Manager at Microsoft</p>
-            <p>Batch: 2017 | Department: Electronics</p>
-            <p>Expertise: Product Strategy, Team Leadership</p>
-            <button class="btn">Connect</button>
-          </div>
-        </div>
-
-        <div class="card alumni-profile">
-          <div class="alumni-avatar">👨‍🔧</div>
-          <div class="alumni-info">
-            <h3>Amit Singh</h3>
-            <p>Engineering Manager at Amazon</p>
-            <p>Batch: 2016 | Department: Information Technology</p>
-            <p>Expertise: Distributed Systems, Leadership</p>
-            <button class="btn">Connect</button>
-          </div>
-        </div>
-
-        <div class="card alumni-profile">
-          <div class="alumni-avatar">👩‍⚕️</div>
-          <div class="alumni-info">
-            <h3>Dr. Neha Gupta</h3>
-            <p>Senior Data Scientist at Flipkart</p>
-            <p>Batch: 2019 | Department: Mathematics</p>
-            <p>Expertise: Data Science, AI/ML Research</p>
-            <button class="btn">Connect</button>
-          </div>
-        </div>
-
-        <div class="card alumni-profile">
-          <div class="alumni-avatar">🧑‍💼</div>
-          <div class="alumni-info">
-            <h3>Vikram Patel</h3>
-            <p>Startup Founder & CEO at TechStartup Inc.</p>
-            <p>Batch: 2015 | Department: Mechanical Engineering</p>
-            <p>Expertise: Entrepreneurship, Innovation</p>
-            <button class="btn">Connect</button>
-          </div>
-        </div>
-      </div>
-    </section>
+    <div id="alumni-list"></div>
   </main>
 
   <script>
-    // Simple client side search filter
+    const alumniData = {
+      "Punjab University": [
+        {
+          name: "Dr. Rajesh Kumar",
+          position: "Senior Software Engineer",
+          company: "Google India",
+          batch: "2018",
+          department: "Computer Science",
+          expertise: "Machine Learning, Cloud Computing"
+        },
+        {
+          name: "Priya Sharma",
+          position: "Product Manager",
+          company: "Microsoft",
+          batch: "2017",
+          department: "Electronics",
+          expertise: "Product Strategy, Leadership"
+        }
+      ],
+      "Punjab Engineering College": [
+        {
+          name: "Amit Singh",
+          position: "Engineering Manager",
+          company: "Amazon",
+          batch: "2016",
+          department: "Information Technology",
+          expertise: "Distributed Systems, Leadership"
+        },
+        {
+          name: "Neha Verma",
+          position: "System Analyst",
+          company: "TCS",
+          batch: "2015",
+          department: "Computer Science",
+          expertise: "Systems Analysis, Security"
+        }
+      ],
+      "Thapar University": [
+        {
+          name: "Arjun Mehta",
+          position: "Data Scientist",
+          company: "Flipkart",
+          batch: "2019",
+          department: "Mathematics",
+          expertise: "Data Analysis, AI"
+        },
+        {
+          name: "Simran Kaur",
+          position: "Civil Engineer",
+          company: "L&T",
+          batch: "2018",
+          department: "Civil Engineering",
+          expertise: "Project Management, Infrastructure"
+        }
+      ],
+      "Lovely Professional University": [
+        {
+          name: "Vikram Patel",
+          position: "Startup Founder & CEO",
+          company: "TechStartup Inc.",
+          batch: "2015",
+          department: "Mechanical Engineering",
+          expertise: "Entrepreneurship, Innovation"
+        },
+        {
+          name: "Neha Gupta",
+          position: "Marketing Head",
+          company: "Infosys",
+          batch: "2016",
+          department: "Business Management",
+          expertise: "Marketing Strategy, Leadership"
+        }
+      ]
+      // Add more institutions and their alumni as needed
+    };
 
-    const searchInput = document.getElementById('search-input');
-    const alumniProfiles = Array.from(document.querySelectorAll('.alumni-profile'));
+    const alumniList = document.getElementById('alumni-list');
+    const pageTitle = document.getElementById('page-title');
+    const description = document.getElementById('description');
+    const searchInput = document.getElementById('search');
 
+    // Function to get URL parameter
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    function displayAlumni(institution) {
+      pageTitle.textContent = `${institution} Alumni Directory`;
+      description.textContent = `Browse alumni from ${institution} and connect with fellow graduates.`;
+
+      const list = alumniData[institution] || [];
+      if (list.length === 0) {
+        alumniList.innerHTML = '<p>No alumni data available for this institution.</p>';
+        return;
+      }
+
+      let html = '';
+      list.forEach(alum => {
+        html += `
+          <div class="card alumni-profile">
+            <div class="alumni-avatar">👤</div>
+            <div class="alumni-info">
+              <h3>${alum.name}</h3>
+              <p>${alum.position} at ${alum.company}</p>
+              <p>Batch: ${alum.batch} | Department: ${alum.department}</p>
+              <p>Expertise: ${alum.expertise}</p>
+              <button class="btn connect-btn">Connect</button>
+            </div>
+          </div>
+        `;
+      });
+      alumniList.innerHTML = html;
+
+      // Add event listeners to Connect buttons
+      document.querySelectorAll('.connect-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          alert('Connect feature is coming soon!');
+        });
+      });
+    }
+
+    // Filter alumni on search input
     searchInput.addEventListener('input', () => {
       const query = searchInput.value.toLowerCase();
-      alumniProfiles.forEach(profile => {
+      document.querySelectorAll('.alumni-profile').forEach(profile => {
         const text = profile.textContent.toLowerCase();
-        profile.style.display = text.includes(query) ? 'flex' : 'none';
+        profile.style.display = text.includes(query) ? '' : 'none';
       });
     });
 
-    // Connect buttons - just a placeholder action
-    document.querySelectorAll('.btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        alert('Connect feature coming soon!');
-      });
+    // On page load, read institution and display alumni
+    window.addEventListener('DOMContentLoaded', () => {
+      const institution = getQueryParam('institution') || 'Punjab University';
+      displayAlumni(institution);
     });
   </script>
 </body>
