@@ -6,6 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard - Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Basic dashboard card styling */
+    .card {
+      background: rgba(255 255 255 / 0.1);
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+    }
+    .card ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .card ul li {
+      padding: 0.3rem 0;
+    }
+  </style>
 </head>
 
 <body>
@@ -90,8 +106,79 @@
           "Virtual Global Alumni Meet - Jan 30, 2026",
           "Student Innovation Day - Mar 15, 2026"
         ]
+      },
+      "Punjab Engineering College": {
+        location: "Chandigarh",
+        established: 1921,
+        students: 3000,
+        alumni: 25000,
+        website: "http://www.pec.edu.in",
+        stats: {
+          alumniNetwork: "25,000+",
+          activeInstitutions: 3,
+          connectionsMade: "5,000+",
+          jobPlacements: "1,100+",
+          mentorshipSessions: "2,000+"
+        },
+        news: [
+          "Engineering Workshop - Apr 5, 2026",
+          "Alumni Meet - Dec 10, 2025"
+        ]
+      },
+      "Guru Nanak Dev University": {
+        location: "Amritsar",
+        established: 1969,
+        students: 25000,
+        alumni: 40000,
+        website: "http://www.gndu.ac.in",
+        stats: {
+          alumniNetwork: "40,000+",
+          activeInstitutions: 6,
+          connectionsMade: "12,000+",
+          jobPlacements: "2,500+",
+          mentorshipSessions: "4,000+"
+        },
+        news: [
+          "Annual Cultural Fest - Jan 20, 2026",
+          "Research Conference - Feb 15, 2026"
+        ]
+      },
+      "Chandigarh University": {
+        location: "Chandigarh",
+        established: 2012,
+        students: 28000,
+        alumni: 35000,
+        website: "https://www.chandigarhuniversity.ac.in",
+        stats: {
+          alumniNetwork: "35,000+",
+          activeInstitutions: 4,
+          connectionsMade: "8,000+",
+          jobPlacements: "1,800+",
+          mentorshipSessions: "3,200+"
+        },
+        news: [
+          "Innovation Meetup - Mar 25, 2026",
+          "Spring Fest - Apr 10, 2026"
+        ]
+      },
+      "Punjab Agricultural University": {
+        location: "Ludhiana",
+        established: 1962,
+        students: 22000,
+        alumni: 30000,
+        website: "http://www.pau.edu",
+        stats: {
+          alumniNetwork: "30,000+",
+          activeInstitutions: 2,
+          connectionsMade: "6,000+",
+          jobPlacements: "1,100+",
+          mentorshipSessions: "2,700+"
+        },
+        news: [
+          "Agricultural Expo - Jan 18, 2026",
+          "Farmers Meet - Feb 12, 2026"
+        ]
       }
-      // Add more institutions as needed
     };
 
     function getQueryParam(param) {
