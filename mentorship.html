@@ -7,8 +7,7 @@
   <title>Mentorship Program - Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    .mentor-card,
-    .student-card {
+    .profile-card {
       background: rgba(255 255 255 / 0.1);
       padding: 1rem;
       margin-bottom: 1rem;
@@ -78,7 +77,7 @@
 
   <main class="container">
     <h1 id="page-title">Mentorship Program</h1>
-    <p id="description">Connect with experienced mentors from your institution.</p>
+    <p id="description">Connect with your mentorship community.</p>
 
     <div id="mentors-list"></div>
     <div id="students-list"></div>
@@ -88,10 +87,10 @@
     const mentorsData = {
       "Punjab University": [
         { name: "Dr. Rajesh Kumar", expertise: "Machine Learning, Cloud Computing", contact: "rajesh.kumar@pu.edu", bio: "Expert in AI and cloud technologies with 10+ years experience." },
-        { name: "Priya Sharma", expertise: "Product Management, Leadership", contact: "priya.sharma@pu.edu", bio: "Seasoned Product Manager with a passion for mentoring startups." }
+        { name: "Priya Sharma", expertise: "Product Management, Leadership", contact: "priya.sharma@pu.edu", bio: "Seasoned Product Manager passionate about mentoring." }
       ],
       "Thapar University": [
-        { name: "Arjun Mehta", expertise: "Data Science, AI", contact: "arjun.mehta@thapar.edu", bio: "Data Scientist helping students excel in analytics." },
+        { name: "Arjun Mehta", expertise: "Data Science, AI", contact: "arjun.mehta@thapar.edu", bio: "Helping students excel in analytics." },
         { name: "Simran Kaur", expertise: "Civil Engineering, Project Management", contact: "simran.kaur@thapar.edu", bio: "Experienced civil engineer and mentor." }
       ],
       "Lovely Professional University": [
@@ -139,23 +138,23 @@
       ]
     };
 
-    function mentorCardHtml(mentor) {
+    function createMentorCard(mentor) {
       return `
-        <div class="mentor-card">
+        <div class="profile-card">
           <div class="avatar">👤</div>
           <div class="info">
             <h3>${mentor.name}</h3>
             <p><strong>Expertise:</strong> ${mentor.expertise}</p>
             <p><strong>Contact:</strong> <a href="mailto:${mentor.contact}">${mentor.contact}</a></p>
             <p>${mentor.bio}</p>
-            <button class="btn" onclick="alert('Mentorship request feature coming soon!')">Request Mentorship</button>
+            <button class="btn" onclick="alert('Request mentorship feature coming soon!')">Request Mentorship</button>
           </div>
         </div>`;
     }
 
-    function studentCardHtml(student) {
+    function createStudentCard(student) {
       return `
-        <div class="student-card">
+        <div class="profile-card">
           <div class="avatar">🎓</div>
           <div class="info">
             <h3>${student.name}</h3>
@@ -165,52 +164,47 @@
         </div>`;
     }
 
-    const mentorsList = document.getElementById('mentors-list');
-    const studentsList = document.getElementById('students-list');
-    const pageTitle = document.getElementById('page-title');
-    const description = document.getElementById('description');
-    const logoutBtn = document.getElementById('logout-btn');
-
     window.addEventListener('DOMContentLoaded', () => {
-      const institution = localStorage.getItem('loggedInInstitution');
-      const email = localStorage.getItem('loggedInEmail');
-      const role = localStorage.getItem('loggedInRole');
+      const institution = sessionStorage.getItem('loggedInInstitution');
+      const role = sessionStorage.getItem('loggedInRole');
+      const email = sessionStorage.getItem('loggedInEmail');
 
-      if (!institution || !email || !role) {
+      if (!institution || !role || !email) {
         window.location.href = 'login.html';
         return;
       }
 
-      pageTitle.textContent = `${institution} Mentorship Program`;
+      document.getElementById('page-title').textContent = `${institution} Mentorship Program`;
+
+      const mentorsList = document.getElementById('mentors-list');
+      const studentsList = document.getElementById('students-list');
+      const description = document.getElementById('description');
 
       if (role === 'student') {
         description.textContent = 'Connect with experienced mentors from your institution.';
         const mentors = mentorsData[institution] || [];
-        if (mentors.length === 0) {
-          mentorsList.innerHTML = '<p>No mentors available for this institution.</p>';
-        } else {
-          mentorsList.innerHTML = mentors.map(mentorCardHtml).join('');
-        }
-        studentsList.innerHTML = ''; // hide students list for student role
+        mentorsList.innerHTML = mentors.length
+          ? mentors.map(createMentorCard).join('')
+          : '<p>No mentors available.</p>';
+        studentsList.innerHTML = '';
       } else if (role === 'alumni') {
         description.textContent = 'Connect with students seeking mentorship from your institution.';
         const students = studentsData[institution] || [];
-        if (students.length === 0) {
-          studentsList.innerHTML = '<p>No students available for mentorship at this institution.</p>';
-        } else {
-          studentsList.innerHTML = students.map(studentCardHtml).join('');
-        }
-        mentorsList.innerHTML = ''; // hide mentors list for alumni role
+        studentsList.innerHTML = students.length
+          ? students.map(createStudentCard).join('')
+          : '<p>No students available for mentorship.</p>';
+        mentorsList.innerHTML = '';
       } else if (role === 'admin') {
         description.textContent = 'Manage mentors and students mentorship connections.';
         const mentors = mentorsData[institution] || [];
         const students = studentsData[institution] || [];
-        mentorsList.innerHTML = '<h2>Mentors</h2>' + (mentors.length > 0 ? mentors.map(mentorCardHtml).join('') : '<p>No mentors available.</p>');
-        studentsList.innerHTML = '<h2>Students</h2>' + (students.length > 0 ? students.map(studentCardHtml).join('') : '<p>No students available.</p>');
+
+        mentorsList.innerHTML = '<h2>Mentors</h2>' + (mentors.length ? mentors.map(createMentorCard).join('') : '<p>No mentors available.</p>');
+        studentsList.innerHTML = '<h2>Students</h2>' + (students.length ? students.map(createStudentCard).join('') : '<p>No students available.</p>');
       }
 
-      logoutBtn.addEventListener('click', () => {
-        localStorage.clear();
+      document.getElementById('logout-btn').addEventListener('click', () => {
+        sessionStorage.clear();
         window.location.href = 'login.html';
       });
     });
