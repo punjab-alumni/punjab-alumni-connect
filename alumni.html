@@ -34,19 +34,44 @@
       font-weight: 600;
       color: #0a1a0f;
     }
-    header ul.nav-list li button {
+    header {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #0a1a0f;
+    }
+    nav {
+      flex-grow: 1;
+    }
+    nav ul.nav-list {
+      display: flex;
+      gap: 15px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-weight: 700;
+      font-size: 1rem;
+      align-items: center;
+      background: transparent;
+    }
+    nav ul.nav-list li a,
+    nav ul.nav-list li button {
+      color: #4fd7a5;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
       background: none;
       border: none;
-      color: #4fd7a5;
       cursor: pointer;
+      font-family: inherit;
       font-size: 1rem;
-      padding: 0.5rem 1rem;
     }
-    header ul.nav-list li button:hover {
-      background-color: #36b390;
+    nav ul.nav-list li a.active,
+    nav ul.nav-list li a:hover,
+    nav ul.nav-list li button:hover {
+      background: #4fd7a5;
       color: #0a1a0f;
       font-weight: bold;
-      border-radius: 6px;
     }
     /* Container fix for text visibility */
     .container {
@@ -59,9 +84,9 @@
   </style>
 </head>
 <body>
-  <header style="display: flex; align-items: center; padding: 10px 20px; background-color: #0a1a0f;">
+  <header>
     <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
-    <nav style="flex-grow: 1;">
+    <nav>
       <ul class="nav-list">
         <li><a href="index.html">Home</a></li>
         <li><a href="dashboard.html">Dashboard</a></li>
