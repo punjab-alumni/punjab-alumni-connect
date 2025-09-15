@@ -213,21 +213,32 @@
           tags: ["Full-time", "Remote"]
         }
       ],
-      "Punjab Agricultural University": [
+      "Chitkara University": [
         {
-          title: "Agriculture Scientist",
-          company: "PAU Research Center",
-          location: "Ludhiana",
-          salary: "₹14 LPA",
-          description: "Research and development in crop science.",
-          requirements: ["MSc/PhD in Agriculture", "Field experience", "Lab skills"],
-          tags: ["Full-time"]
+          title: "Research Associate",
+          company: "Chitkara University R&D",
+          location: "Rajpura",
+          salary: "₹20 LPA",
+          description: "Work on innovative research projects.",
+          requirements: ["Masters in relevant field", "Research experience", "Strong analytical skills"],
+          tags: ["Full-time", "Onsite"]
+        },
+        {
+          title: "Software Developer",
+          company: "Infosys",
+          location: "Bangalore",
+          salary: "₹15 LPA",
+          description: "Develop and maintain software solutions.",
+          requirements: ["Software development experience", "Knowledge of Java and Python"],
+          tags: ["Full-time", "Remote Possible"]
         }
       ]
     };
+
     const jobListEl = document.getElementById('job-list');
     const pageTitle = document.getElementById('page-title');
     const logoutBtn = document.getElementById('logout-btn');
+
     window.addEventListener('DOMContentLoaded', () => {
       const institution = sessionStorage.getItem('loggedInInstitution');
       const email = sessionStorage.getItem('loggedInEmail');
@@ -257,6 +268,7 @@
       });
       jobListEl.innerHTML = html;
     });
+
     logoutBtn.addEventListener('click', () => {
       sessionStorage.clear();
       window.location.href = 'login.html';
