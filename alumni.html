@@ -84,7 +84,6 @@
       color: #101927;
       font-weight: bold;
     }
-    /* Container fix for text visibility */
     .container {
       background-color: #121F33;
       border-radius: 1em;
@@ -212,23 +211,32 @@
           expertise: "Java, Cloud Solutions"
         }
       ],
-      "Punjab Agricultural University": [
+      "Chitkara University": [
         {
-          name: "Baljit Kaur",
-          position: "Agricultural Scientist",
-          company: "PAU Research Center",
-          batch: "2017",
-          department: "Agronomy",
-          expertise: "Crop Science, Soil Management"
+          name: "Gurpreet Singh",
+          position: "Research Associate",
+          company: "Chitkara University Labs",
+          batch: "2020",
+          department: "Biotechnology",
+          expertise: "Molecular Biology, Research"
+        },
+        {
+          name: "Simranjeet Kaur",
+          position: "Software Developer",
+          company: "Infosys",
+          batch: "2019",
+          department: "Computer Science",
+          expertise: "Java, Spring Boot"
         }
       ]
     };
+
     const alumniList = document.getElementById('alumni-list');
     const pageTitle = document.getElementById('page-title');
     const description = document.getElementById('description');
     const searchInput = document.getElementById('search');
     const logoutBtn = document.getElementById('logout-btn');
-    // Check session on page load
+
     window.addEventListener('DOMContentLoaded', () => {
       const institution = sessionStorage.getItem('loggedInInstitution');
       const email = sessionStorage.getItem('loggedInEmail');
@@ -261,7 +269,7 @@
       });
       alumniList.innerHTML = html;
     });
-    // Search filter
+
     searchInput.addEventListener('input', () => {
       const query = searchInput.value.toLowerCase();
       document.querySelectorAll('.alumni-profile').forEach(profile => {
@@ -269,7 +277,7 @@
         profile.style.display = text.includes(query) ? '' : 'none';
       });
     });
-    // Logout handler
+
     logoutBtn.addEventListener('click', () => {
       sessionStorage.clear();
       window.location.href = 'login.html';
