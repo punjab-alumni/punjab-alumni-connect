@@ -121,7 +121,6 @@
     <div id="students-list"></div>
   </main>
   <script>
-    // Alumni as mentors with 3+ per university
     const alumniAsMentors = {
       "Punjab University": [
         { name: "Dr. Rajesh Kumar", expertise: "Machine Learning, Cloud Computing", contact: "rajesh.kumar@pu.edu", bio: "Expert in AI and cloud technologies with 10+ years experience." },
@@ -153,13 +152,13 @@
         { name: "Mira Singh", expertise: "Software Testing, QA", contact: "mira.singh@cu.in", bio: "QA lead and student mentor." },
         { name: "Ravi Kumar", expertise: "Network Security, Systems", contact: "ravi.kumar@cu.in", bio: "Security analyst with strong mentorship skills." }
       ],
-      "Punjab Agricultural University": [
-        { name: "Baljit Kaur", expertise: "Agronomy, Soil Science", contact: "baljit.kaur@pau.ac.in", bio: "Agricultural scientist mentoring research projects." },
-        { name: "Gurpreet Singh", expertise: "Crop Genomics, Biotechnology", contact: "gurpreet.singh@pau.ac.in", bio: "Researcher in plant science and mentor." },
-        { name: "Simran Kaur", expertise: "Farm Management, Sustainability", contact: "simran.kaur@pau.ac.in", bio: "Advisor on sustainable farming methods." }
+      "Chitkara University": [
+        { name: "Dr. Amarjeet Singh", expertise: "Biotechnology, Research", contact: "amarjeet.singh@chitkara.edu.in", bio: "Expert in biotech research mentoring students." },
+        { name: "Simranjeet Kaur", expertise: "Software Development, Agile", contact: "simranjeet.kaur@chitkara.edu.in", bio: "Software engineer and agile coach mentoring young developers." },
+        { name: "Gurpreet Kaur", expertise: "Project Management, Leadership", contact: "gurpreet.kaur@chitkara.edu.in", bio: "Experienced project manager mentoring future leaders." }
       ]
     };
-    // Students as mentees with at least 2 per university
+
     const studentsAsMentees = {
       "Punjab University": [
         { name: "Student A", department: "Computer Science", email: "studenta@pu.edu" },
@@ -187,11 +186,12 @@
         { name: "Student M", department: "Computer Applications", email: "studentm@cu.in" },
         { name: "Student N", department: "Electronics", email: "studentn@cu.in" }
       ],
-      "Punjab Agricultural University": [
-        { name: "Student O", department: "Agronomy", email: "studento@pau.ac.in" },
-        { name: "Student P", department: "Plant Pathology", email: "studentp@pau.ac.in" }
+      "Chitkara University": [
+        { name: "Student O", department: "Biotechnology", email: "studento@chitkara.edu.in" },
+        { name: "Student P", department: "Computer Science", email: "studentp@chitkara.edu.in" }
       ]
     };
+
     function createMentorCard(mentor) {
       return `
         <div class="profile-card">
@@ -205,6 +205,7 @@
           </div>
         </div>`;
     }
+
     function createStudentCard(student) {
       return `
         <div class="profile-card">
@@ -216,6 +217,7 @@
           </div>
         </div>`;
     }
+
     window.addEventListener('DOMContentLoaded', () => {
       const institution = sessionStorage.getItem('loggedInInstitution');
       const role = sessionStorage.getItem('loggedInRole');
