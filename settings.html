@@ -208,7 +208,7 @@
       const saveMsg = document.getElementById('save-message');
 
       function loadProfilePhoto() {
-        const photoDataUrl = sessionStorage.getItem('profilePhoto');
+        const photoDataUrl = localStorage.getItem('profilePhoto');
         if (photoDataUrl) {
           previewImg.src = photoDataUrl;
           removePhotoBtn.style.display = 'inline-block';
@@ -219,13 +219,13 @@
       }
       loadProfilePhoto();
 
-      profileInput.addEventListener('change', () => {
-        const file = profileInput.files[0];
+      profileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
         if (file) {
           const reader = new FileReader();
-          reader.onload = e => {
-            previewImg.src = e.target.result;
-            sessionStorage.setItem('profilePhoto', e.target.result);
+          reader.onload = (event) => {
+            previewImg.src = event.target.result;
+            localStorage.setItem('profilePhoto', event.target.result);
             removePhotoBtn.style.display = 'inline-block';
             saveMsg.style.color = "#2493ff";
             saveMsg.textContent = "Profile photo updated! Remember to click Save Changes to confirm.";
@@ -235,7 +235,7 @@
       });
 
       removePhotoBtn.addEventListener('click', () => {
-        sessionStorage.removeItem('profilePhoto');
+        localStorage.removeItem('profilePhoto');
         loadProfilePhoto();
         saveMsg.style.color = "#ef4444";
         saveMsg.textContent = "Profile photo removed! Remember to click Save Changes to confirm.";
@@ -251,7 +251,6 @@
             saveMsg.textContent = "Passwords do not match.";
             return;
           }
-          // Implement password save logic here if needed.
           saveMsg.style.color = "#2493ff";
           saveMsg.textContent = "Password changed successfully!";
         } else {
@@ -261,9 +260,11 @@
         e.target.reset();
       });
 
-      document.getElementById('logout-btn').addEventListener('click', () => {
-        sessionStorage.clear();
-        window.location.href = 'login.html';
+      document.querySelectorAll('#logout-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          sessionStorage.clear();
+          window.location.href = 'login.html';
+        });
       });
     });
   </script>
