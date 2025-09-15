@@ -7,10 +7,15 @@
   <link rel="stylesheet" href="styles.css" />
   <style>
     .card {
-      background: rgba(255 255 255 / 0.1);
+      background: rgba(36, 147, 255, 0.07);
       padding: 1rem;
       border-radius: 10px;
       margin-bottom: 1.5rem;
+      color: #eaf6ff;
+      transition: background 0.3s ease;
+    }
+    .card:hover {
+      background: rgba(36, 147, 255, 0.14);
     }
     .card ul {
       list-style-type: none;
@@ -31,7 +36,7 @@
     }
     nav ul.nav-list li a,
     nav ul.nav-list li button {
-      color: #4fd7a5;
+      color: #2493ff;
       text-decoration: none;
       padding: 0.5rem 1rem;
       display: block;
@@ -45,27 +50,38 @@
     nav ul.nav-list li a.active,
     nav ul.nav-list li a:hover,
     nav ul.nav-list li button:hover {
-      background: #4fd7a5;
-      color: #0a1a0f;
+      background: #2493ff;
+      color: #101927;
       font-weight: bold;
     }
     /* Container fix for text visibility */
     .container {
-      background-color: #0a1a0f;
-      border-radius: 8px;
+      background-color: #121F33;
+      border-radius: 1em;
       padding: 2rem;
       max-width: 1200px;
-      margin: 0 auto;
+      margin: 2rem auto;
+      color: #eaf6ff;
     }
-    /* Header styling for consistent black background */
+    /* Header styling for consistent black-blue background */
     header {
       display: flex;
       align-items: center;
       padding: 10px 20px;
-      background-color: #0a1a0f;
+      background-color: #101927;
       position: sticky;
       top: 0;
       z-index: 1000;
+    }
+    h1, p, ul {
+      color: #eaf6ff;
+    }
+    a {
+      color: #76beff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
