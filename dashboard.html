@@ -222,25 +222,26 @@
           "Spring Fest - Apr 10, 2026"
         ]
       },
-      "Punjab Agricultural University": {
-        location: "Ludhiana",
-        established: 1962,
-        students: 22000,
-        alumni: 30000,
-        website: "http://www.pau.edu",
+      "Chitkara University": {
+        location: "Rajpura",
+        established: 2010,
+        students: 15000,
+        alumni: 20000,
+        website: "https://www.chitkara.edu.in",
         stats: {
-          alumniNetwork: "30,000+",
-          activeInstitutions: 2,
-          connectionsMade: "6,000+",
-          jobPlacements: "1,100+",
-          mentorshipSessions: "2,700+"
+          alumniNetwork: "20,000+",
+          activeInstitutions: 5,
+          connectionsMade: "7,000+",
+          jobPlacements: "1,500+",
+          mentorshipSessions: "2,800+"
         },
         news: [
-          "Agricultural Expo - Jan 18, 2026",
-          "Farmers Meet - Feb 12, 2026"
+          "Alumni Meet - Mar 15, 2026",
+          "Blood Donation Camp - Apr 20, 2026"
         ]
       }
     };
+
     function displayDashboard(institution) {
       const info = institutionsInfo[institution];
       const institutionNameEl = document.getElementById('institution-name');
@@ -261,7 +262,7 @@
         <p><strong>Established:</strong> ${info.established}</p>
         <p><strong>Students:</strong> ${info.students.toLocaleString()}</p>
         <p><strong>Alumni:</strong> ${info.alumni.toLocaleString()}+</p>
-        <p><strong>Website:</strong> <a href="${info.website}" target="_blank">${info.website}</a></p>`;
+        <p><strong>Website:</strong> <a href="${info.website}" target="_blank" rel="noopener">${info.website}</a></p>`;
       statsCardsEl.innerHTML = `
         <div class="card">
           <h3>Platform Statistics</h3>
@@ -301,14 +302,14 @@
         return;
       }
       displayDashboard(institution);
-      // Update navigation links for session persistence (no params required)
+      // Update navigation links for session persistence
       document.getElementById('alumni-link').href = 'alumni.html';
       document.getElementById('jobs-link').href = 'jobs.html';
       document.getElementById('events-link').href = 'events.html';
       document.getElementById('mentorship-link').href = 'mentorship.html';
       document.getElementById('donations-link').href = 'donations.html';
       document.getElementById('settings-link').href = 'settings.html';
-      // Logout clears session and redirects
+      // Logout
       document.getElementById('logout-btn').addEventListener('click', () => {
         sessionStorage.clear();
         window.location.href = 'login.html';
