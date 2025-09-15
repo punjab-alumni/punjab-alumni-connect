@@ -6,15 +6,16 @@
   <title>Punjab Alumni Connect</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    body {
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
       font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #101927, #18345a 70%);
       color: #eaf6ff;
-      margin: 0; padding: 0;
-      min-height: 100vh;
-      overflow: hidden;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
     }
     header {
       display: flex;
@@ -22,8 +23,7 @@
       padding: 10px 30px;
       background-color: #101927;
       box-shadow: 0 4px 16px rgba(0,0,0,0.7);
-      position: fixed;
-      width: 100%;
+      position: sticky;
       top: 0;
       z-index: 1000;
     }
@@ -46,10 +46,10 @@
       text-decoration: none;
       padding: 0.6rem 1.2rem;
       border-radius: 8px;
-      background: transparent;
       cursor: pointer;
       border: 2px solid transparent;
       transition: all 0.2s;
+      background: transparent;
     }
     .nav-list a.active,
     .nav-list a:hover,
@@ -57,47 +57,40 @@
       background: #3BB4FF;
       color: #101927;
       border: 2px solid #3BB4FF;
-      box-shadow: 0 6px 12px rgba(59,180,255,0.45);
+      box-shadow: 0 6px 12px rgba(59, 180, 255, 0.45);
     }
     main.container {
+      flex: 1;
       display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      align-items: center;
-      height: calc(100vh - 60px);
-      margin-top: 60px; /* header height */
-      padding: 0 50px;
-      width: 100%;
+      padding: 40px 50px;
+      gap: 60px;
       box-sizing: border-box;
+      height: calc(100vh - 60px);
+      overflow: hidden;
     }
-
-    /* Left Welcome Section */
     .left-section {
-      flex: 1 1 50%;
+      width: 55%;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-right: 40px;
-      min-width: 320px;
-      max-width: 600px;
+      padding-right: 20px;
     }
     .left-section h1 {
-      font-size: 3.8rem;
+      font-size: 3.6rem;
       font-weight: 900;
       color: #3BB4FF;
-      margin-bottom: 16px;
-      text-shadow: 0 0 15px rgba(59,180,255,0.8);
+      margin-bottom: 24px;
+      text-shadow: 0 0 15px rgba(59, 180, 255, 0.8);
       line-height: 1.1;
     }
     .left-section p {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       color: #bfe4ff;
       margin-bottom: 40px;
       line-height: 1.5;
-      max-width: 520px;
     }
     .btn-get-started {
+      width: max-content;
       background: linear-gradient(90deg, #2493ff, #76beff);
       color: #101927;
       font-weight: 800;
@@ -106,48 +99,43 @@
       border-radius: 40px;
       border: none;
       cursor: pointer;
-      box-shadow: 0 8px 28px rgba(36,147,255,0.37);
+      box-shadow: 0 8px 28px rgba(36, 147, 255, 0.37);
       transition: background 0.25s ease, box-shadow 0.25s ease;
-      width: fit-content;
-      user-select: none;
-      outline-offset: 4px;
     }
     .btn-get-started:hover {
       background: linear-gradient(90deg, #165ea8, #2493ff);
-      box-shadow: 0 10px 35px rgba(36,147,255,0.60);
+      box-shadow: 0 10px 35px rgba(36, 147, 255, 0.6);
+      letter-spacing: 0.02em;
     }
-
-    /* Right Features Section */
     .right-section {
-      flex: 1 1 40%;
+      width: 40%;
       display: flex;
       flex-direction: column;
-      gap: 24px;
-      max-width: 400px;
-      min-width: 280px;
+      justify-content: center;
+      overflow: hidden;
+      gap: 30px;
     }
     .feature-card {
       background: linear-gradient(145deg, #243f6a, #172a40);
       border-radius: 24px;
-      padding: 24px 30px;
+      padding: 24px 32px;
       color: #d2e3ff;
-      box-shadow: 0 15px 30px rgba(11, 44, 89, 0.34), inset 0 0 20px rgba(36,147,255,0.5);
+      box-shadow: 0 15px 30px rgba(11, 44, 89, 0.34), inset 0 0 20px rgba(36, 147, 255, 0.5);
       cursor: pointer;
       transition: all 0.3s ease;
-      user-select: none;
-      text-align: left;
       border: 2px solid transparent;
+      user-select: none;
     }
     .feature-card:hover,
     .feature-card:focus {
-      box-shadow: 0 30px 60px rgba(36, 147, 255, 0.7), inset 0 0 40px rgba(59,180,255,0.7);
+      box-shadow: 0 30px 60px rgba(36, 147, 255, 0.7), inset 0 0 40px rgba(59, 180, 255, 0.7);
       transform: translateY(-6px) scale(1.05);
       border: 2px solid #3bb4ff;
       outline: none;
     }
     .feature-card h3 {
       color: #7cbfff;
-      font-size: 1.8rem;
+      font-size: 1.7rem;
       margin-bottom: 10px;
       user-select: text;
     }
@@ -157,48 +145,23 @@
       color: #abc8ff;
       user-select: text;
     }
-
-    /* Scrollbar hidden for right section vertical */
-    .right-section {
-      overflow-y: auto;
-      max-height: 80vh;
-    }
-    .right-section::-webkit-scrollbar {
-      width: 8px;
-    }
-    .right-section::-webkit-scrollbar-thumb {
-      background: #3bb4ff88;
-      border-radius: 10px;
-    }
-
-    /* Responsive adjustments */
     @media (max-width: 900px) {
       main.container {
         flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
         height: auto;
-        gap: 36px;
-        padding: 24px 32px;
-        margin-top: 60px;
       }
-      .left-section {
-        max-width: 100%;
-        padding-right: 0;
+      .left-section, .right-section {
+        width: 100%;
+        padding: 0;
       }
       .right-section {
-        max-width: 100%;
         flex-direction: row;
+        gap: 20px;
         overflow-x: auto;
-        overflow-y: hidden;
         max-height: none;
-        gap: 16px;
-        padding-bottom: 12px;
       }
       .feature-card {
         min-width: 260px;
-        max-width: 260px;
-        flex: none;
       }
     }
   </style>
@@ -221,17 +184,15 @@
     </nav>
   </header>
   <main class="container" role="main">
-    <!-- Left side welcome with button -->
     <section class="left-section" aria-label="Welcome section">
-      <h1 class="hero-title">Welcome to Punjab Alumni Connect</h1>
-      <p class="hero-desc">
-        Strengthening life-long connections among alumni, students, and institutions of Punjab.<br>
+      <h1>Welcome to Punjab Alumni Connect</h1>
+      <p>
+        Strengthening life-long connections among alumni, students, and institutions of Punjab.<br />
         Discover opportunities, reconnect with friends, explore campus events, and much more!
       </p>
       <a href="login.html" class="btn-get-started" role="button">Get Started</a>
     </section>
-    <!-- Right side vertical features -->
-    <aside class="right-section" aria-label="Main features navigation" tabindex="0">
+    <aside class="right-section" aria-label="Main features navigation">
       <div class="feature-card" tabindex="0" data-link="alumni.html" role="link" aria-label="Connect and Network">
         <h3>Connect & Network</h3>
         <p>Find mentors, colleagues, and old friends among 100,000+ alumni. Use smart search and personalized recommendations.</p>
@@ -251,7 +212,6 @@
     </aside>
   </main>
   <script>
-    // Redirect feature cards after login only
     document.querySelectorAll('.feature-card').forEach(card => {
       card.addEventListener('click', () => {
         if (sessionStorage.getItem('loggedInInstitution') &&
