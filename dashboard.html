@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -13,16 +12,13 @@
       border-radius: 10px;
       margin-bottom: 1.5rem;
     }
-
     .card ul {
       list-style-type: none;
       padding-left: 0;
     }
-
     .card ul li {
       padding: 0.3rem 0;
     }
-
     nav ul.nav-list {
       list-style: none;
       display: flex;
@@ -33,7 +29,6 @@
       margin: 0 0 1rem;
       align-items: center;
     }
-
     nav ul.nav-list li a,
     nav ul.nav-list li button {
       color: white;
@@ -47,7 +42,6 @@
       font-size: 1rem;
       font-family: inherit;
     }
-
     nav ul.nav-list li a.active,
     nav ul.nav-list li a:hover,
     nav ul.nav-list li button:hover {
@@ -55,12 +49,20 @@
       color: #0a1a0f;
       font-weight: bold;
     }
+    /* Container fix for text visibility */
+    .container {
+      background-color: #0a1a0f;
+      border-radius: 8px;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
   </style>
 </head>
-
 <body>
-  <header>
-    <nav>
+  <header style="display: flex; align-items: center; padding: 10px 20px; background-color: #0a1a0f;">
+    <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
+    <nav style="flex-grow: 1;">
       <ul class="nav-list">
         <li><a href="index.html">Home</a></li>
         <li><a href="dashboard.html" id="dashboard-link" class="active">Dashboard</a></li>
@@ -74,7 +76,6 @@
       </ul>
     </nav>
   </header>
-
   <main class="container dashboard-content">
     <section>
       <h1 id="institution-name">Institution Dashboard</h1>
@@ -84,7 +85,6 @@
       <div id="quick-links"></div>
     </section>
   </main>
-
   <script>
     const institutionsInfo = {
       "Punjab University": {
@@ -215,7 +215,6 @@
         ]
       }
     };
-
     function displayDashboard(institution) {
       const info = institutionsInfo[institution];
       const institutionNameEl = document.getElementById('institution-name');
@@ -223,7 +222,6 @@
       const statsCardsEl = document.getElementById('stats-cards');
       const newsCardsEl = document.getElementById('news-cards');
       const quickLinksEl = document.getElementById('quick-links');
-
       institutionNameEl.textContent = institution + " Dashboard";
       if (!info) {
         institutionInfoEl.textContent = "Information not available for selected institution.";
@@ -232,14 +230,12 @@
         quickLinksEl.innerHTML = "";
         return;
       }
-
       institutionInfoEl.innerHTML = `
         <p><strong>Location:</strong> ${info.location}</p>
         <p><strong>Established:</strong> ${info.established}</p>
         <p><strong>Students:</strong> ${info.students.toLocaleString()}</p>
         <p><strong>Alumni:</strong> ${info.alumni.toLocaleString()}+</p>
         <p><strong>Website:</strong> <a href="${info.website}" target="_blank">${info.website}</a></p>`;
-
       statsCardsEl.innerHTML = `
         <div class="card">
           <h3>Platform Statistics</h3>
@@ -251,7 +247,6 @@
             <li><strong>Mentorship Sessions:</strong> ${info.stats.mentorshipSessions}</li>
           </ul>
         </div>`;
-
       newsCardsEl.innerHTML = `
         <div class="card">
           <h3>Recent News & Events</h3>
@@ -259,7 +254,6 @@
             ${info.news.map(item => `<li>${item}</li>`).join("")}
           </ul>
         </div>`;
-
       quickLinksEl.innerHTML = `
         <div class="card">
           <h3>Quick Links</h3>
@@ -272,19 +266,15 @@
         </div>
       `;
     }
-
     window.addEventListener('DOMContentLoaded', () => {
       const institution = sessionStorage.getItem('loggedInInstitution');
       const email = sessionStorage.getItem('loggedInEmail');
       const role = sessionStorage.getItem('loggedInRole');
-
       if (!institution || !email || !role) {
         window.location.href = 'login.html'; // Not logged in, redirect
         return;
       }
-
       displayDashboard(institution);
-
       // Update navigation links for session persistence (no params required)
       document.getElementById('alumni-link').href = 'alumni.html';
       document.getElementById('jobs-link').href = 'jobs.html';
@@ -292,7 +282,6 @@
       document.getElementById('mentorship-link').href = 'mentorship.html';
       document.getElementById('donations-link').href = 'donations.html';
       document.getElementById('settings-link').href = 'settings.html';
-
       // Logout clears session and redirects
       document.getElementById('logout-btn').addEventListener('click', () => {
         sessionStorage.clear();
@@ -301,5 +290,4 @@
     });
   </script>
 </body>
-
 </html>
