@@ -16,36 +16,51 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  background-color: #0a1a0f; /* Added for text visibility fix */
-  border-radius: 8px;         /* Added for smooth edges */
+  background-color: #0a1a0f; /* Dark background for text visibility */
+  border-radius: 8px;
 }
-/* Navigation */
-nav {
-  background: rgba(255 255 255 / 0.05);
-  padding: 1rem 0;
+/* Header overrides for consistent black background */
+header {
+  background-color: #0a1a0f !important;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
+}
+nav {
+  background: transparent !important;
+  flex-grow: 1;
 }
 .nav-list {
   display: flex;
-  justify-content: center;
+  gap: 15px;
   list-style: none;
-  gap: 2rem;
-}
-nav a {
-  color: #a0aec0;
-  text-decoration: none;
-  font-weight: 600;
+  margin: 0;
+  padding: 0;
+  font-weight: 700;
   font-size: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 25px;
-  transition: background 0.3s ease, color 0.3s ease;
+  background: transparent !important;
+  align-items: center;
 }
+nav a, nav button {
+  color: #4fd7a5;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+}
+nav a.active,
 nav a:hover,
-nav a.active {
-  color: #4fd1c7;
-  background: rgba(79 209 199 / 0.3);
+nav button:hover {
+  background: #4fd7a5;
+  color: #0a1a0f;
+  font-weight: bold;
 }
 /* Hero Section */
 .hero-section {
