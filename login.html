@@ -6,6 +6,7 @@
   <title>Login - Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
+    /* Your existing styles */
     .container {
       max-width: 400px;
       margin: 80px auto;
@@ -98,6 +99,14 @@
       color: #101927;
       font-weight: bold;
     }
+    #institution-logo {
+      display: none;
+      margin: 8px auto 20px;
+      max-width: 140px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 16px rgba(36, 147, 255, 0.6);
+    }
   </style>
 </head>
 <body>
@@ -116,14 +125,15 @@
       <label for="institution">Select Institution</label>
       <select id="institution" required>
         <option value="" disabled selected>Choose your institution</option>
-        <option value="Punjab University">Punjab University</option>
-        <option value="Punjab Engineering College">Punjab Engineering College</option>
-        <option value="Thapar University">Thapar University</option>
-        <option value="Lovely Professional University">Lovely Professional University</option>
-        <option value="Guru Nanak Dev University">Guru Nanak Dev University</option>
-        <option value="Chandigarh University">Chandigarh University</option>
-        <option value="Punjab Agricultural University">Punjab Agricultural University</option>
+        <option value="Punjab University" data-logo="images/punjab_university.png">Punjab University</option>
+        <option value="Punjab Engineering College" data-logo="images/pec_logo.png">Punjab Engineering College</option>
+        <option value="Thapar University" data-logo="images/thapar_logo.png">Thapar University</option>
+        <option value="Lovely Professional University" data-logo="images/lpu_logo.png">Lovely Professional University</option>
+        <option value="Guru Nanak Dev University" data-logo="images/gndu_logo.png">Guru Nanak Dev University</option>
+        <option value="Chandigarh University" data-logo="images/chandigarh_university_logo.png">Chandigarh University</option>
+        <option value="Chitkara University" data-logo="images/chitkara_logo.png">Chitkara University</option>
       </select>
+      <img id="institution-logo" alt="Institution Logo" />
       <label for="email">Email Address</label>
       <input type="email" id="email" required placeholder="email@example.com" />
       <label for="password">Password</label>
@@ -137,45 +147,63 @@
       "Punjab University": {
         admin: { email: "admin@punjabalumni-pu.gov.in", password: "PunjabPuAdmin2025!" },
         student: { email: "student@punjabalumni-pu.gov.in", password: "PunjabPuStudent2025!" },
-        alumni: { email: "user@punjabalumni-pu.gov.in", password: "PunjabPuAlumni2025!" }
+        alumni: { email: "alumni@punjabalumni-pu.gov.in", password: "PunjabPuAlumni2025!" }
       },
       "Punjab Engineering College": {
         admin: { email: "admin@punjabalumni-pec.ac.in", password: "PunjabPECAdmin2025!" },
         student: { email: "student@punjabalumni-pec.ac.in", password: "PunjabPECStudent2025!" },
-        alumni: { email: "user@punjabalumni-pec.ac.in", password: "PunjabPECAlumni2025!" }
+        alumni: { email: "alumni@punjabalumni-pec.ac.in", password: "PunjabPECAlumni2025!" }
       },
       "Thapar University": {
         admin: { email: "admin@punjabalumni-thapar.in", password: "PunjabThaparAdmin2025!" },
         student: { email: "student@punjabalumni-thapar.in", password: "PunjabThaparStudent2025!" },
-        alumni: { email: "user@punjabalumni-thapar.in", password: "PunjabThaparAlumni2025!" }
+        alumni: { email: "alumni@punjabalumni-thapar.in", password: "PunjabThaparAlumni2025!" }
       },
       "Lovely Professional University": {
         admin: { email: "admin@punjabalumni-lpu.co.in", password: "PunjabLPUAdmin2025!" },
         student: { email: "student@punjabalumni-lpu.co.in", password: "PunjabLPUStudent2025!" },
-        alumni: { email: "user@punjabalumni-lpu.co.in", password: "PunjabLPUAlumni2025!" }
+        alumni: { email: "alumni@punjabalumni-lpu.co.in", password: "PunjabLPUAlumni2025!" }
       },
       "Guru Nanak Dev University": {
         admin: { email: "admin@punjabalumni-gndu.ac.in", password: "PunjabGNDUAdmin2025!" },
         student: { email: "student@punjabalumni-gndu.ac.in", password: "PunjabGNDUStudent2025!" },
-        alumni: { email: "user@punjabalumni-gndu.ac.in", password: "PunjabGNDUAlumni2025!" }
+        alumni: { email: "alumni@punjabalumni-gndu.ac.in", password: "PunjabGNDUAlumni2025!" }
       },
       "Chandigarh University": {
         admin: { email: "admin@punjabalumni-cu.in", password: "PunjabCUAdmin2025!" },
         student: { email: "student@punjabalumni-cu.in", password: "PunjabCUStudent2025!" },
-        alumni: { email: "user@punjabalumni-cu.in", password: "PunjabCUAlumni2025!" }
+        alumni: { email: "alumni@punjabalumni-cu.in", password: "PunjabCUAlumni2025!" }
       },
-      "Punjab Agricultural University": {
-        admin: { email: "admin@punjabalumni-pau.ac.in", password: "PunjabPAUAdmin2025!" },
-        student: { email: "student@punjabalumni-pau.ac.in", password: "PunjabPAUStudent2025!" },
-        alumni: { email: "user@punjabalumni-pau.ac.in", password: "PunjabPAUAlumni2025!" }
+      "Chitkara University": {
+        admin: { email: "admin@punjabalumni-chitkara.in", password: "PunjabChitkaraAdmin2025!" },
+        student: { email: "student@punjabalumni-chitkara.in", password: "PunjabChitkaraStudent2025!" },
+        alumni: { email: "alumni@punjabalumni-chitkara.in", password: "PunjabChitkaraAlumni2025!" }
       }
     };
+
+    const institutionSelect = document.getElementById('institution');
+    const institutionLogo = document.getElementById('institution-logo');
+    const messageElem = document.getElementById('message');
+
+    institutionSelect.addEventListener('change', () => {
+      const selectedOption = institutionSelect.options[institutionSelect.selectedIndex];
+      const logoSrc = selectedOption.getAttribute('data-logo');
+      if (logoSrc) {
+        institutionLogo.src = logoSrc;
+        institutionLogo.style.display = 'block';
+      } else {
+        institutionLogo.src = '';
+        institutionLogo.style.display = 'none';
+      }
+      messageElem.textContent = '';
+      messageElem.classList.remove('error');
+    });
+
     document.getElementById('loginForm').addEventListener('submit', (e) => {
       e.preventDefault();
-      const institution = document.getElementById('institution').value;
+      const institution = institutionSelect.value;
       const emailInput = document.getElementById('email').value.trim().toLowerCase();
       const passwordInput = document.getElementById('password').value;
-      const messageElem = document.getElementById('message');
       messageElem.textContent = '';
       messageElem.classList.remove('error');
       if (!institution || !demoCredentials[institution]) {
@@ -207,7 +235,6 @@
         messageElem.classList.add('error');
         return;
       }
-      // Save session info in sessionStorage for auto logout on close
       sessionStorage.setItem('loggedInInstitution', institution);
       sessionStorage.setItem('loggedInEmail', emailInput);
       sessionStorage.setItem('loggedInRole', loggedRole);
@@ -216,7 +243,7 @@
         window.location.href = 'dashboard.html';
       }, 1500);
     });
-    // Auto redirect if already logged in
+
     window.addEventListener('DOMContentLoaded', () => {
       const institution = sessionStorage.getItem('loggedInInstitution');
       if (institution) {
