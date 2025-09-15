@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,58 +7,99 @@
   <link rel="stylesheet" href="styles.css" />
   <style>
     .job-card {
-      background: rgba(255 255 255 / 0.1);
+      background: rgba(36, 147, 255, 0.07);
       padding: 1rem;
       margin-bottom: 1rem;
       border-radius: 10px;
+      color: #eaf6ff;
+      transition: background 0.3s ease;
     }
-
+    .job-card:hover {
+      background: rgba(36, 147, 255, 0.14);
+    }
     .job-card h3 {
       margin-top: 0;
+      color: #2493ff;
     }
-
     .job-tag {
       display: inline-block;
-      background: #4fd7a5;
-      color: #0a1a0f;
+      background: #2493ff;
+      color: #101927;
       padding: 0.2rem 0.6rem;
       border-radius: 15px;
       font-size: 0.8rem;
       margin-right: 5px;
       margin-top: 5px;
     }
-
     .apply-btn {
       margin-top: 10px;
-      background: #4fd7a5;
+      background: #2493ff;
       border: none;
       border-radius: 20px;
       padding: 0.7rem 1.5rem;
-      color: #0a1a0f;
+      color: #101927;
       font-weight: 700;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
-
-    header ul.nav-list li button {
+    .apply-btn:hover {
+      background: #165ea8;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #101927;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav {
+      flex-grow: 1;
+    }
+    nav ul.nav-list {
+      display: flex;
+      gap: 15px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-weight: 700;
+      font-size: 1rem;
+      align-items: center;
+      background: transparent;
+    }
+    nav ul.nav-list li a,
+    nav ul.nav-list li button {
+      color: #2493ff;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
       background: none;
       border: none;
-      color: #4fd7a5;
       cursor: pointer;
+      font-family: inherit;
       font-size: 1rem;
-      padding: 0.5rem 1rem;
     }
-
-    header ul.nav-list li button:hover {
-      background-color: #36b390;
-      color: #0a1a0f;
+    nav ul.nav-list li a.active,
+    nav ul.nav-list li a:hover,
+    nav ul.nav-list li button:hover {
+      background: #2493ff;
+      color: #101927;
       font-weight: bold;
-      border-radius: 6px;
+    }
+    .container {
+      background-color: #121F33;
+      border-radius: 1em;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 2rem auto;
+      color: #eaf6ff;
     }
   </style>
 </head>
-
 <body>
   <header>
+    <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
     <nav>
       <ul class="nav-list">
         <li><a href="index.html">Home</a></li>
@@ -74,12 +114,10 @@
       </ul>
     </nav>
   </header>
-
   <main class="container">
     <h1 id="page-title">Job Opportunities</h1>
     <div id="job-list"></div>
   </main>
-
   <script>
     const jobsData = {
       "Punjab University": [
@@ -187,29 +225,23 @@
         }
       ]
     };
-
     const jobListEl = document.getElementById('job-list');
     const pageTitle = document.getElementById('page-title');
     const logoutBtn = document.getElementById('logout-btn');
-
     window.addEventListener('DOMContentLoaded', () => {
       const institution = sessionStorage.getItem('loggedInInstitution');
       const email = sessionStorage.getItem('loggedInEmail');
       const role = sessionStorage.getItem('loggedInRole');
-
       if (!institution || !email || !role) {
         window.location.href = 'login.html';
         return;
       }
-
       pageTitle.textContent = `${institution} - Job Opportunities`;
-
       const jobs = jobsData[institution] || [];
       if (jobs.length === 0) {
         jobListEl.innerHTML = "<p>No job postings available for this institution.</p>";
         return;
       }
-
       let html = "";
       jobs.forEach(job => {
         html += `<div class="job-card">
@@ -223,15 +255,12 @@
           <button class="apply-btn" onclick="alert('Application system coming soon!')">Apply Now</button>
         </div>`;
       });
-
       jobListEl.innerHTML = html;
     });
-
     logoutBtn.addEventListener('click', () => {
       sessionStorage.clear();
       window.location.href = 'login.html';
     });
   </script>
 </body>
-
 </html>
