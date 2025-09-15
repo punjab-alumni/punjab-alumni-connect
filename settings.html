@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,24 +9,23 @@
     .container {
       max-width: 450px;
       margin: 60px auto;
-      background: rgba(255 255 255 / 0.1);
+      background: rgba(36, 147, 255, 0.07);
       padding: 2rem;
       border-radius: 15px;
-      color: white;
+      color: #eaf6ff;
       backdrop-filter: blur(10px);
     }
-
     h2 {
       text-align: center;
       margin-bottom: 1.5rem;
+      color: #2493ff;
     }
-
     label {
       font-weight: 600;
       display: block;
       margin-bottom: 5px;
+      color: #eaf6ff;
     }
-
     input[type="text"],
     input[type="email"],
     input[type="password"],
@@ -38,41 +36,37 @@
       border: none;
       margin-bottom: 15px;
       outline: none;
-      background: rgba(255 255 255 / 0.1);
-      color: white;
+      background: rgba(36, 147, 255, 0.1);
+      color: #eaf6ff;
     }
-
     .btn-save {
       width: 100%;
       padding: 12px;
-      background: #4fd7a5;
+      background: linear-gradient(90deg, #2493ff, #76beff);
       border: none;
       border-radius: 25px;
       font-weight: 700;
       font-size: 1rem;
-      color: #0a1a0f;
+      color: #101927;
       cursor: pointer;
       transition: background 0.3s ease;
     }
-
     .btn-save:hover {
-      background: #36b390;
+      background: linear-gradient(90deg, #165ea8, #2493ff);
     }
-
     #save-message {
       margin-top: 1rem;
-      color: #4fd7a5;
+      color: #2493ff;
       text-align: center;
     }
-
     .info {
       margin-bottom: 20px;
       padding: 1rem;
-      background: rgba(255 255 255 / 0.05);
+      background: rgba(36, 147, 255, 0.05);
       border-radius: 10px;
       text-align: center;
+      color: #eaf6ff;
     }
-
     #profile-preview {
       display: block;
       margin: 10px auto 20px auto;
@@ -80,10 +74,9 @@
       height: 120px;
       border-radius: 60px;
       object-fit: cover;
-      border: 2px solid #4fd7a5;
+      border: 2px solid #2493ff;
       background: #222;
     }
-
     #logout-btn {
       margin-top: 20px;
       width: 100%;
@@ -95,52 +88,104 @@
       font-size: 1rem;
       color: white;
       cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    #logout-btn:hover {
+      background: #b83232;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #101927;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav {
+      flex-grow: 1;
+    }
+    nav ul.nav-list {
+      display: flex;
+      gap: 15px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-weight: 700;
+      font-size: 1rem;
+      align-items: center;
+      background: transparent;
+    }
+    nav ul.nav-list li a,
+    nav ul.nav-list li button {
+      color: #2493ff;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+    nav ul.nav-list li a.active,
+    nav ul.nav-list li a:hover,
+    nav ul.nav-list li button:hover {
+      background: #2493ff;
+      color: #101927;
+      font-weight: bold;
     }
   </style>
 </head>
-
 <body>
+  <header>
+    <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
+    <nav>
+      <ul class="nav-list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="alumni.html">Alumni</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="jobs.html">Jobs</a></li>
+        <li><a href="mentorship.html">Mentorship</a></li>
+        <li><a href="donations.html">Donations</a></li>
+        <li><a href="settings.html" class="active">Settings</a></li>
+        <li><button id="logout-btn">Logout</button></li>
+      </ul>
+    </nav>
+  </header>
   <div class="container">
     <h2>Account Settings</h2>
     <div class="info" id="account-info">
       Loading account details...
     </div>
-
     <img id="profile-preview" src="" alt="Profile Photo" />
-
     <form id="settingsForm">
       <label for="profile-photo">Upload Profile Photo</label>
       <input type="file" id="profile-photo" accept="image/*" />
-
       <label for="password">New Password</label>
       <input type="password" id="password" placeholder="Enter new password" required />
-
       <label for="confirm-password">Confirm New Password</label>
       <input type="password" id="confirm-password" placeholder="Confirm new password" required />
-
       <button type="submit" class="btn-save">Save Changes</button>
+      <div id="save-message"></div>
     </form>
-
     <button id="logout-btn">Logout</button>
   </div>
-
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       const institution = sessionStorage.getItem('loggedInInstitution');
       const email = sessionStorage.getItem('loggedInEmail');
       const role = sessionStorage.getItem('loggedInRole');
-
       if (!institution || !email || !role) {
         window.location.href = 'login.html';
         return;
       }
-
       const accountInfoDiv = document.getElementById('account-info');
       accountInfoDiv.innerHTML = `
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Institution:</strong> ${institution}</p>
       `;
-
       function loadProfilePhoto() {
         const photoDataUrl = sessionStorage.getItem('profilePhoto');
         const previewImg = document.getElementById('profile-preview');
@@ -150,9 +195,7 @@
           previewImg.src = 'https://via.placeholder.com/120?text=No+Photo';
         }
       }
-
       loadProfilePhoto();
-
       const profileInput = document.getElementById('profile-photo');
       profileInput.addEventListener('change', () => {
         const file = profileInput.files[0];
@@ -166,26 +209,20 @@
           reader.readAsDataURL(file);
         }
       });
-
       const saveMsg = document.getElementById('save-message');
       document.getElementById('settingsForm').addEventListener('submit', e => {
         e.preventDefault();
-
         const passwordInput = document.getElementById('password').value;
         const confirmPasswordInput = document.getElementById('confirm-password').value;
-        const saveMsg = document.getElementById('save-message');
-
         if (passwordInput !== confirmPasswordInput) {
           saveMsg.style.color = "#ef4444";
           saveMsg.textContent = "Passwords do not match.";
           return;
         }
-
-        saveMsg.style.color = "#4fd7a5";
+        saveMsg.style.color = "#2493ff";
         saveMsg.textContent = "Password changed successfully!";
         e.target.reset();
       });
-
       document.getElementById('logout-btn').addEventListener('click', () => {
         sessionStorage.clear();
         window.location.href = 'login.html';
@@ -193,5 +230,4 @@
     });
   </script>
 </body>
-
 </html>
