@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -15,20 +14,16 @@
       border-radius: 10px;
       align-items: center;
     }
-
     .alumni-avatar {
       font-size: 3rem;
       margin-right: 1rem;
     }
-
     .alumni-info h3 {
       margin: 0 0 0.5rem 0;
     }
-
     .alumni-info p {
       margin: 0.2rem 0;
     }
-
     .btn {
       margin-top: 0.5rem;
       padding: 0.5rem 1rem;
@@ -39,7 +34,6 @@
       font-weight: 600;
       color: #0a1a0f;
     }
-
     header ul.nav-list li button {
       background: none;
       border: none;
@@ -48,19 +42,26 @@
       font-size: 1rem;
       padding: 0.5rem 1rem;
     }
-
     header ul.nav-list li button:hover {
       background-color: #36b390;
       color: #0a1a0f;
       font-weight: bold;
       border-radius: 6px;
     }
+    /* Container fix for text visibility */
+    .container {
+      background-color: #0a1a0f;
+      border-radius: 8px;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
   </style>
 </head>
-
 <body>
-  <header>
-    <nav>
+  <header style="display: flex; align-items: center; padding: 10px 20px; background-color: #0a1a0f;">
+    <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
+    <nav style="flex-grow: 1;">
       <ul class="nav-list">
         <li><a href="index.html">Home</a></li>
         <li><a href="dashboard.html">Dashboard</a></li>
@@ -74,16 +75,12 @@
       </ul>
     </nav>
   </header>
-
   <main class="container">
     <h1 id="page-title">Alumni Directory</h1>
     <p id="description">Connect and network with fellow graduates.</p>
-
     <input type="text" id="search" placeholder="Search alumni by name, company, or department" style="width:100%; padding:10px; margin-bottom:20px; border-radius:6px;" />
-
     <div id="alumni-list"></div>
   </main>
-
   <script>
     const alumniData = {
       "Punjab University": [
@@ -189,33 +186,27 @@
         }
       ]
     };
-
     const alumniList = document.getElementById('alumni-list');
     const pageTitle = document.getElementById('page-title');
     const description = document.getElementById('description');
     const searchInput = document.getElementById('search');
     const logoutBtn = document.getElementById('logout-btn');
-
     // Check session on page load
     window.addEventListener('DOMContentLoaded', () => {
       const institution = sessionStorage.getItem('loggedInInstitution');
       const email = sessionStorage.getItem('loggedInEmail');
       const role = sessionStorage.getItem('loggedInRole');
-
       if (!institution || !email || !role) {
         window.location.href = 'login.html';
         return;
       }
-
       pageTitle.textContent = `${institution} Alumni Directory`;
       description.textContent = `Browse and connect with alumni from ${institution}.`;
-
       const list = alumniData[institution] || [];
       if (list.length === 0) {
         alumniList.innerHTML = '<p>No alumni data available for this institution.</p>';
         return;
       }
-
       let html = '';
       list.forEach(alum => {
         html += `
@@ -233,7 +224,6 @@
       });
       alumniList.innerHTML = html;
     });
-
     // Search filter
     searchInput.addEventListener('input', () => {
       const query = searchInput.value.toLowerCase();
@@ -242,7 +232,6 @@
         profile.style.display = text.includes(query) ? '' : 'none';
       });
     });
-
     // Logout handler
     logoutBtn.addEventListener('click', () => {
       sessionStorage.clear();
@@ -250,5 +239,4 @@
     });
   </script>
 </body>
-
 </html>
