@@ -6,26 +6,36 @@
   <title>Punjab Alumni Connect</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
   <style>
+    /* Basic Reset & Base */
     body, html {
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       height: 100vh;
       font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #101927, #18345a 70%);
       color: #eaf6ff;
+      overflow: hidden;
+      position: relative;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
+    }
+    /* Particle Canvas behind all */
+    #particle-canvas {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.11;
     }
     header {
       display: flex;
       align-items: center;
       padding: 10px 30px;
-      background-color: #101927;
+      background-color: #101927cc;
       box-shadow: 0 4px 16px rgba(0,0,0,0.7);
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 999;
+      backdrop-filter: saturate(180%) blur(13px);
     }
     nav {
       flex-grow: 1;
@@ -39,6 +49,7 @@
       font-weight: 700;
       font-size: 1rem;
       align-items: center;
+      color: white;
     }
     .nav-list a,
     .nav-list button {
@@ -48,125 +59,187 @@
       border-radius: 8px;
       cursor: pointer;
       border: 2px solid transparent;
-      transition: all 0.2s;
       background: transparent;
+      transition: all 0.2s ease;
     }
     .nav-list a.active,
     .nav-list a:hover,
     .nav-list button:hover {
       background: #3BB4FF;
-      color: #101927;
+      color: white;
       border: 2px solid #3BB4FF;
-      box-shadow: 0 6px 12px rgba(59, 180, 255, 0.45);
+      box-shadow: 0 6px 12px rgba(59, 180, 255, 0.7);
     }
     main.container {
       flex: 1;
       display: flex;
-      padding: 40px 50px;
-      gap: 60px;
-      box-sizing: border-box;
+      justify-content: center;
+      align-items: stretch;
       height: calc(100vh - 60px);
+      padding: 60px 50px 70px;
+      max-width: 1240px;
+      margin: 0 auto;
+      z-index: 1;
+      position: relative;
       overflow: hidden;
+      gap: 48px;
+      box-sizing: border-box;
     }
-    .left-section {
-      width: 55%;
+    .homepage-left {
+      flex: 1 1 47%;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-right: 20px;
+      padding-right: 38px;
+      min-width: 320px;
+      max-width: 520px;
     }
-    .left-section h1 {
-      font-size: 3.6rem;
+    .homepage-left h1 {
+      font-size: 3.4rem;
       font-weight: 900;
-      color: #3BB4FF;
-      margin-bottom: 24px;
-      text-shadow: 0 0 15px rgba(59, 180, 255, 0.8);
-      line-height: 1.1;
+      color: white;
+      text-shadow:
+        0 0 25px white,
+        0 0 40px #3bb4ffcc,
+        0 0 60px #3bb4ffbb;
+      margin-bottom: 18px;
+      line-height: 1.12;
     }
-    .left-section p {
-      font-size: 1.3rem;
-      color: #bfe4ff;
-      margin-bottom: 40px;
-      line-height: 1.5;
+    .homepage-left p {
+      font-size: 1.28rem;
+      color: #dceeffcc;
+      margin-bottom: 42px;
+      line-height: 1.54;
     }
     .btn-get-started {
-      width: max-content;
-      background: linear-gradient(90deg, #2493ff, #76beff);
-      color: #101927;
-      font-weight: 800;
-      padding: 18px 50px;
-      font-size: 1.25rem;
-      border-radius: 40px;
+      background: linear-gradient(90deg, #ffffff, #2493ff 90%);
+      color: #101827;
+      font-weight: 900;
+      padding: 20px 58px;
+      font-size: 1.32rem;
+      border-radius: 38px;
       border: none;
       cursor: pointer;
-      box-shadow: 0 8px 28px rgba(36, 147, 255, 0.37);
-      transition: background 0.25s ease, box-shadow 0.25s ease;
+      box-shadow:
+        0 0 18px #ffffffab,
+        0 0 40px #2493ffcc;
+      transition: background 0.3s ease, box-shadow 0.3s ease, letter-spacing 0.18s;
+      width: fit-content;
+      user-select: none;
+      outline-offset: 4px;
+      text-shadow: 0 0 3px #296ddbcc;
     }
     .btn-get-started:hover {
-      background: linear-gradient(90deg, #165ea8, #2493ff);
-      box-shadow: 0 10px 35px rgba(36, 147, 255, 0.6);
+      background: linear-gradient(90deg, #d5e5fb, #165ea8);
+      box-shadow:
+        0 0 30px #2493ffee,
+        0 0 52px #d5e5fbcc;
       letter-spacing: 0.02em;
     }
-    .right-section {
-      width: 40%;
+    .homepage-right {
+      flex: 1 1 50%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 32px;
+      min-width: 360px;
+      max-width: 700px;
+      align-items: stretch;
+      justify-items: stretch;
+    }
+    .feature-card {
+      background: linear-gradient(135deg, #1b2a55, #162048);
+      border-radius: 24px;
+      box-shadow:
+        0 14px 28px rgba(11, 44, 89, 0.28),
+        inset 0 0 16px #3BB4FF44;
+      padding: 32px 28px;
+      color: white;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: all 0.3s ease;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      overflow: hidden;
-      gap: 30px;
-    }
-    .feature-card {
-      background: linear-gradient(145deg, #243f6a, #172a40);
-      border-radius: 24px;
-      padding: 24px 32px;
-      color: #d2e3ff;
-      box-shadow: 0 15px 30px rgba(11, 44, 89, 0.34), inset 0 0 20px rgba(36, 147, 255, 0.5);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border: 2px solid transparent;
+      position: relative;
       user-select: none;
     }
-    .feature-card:hover,
-    .feature-card:focus {
-      box-shadow: 0 30px 60px rgba(36, 147, 255, 0.7), inset 0 0 40px rgba(59, 180, 255, 0.7);
-      transform: translateY(-6px) scale(1.05);
-      border: 2px solid #3bb4ff;
-      outline: none;
-    }
     .feature-card h3 {
-      color: #7cbfff;
-      font-size: 1.7rem;
-      margin-bottom: 10px;
-      user-select: text;
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: white;
+      text-shadow: 0 0 8px #3BB4FFbc;
     }
     .feature-card p {
       font-size: 1.05rem;
-      line-height: 1.4;
-      color: #abc8ff;
+      line-height: 1.5;
+      color: #c7d9ffcc;
       user-select: text;
     }
-    @media (max-width: 900px) {
+    .feature-card:hover,
+    .feature-card:focus {
+      box-shadow:
+        0 30px 70px #3bb4ffbb,
+        inset 0 0 60px #3bb4ffbb;
+      border: 3px solid white;
+      transform: translateY(-5px) scale(1.05);
+      z-index: 5;
+      outline: none;
+    }
+    /* Stats bar below left section */
+    .stats-bar {
+      margin-top: 50px;
+      display: flex;
+      justify-content: flex-start;
+      gap: 48px;
+      font-weight: 700;
+      font-size: 1.12rem;
+      color: #d4e6ffcc;
+      user-select: none;
+    }
+    .stats-bar strong {
+      color: white;
+      font-size: 1.28rem;
+      text-shadow: 0 0 12px #fff9;
+    }
+    /* Particle animation canvas */
+    #particle-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+    @media (max-width: 1000px) {
       main.container {
         flex-direction: column;
+        padding: 30px 24px;
         height: auto;
+        gap: 36px;
+        overflow-y: auto;
       }
-      .left-section, .right-section {
+      .homepage-left, .homepage-right {
         width: 100%;
-        padding: 0;
+        max-width: 100%;
       }
-      .right-section {
-        flex-direction: row;
-        gap: 20px;
-        overflow-x: auto;
+      .homepage-right {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
         max-height: none;
+        justify-content: center;
       }
       .feature-card {
-        min-width: 260px;
+        width: 90%;
+        max-width: 360px;
       }
     }
   </style>
 </head>
 <body>
+  <canvas id="particle-canvas"></canvas>
   <header>
     <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
     <nav style="flex-grow: 1;">
@@ -184,15 +257,20 @@
     </nav>
   </header>
   <main class="container" role="main">
-    <section class="left-section" aria-label="Welcome section">
+    <section class="homepage-left" aria-label="Welcome section">
       <h1>Welcome to Punjab Alumni Connect</h1>
       <p>
         Strengthening life-long connections among alumni, students, and institutions of Punjab.<br />
         Discover opportunities, reconnect with friends, explore campus events, and much more!
       </p>
       <a href="login.html" class="btn-get-started" role="button">Get Started</a>
+      <div class="stats-bar" aria-label="Platform statistics">
+        <div><strong>100,000+</strong> Alumni</div>
+        <div><strong>650+</strong> Jobs & Internships</div>
+        <div><strong>325+</strong> Campus Events</div>
+      </div>
     </section>
-    <aside class="right-section" aria-label="Main features navigation">
+    <aside class="homepage-right" aria-label="Primary features navigation">
       <div class="feature-card" tabindex="0" data-link="alumni.html" role="link" aria-label="Connect and Network">
         <h3>Connect & Network</h3>
         <p>Find mentors, colleagues, and old friends among 100,000+ alumni. Use smart search and personalized recommendations.</p>
@@ -211,7 +289,67 @@
       </div>
     </aside>
   </main>
+
   <script>
+    // Particle background animation using canvas
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+    const PARTICLE_COUNT = 60;
+
+    function setSize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    }
+    window.addEventListener('resize', setSize);
+    setSize();
+
+    class Particle {
+      constructor() {
+        this.init();
+      }
+      init() {
+        this.x = Math.random()*width;
+        this.y = Math.random()*height;
+        this.vx = (Math.random()-0.5)*0.7;
+        this.vy = (Math.random()-0.5)*0.7;
+        this.radius = Math.random()*2.2 + 1;
+        this.alpha = 0.25 + Math.random()*0.4;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if(this.x < 0 || this.x > width) this.vx *= -1;
+        if(this.y < 0 || this.y > height) this.vy *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius*6);
+        gradient.addColorStop(0, `rgba(59,180,255,${this.alpha})`);
+        gradient.addColorStop(1, 'rgba(59,180,255,0)');
+        ctx.fillStyle = gradient;
+        ctx.arc(this.x, this.y, this.radius*6, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    for(let i=0; i<PARTICLE_COUNT; i++) {
+      particles.push(new Particle());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Feature card clicks with login check
     document.querySelectorAll('.feature-card').forEach(card => {
       card.addEventListener('click', () => {
         if (sessionStorage.getItem('loggedInInstitution') &&
@@ -224,9 +362,7 @@
         }
       });
       card.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          card.click();
-        }
+        if (e.key === 'Enter' || e.key === ' ') card.click();
       });
     });
     document.getElementById('logout-btn').addEventListener('click', () => {
