@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,12 +7,16 @@
   <link rel="stylesheet" href="styles.css" />
   <style>
     .card {
-      background: rgba(255 255 255 / 0.1);
+      background: rgba(36, 147, 255, 0.07);
       padding: 1rem;
       border-radius: 10px;
       margin-bottom: 1.5rem;
+      color: #eaf6ff;
+      transition: background 0.3s ease;
     }
-
+    .card:hover {
+      background: rgba(36, 147, 255, 0.14);
+    }
     .progress-bar-container {
       background: #222;
       border-radius: 10px;
@@ -21,47 +24,82 @@
       height: 20px;
       margin-bottom: 10px;
     }
-
     .progress-bar {
       height: 100%;
       border-radius: 10px;
-      background: linear-gradient(90deg, #4fd7a5, #81d9c9);
+      background: linear-gradient(90deg, #2493ff, #76beff);
     }
-
     ul {
       padding-left: 1.2rem;
     }
-
     button {
-      background: #4fd7a5;
+      background: #2493ff;
       border: none;
       border-radius: 20px;
       padding: 0.7rem 1.5rem;
-      color: #0a1a0f;
+      color: #101927;
       font-weight: 700;
       cursor: pointer;
+      transition: background 0.3s ease;
     }
-
-    header ul.nav-list li button {
+    button:hover {
+      background-color: #165ea8;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #101927;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav {
+      flex-grow: 1;
+    }
+    nav ul.nav-list {
+      display: flex;
+      gap: 15px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-weight: 700;
+      font-size: 1rem;
+      align-items: center;
+      background: transparent;
+    }
+    nav ul.nav-list li a,
+    nav ul.nav-list li button {
+      color: #2493ff;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
       background: none;
       border: none;
-      color: #4fd7a5;
       cursor: pointer;
+      font-family: inherit;
       font-size: 1rem;
-      padding: 0.5rem 1rem;
     }
-
-    header ul.nav-list li button:hover {
-      background-color: #36b390;
-      color: #0a1a0f;
+    nav ul.nav-list li a.active,
+    nav ul.nav-list li a:hover,
+    nav ul.nav-list li button:hover {
+      background: #2493ff;
+      color: #101927;
       font-weight: bold;
-      border-radius: 6px;
+    }
+    .container {
+      background-color: #121F33;
+      border-radius: 1em;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 2rem auto;
+      color: #eaf6ff;
     }
   </style>
 </head>
-
 <body>
   <header>
+    <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
     <nav>
       <ul class="nav-list">
         <li><a href="index.html">Home</a></li>
@@ -76,14 +114,11 @@
       </ul>
     </nav>
   </header>
-
   <main class="container">
     <h1 id="page-title">Support Your Institution</h1>
     <p id="description">Contribute to your alma mater's growth and success.</p>
-
     <div id="donation-content"></div>
   </main>
-
   <script>
     const donationsData = {
       "Punjab University": {
@@ -209,31 +244,25 @@
         ]
       }
     };
-
     const donationContentEl = document.getElementById('donation-content');
     const pageTitle = document.getElementById('page-title');
     const description = document.getElementById('description');
     const logoutBtn = document.getElementById('logout-btn');
-
     window.addEventListener('DOMContentLoaded', () => {
       const institution = sessionStorage.getItem('loggedInInstitution');
       const email = sessionStorage.getItem('loggedInEmail');
       const role = sessionStorage.getItem('loggedInRole');
-
       if (!institution || !email || !role) {
         window.location.href = 'login.html';
         return;
       }
-
       pageTitle.textContent = `${institution} - Support Your Institution`;
       description.textContent = `Help ${institution} grow through your generous donations.`;
-
       const data = donationsData[institution];
       if (!data) {
         donationContentEl.innerHTML = "<p>No donation campaigns found for this institution.</p>";
         return;
       }
-
       donationContentEl.innerHTML = `
         <section class="card">
           <h2>Current Campaign: ${data.campaign.name}</h2>
@@ -244,14 +273,12 @@
           <p>${data.campaign.progressPercent}% of goal achieved with ${data.campaign.donors} donors</p>
           <button onclick="alert('Donation feature coming soon!')">Donate Now</button>
         </section>
-
         <section class="card">
           <h2>Impact Stories</h2>
           <ul>
             ${data.impact.map(item => `<li>${item}</li>`).join('')}
           </ul>
         </section>
-
         <section class="card">
           <h2>Top Donors</h2>
           <ul>
@@ -260,12 +287,10 @@
         </section>
       `;
     });
-
     logoutBtn.addEventListener('click', () => {
       sessionStorage.clear();
       window.location.href = 'login.html';
     });
   </script>
 </body>
-
 </html>
