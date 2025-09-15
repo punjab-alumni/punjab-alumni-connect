@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,36 +7,75 @@
   <link rel="stylesheet" href="styles.css" />
   <style>
     .event-card {
-      background: rgba(255 255 255 / 0.1);
+      background: rgba(36, 147, 255, 0.07);
       padding: 1rem;
       margin-bottom: 1rem;
       border-radius: 10px;
+      color: #eaf6ff;
+      transition: background 0.3s ease;
     }
-
+    .event-card:hover {
+      background: rgba(36, 147, 255, 0.14);
+    }
     .event-card h3 {
       margin-top: 0;
+      color: #2493ff;
     }
-
-    header ul.nav-list li button {
+    header {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #101927;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav {
+      flex-grow: 1;
+    }
+    nav ul.nav-list {
+      display: flex;
+      gap: 15px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-weight: 700;
+      font-size: 1rem;
+      align-items: center;
+      background: transparent;
+    }
+    nav ul.nav-list li a,
+    nav ul.nav-list li button {
+      color: #2493ff;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
       background: none;
       border: none;
-      color: #4fd7a5;
       cursor: pointer;
+      font-family: inherit;
       font-size: 1rem;
-      padding: 0.5rem 1rem;
     }
-
-    header ul.nav-list li button:hover {
-      background-color: #36b390;
-      color: #0a1a0f;
+    nav ul.nav-list li a.active,
+    nav ul.nav-list li a:hover,
+    nav ul.nav-list li button:hover {
+      background: #2493ff;
+      color: #101927;
       font-weight: bold;
-      border-radius: 6px;
+    }
+    .container {
+      background-color: #121F33;
+      border-radius: 1em;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 2rem auto;
+      color: #eaf6ff;
     }
   </style>
 </head>
-
 <body>
   <header>
+    <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
     <nav>
       <ul class="nav-list">
         <li><a href="index.html">Home</a></li>
@@ -52,12 +90,10 @@
       </ul>
     </nav>
   </header>
-
   <main class="container">
     <h1 id="page-title">Upcoming Events</h1>
     <div id="events-list"></div>
   </main>
-
   <script>
     const eventsData = {
       "Punjab University": {
@@ -119,7 +155,6 @@
         ]
       }
     };
-
     function createEventCard(event) {
       return `
         <div class="event-card">
@@ -129,27 +164,21 @@
           <p>${event.description}</p>
         </div>`;
     }
-
     window.addEventListener('DOMContentLoaded', () => {
       const institution = sessionStorage.getItem('loggedInInstitution');
       const role = sessionStorage.getItem('loggedInRole');
       const email = sessionStorage.getItem('loggedInEmail');
-
       if (!institution || !role || !email) {
         window.location.href = 'login.html';
         return;
       }
-
       document.getElementById('page-title').textContent = `${institution} - Upcoming Events`;
-
       const data = eventsData[institution];
       const eventsList = document.getElementById('events-list');
-
       if (!data) {
         eventsList.innerHTML = "<p>No events available for this institution.</p>";
         return;
       }
-
       if (role === 'student') {
         eventsList.innerHTML = data.studentEvents.map(createEventCard).join('');
       } else if (role === 'alumni') {
@@ -158,7 +187,6 @@
         eventsList.innerHTML = `<h2>Student Events</h2>` + data.studentEvents.map(createEventCard).join('');
         eventsList.innerHTML += `<h2>Alumni Events</h2>` + data.alumniEvents.map(createEventCard).join('');
       }
-
       document.getElementById('logout-btn').addEventListener('click', () => {
         sessionStorage.clear();
         window.location.href = 'login.html';
@@ -166,5 +194,4 @@
     });
   </script>
 </body>
-
 </html>
