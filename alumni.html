@@ -8,18 +8,25 @@
   <style>
     .alumni-profile {
       display: flex;
-      background: rgba(255 255 255 / 0.1);
+      background: rgba(36, 147, 255, 0.07);
       padding: 1rem;
       margin-bottom: 1rem;
       border-radius: 10px;
       align-items: center;
+      color: #eaf6ff;
+      transition: background 0.3s ease;
+    }
+    .alumni-profile:hover {
+      background: rgba(36, 147, 255, 0.14);
     }
     .alumni-avatar {
       font-size: 3rem;
       margin-right: 1rem;
+      color: #2493ff;
     }
     .alumni-info h3 {
       margin: 0 0 0.5rem 0;
+      color: #2493ff;
     }
     .alumni-info p {
       margin: 0.2rem 0;
@@ -27,18 +34,22 @@
     .btn {
       margin-top: 0.5rem;
       padding: 0.5rem 1rem;
-      background: #4fd7a5;
+      background: #2493ff;
       border: none;
       border-radius: 20px;
       cursor: pointer;
       font-weight: 600;
-      color: #0a1a0f;
+      color: #101927;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background: #165ea8;
     }
     header {
       display: flex;
       align-items: center;
       padding: 10px 20px;
-      background-color: #0a1a0f;
+      background-color: #101927;
     }
     nav {
       flex-grow: 1;
@@ -56,7 +67,7 @@
     }
     nav ul.nav-list li a,
     nav ul.nav-list li button {
-      color: #4fd7a5;
+      color: #2493ff;
       text-decoration: none;
       padding: 0.5rem 1rem;
       border-radius: 6px;
@@ -69,17 +80,18 @@
     nav ul.nav-list li a.active,
     nav ul.nav-list li a:hover,
     nav ul.nav-list li button:hover {
-      background: #4fd7a5;
-      color: #0a1a0f;
+      background: #2493ff;
+      color: #101927;
       font-weight: bold;
     }
     /* Container fix for text visibility */
     .container {
-      background-color: #0a1a0f;
-      border-radius: 8px;
+      background-color: #121F33;
+      border-radius: 1em;
       padding: 2rem;
       max-width: 1200px;
-      margin: 0 auto;
+      margin: 2rem auto;
+      color: #eaf6ff;
     }
   </style>
 </head>
@@ -96,7 +108,7 @@
         <li><a href="mentorship.html">Mentorship</a></li>
         <li><a href="donations.html">Donations</a></li>
         <li><a href="settings.html">Settings</a></li>
-        <li><button id="logout-btn" style="background:none;border:none;color:#4fd7a5;cursor:pointer;">Logout</button></li>
+        <li><button id="logout-btn" style="background:none;border:none;color:#2493ff;cursor:pointer;">Logout</button></li>
       </ul>
     </nav>
   </header>
