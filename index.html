@@ -4,61 +4,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Punjab Alumni Connect - Home</title>
+  <title>Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    body {
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main.container {
+      flex: 1;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  </style>
 </head>
 
 <body>
-  <header>
-    <nav>
-      <ul class="nav-list">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="alumni.html">Alumni</a></li>
-        <li><a href="events.html">Events</a></li>
-        <li><a href="jobs.html">Jobs</a></li>
-        <li><a href="mentorship.html">Mentorship</a></li>
-        <li><a href="donations.html">Donations</a></li>
-        <li><a href="settings.html">Settings</a></li>
+  <header style="display: flex; align-items: center; padding: 10px 20px; background-color: #0a1a0f;">
+    <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
+    <nav style="flex-grow: 1;">
+      <ul class="nav-list" style="display: flex; gap: 15px; list-style: none; margin: 0; padding: 0; font-weight: 700; font-size: 1rem;">
+        <li><a href="index.html" style="color: #4fd7a5; text-decoration: none;">Home</a></li>
+        <li><a href="dashboard.html" style="color: #4fd7a5; text-decoration: none;">Dashboard</a></li>
+        <li><a href="alumni.html" style="color: #4fd7a5; text-decoration: none;">Alumni</a></li>
+        <li><a href="events.html" style="color: #4fd7a5; text-decoration: none;">Events</a></li>
+        <li><a href="jobs.html" style="color: #4fd7a5; text-decoration: none;">Jobs</a></li>
+        <li><a href="mentorship.html" style="color: #4fd7a5; text-decoration: none;">Mentorship</a></li>
+        <li><a href="donations.html" style="color: #4fd7a5; text-decoration: none;">Donations</a></li>
+        <li><a href="settings.html" style="color: #4fd7a5; text-decoration: none;">Settings</a></li>
+        <li>
+          <button id="logout-btn" style="background:none; border:none; color:#4fd7a5; cursor:pointer; font-size:1rem;">Logout</button>
+        </li>
       </ul>
     </nav>
   </header>
 
-  <main class="hero-section">
-    <div class="container hero-content">
-      <div class="hero-text">
-        <h1>Punjab Alumni Connect</h1>
-        <h2>Connecting Alumni Across Punjab</h2>
-        <p>
-          Official alumni management platform for Punjab educational institutions. Fostering lifelong
-          relationships, career growth, and educational excellence across the state.
-        </p>
-        <a href="institution-select.html" class="btn-primary">Get Started →</a>
-      </div>
-      <div class="hero-features">
-        <div class="feature-card">
-          <i class="fa-solid fa-users feature-icon"></i>
-          <h3>Alumni Network</h3>
-          <p>Connect with thousands of alumni across industries.</p>
-        </div>
-        <div class="feature-card">
-          <i class="fa-solid fa-briefcase feature-icon"></i>
-          <h3>Career Opportunities</h3>
-          <p>Explore jobs posted exclusively by alumni.</p>
-        </div>
-        <div class="feature-card">
-          <i class="fa-solid fa-hands-helping feature-icon"></i>
-          <h3>Mentorship</h3>
-          <p>Find or become a mentor to help the community grow.</p>
-        </div>
-        <div class="feature-card">
-          <i class="fa-solid fa-hand-holding-dollar feature-icon"></i>
-          <h3>Support & Donations</h3>
-          <p>Give back by supporting your alma mater.</p>
-        </div>
-      </div>
-    </div>
+  <main class="container">
+    <h1>Welcome to Punjab Alumni Connect</h1>
+    <p>
+      Connecting alumni, students, and institutions across the state of Punjab.
+    </p>
+    <!-- Add your homepage content here -->
   </main>
+
+  <script>
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      sessionStorage.clear();
+      window.location.href = 'login.html';
+    });
+  </script>
 </body>
 
 </html>
