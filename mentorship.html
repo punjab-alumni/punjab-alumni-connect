@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,58 +7,99 @@
   <link rel="stylesheet" href="styles.css" />
   <style>
     .profile-card {
-      background: rgba(255 255 255 / 0.1);
+      background: rgba(36, 147, 255, 0.07);
       padding: 1rem;
       margin-bottom: 1rem;
       border-radius: 10px;
       display: flex;
       align-items: center;
+      color: #eaf6ff;
+      transition: background 0.3s ease;
     }
-
+    .profile-card:hover {
+      background: rgba(36, 147, 255, 0.14);
+    }
     .avatar {
       font-size: 3rem;
       margin-right: 1rem;
+      color: #2493ff;
     }
-
     .info h3 {
       margin: 0 0 0.5rem 0;
+      color: #2493ff;
     }
-
     .info p {
       margin: 0.2rem 0;
     }
-
     .btn {
       margin-top: 0.5rem;
       padding: 0.5rem 1rem;
-      background: #4fd7a5;
+      background: #2493ff;
       border: none;
       border-radius: 20px;
       cursor: pointer;
       font-weight: 600;
-      color: #0a1a0f;
+      color: #101927;
+      transition: background 0.3s ease;
     }
-
-    header ul.nav-list li button {
+    .btn:hover {
+      background: #165ea8;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #101927;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav {
+      flex-grow: 1;
+    }
+    nav ul.nav-list {
+      display: flex;
+      gap: 15px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-weight: 700;
+      font-size: 1rem;
+      align-items: center;
+      background: transparent;
+    }
+    nav ul.nav-list li a,
+    nav ul.nav-list li button {
+      color: #2493ff;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
       background: none;
       border: none;
-      color: #4fd7a5;
       cursor: pointer;
+      font-family: inherit;
       font-size: 1rem;
-      padding: 0.5rem 1rem;
     }
-
-    header ul.nav-list li button:hover {
-      background-color: #36b390;
-      color: #0a1a0f;
+    nav ul.nav-list li a.active,
+    nav ul.nav-list li a:hover,
+    nav ul.nav-list li button:hover {
+      background: #2493ff;
+      color: #101927;
       font-weight: bold;
-      border-radius: 6px;
+    }
+    .container {
+      background-color: #121F33;
+      border-radius: 1em;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 2rem auto;
+      color: #eaf6ff;
     }
   </style>
 </head>
-
 <body>
   <header>
+    <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
     <nav>
       <ul class="nav-list">
         <li><a href="index.html">Home</a></li>
@@ -74,15 +114,12 @@
       </ul>
     </nav>
   </header>
-
   <main class="container">
     <h1 id="page-title">Mentorship Program</h1>
     <p id="description">Connect with your mentorship community.</p>
-
     <div id="mentors-list"></div>
     <div id="students-list"></div>
   </main>
-
   <script>
     // Alumni as mentors with 3+ per university
     const alumniAsMentors = {
@@ -122,7 +159,6 @@
         { name: "Simran Kaur", expertise: "Farm Management, Sustainability", contact: "simran.kaur@pau.ac.in", bio: "Advisor on sustainable farming methods." }
       ]
     };
-
     // Students as mentees with at least 2 per university
     const studentsAsMentees = {
       "Punjab University": [
@@ -156,7 +192,6 @@
         { name: "Student P", department: "Plant Pathology", email: "studentp@pau.ac.in" }
       ]
     };
-
     function createMentorCard(mentor) {
       return `
         <div class="profile-card">
@@ -170,7 +205,6 @@
           </div>
         </div>`;
     }
-
     function createStudentCard(student) {
       return `
         <div class="profile-card">
@@ -182,23 +216,18 @@
           </div>
         </div>`;
     }
-
     window.addEventListener('DOMContentLoaded', () => {
       const institution = sessionStorage.getItem('loggedInInstitution');
       const role = sessionStorage.getItem('loggedInRole');
       const email = sessionStorage.getItem('loggedInEmail');
-
       if (!institution || !role || !email) {
         window.location.href = 'login.html';
         return;
       }
-
       document.getElementById('page-title').textContent = `${institution} Mentorship Program`;
-
       const mentorsList = document.getElementById('mentors-list');
       const studentsList = document.getElementById('students-list');
       const description = document.getElementById('description');
-
       if (role === 'student') {
         description.textContent = 'Connect with experienced alumni mentors from your institution.';
         const mentors = alumniAsMentors[institution] || [];
@@ -220,7 +249,6 @@
         studentsList.innerHTML = '<h2>Students</h2>' +
           (students.length ? students.map(createStudentCard).join('') : '<p>No students available.</p>');
       }
-
       document.getElementById('logout-btn').addEventListener('click', () => {
         sessionStorage.clear();
         window.location.href = 'login.html';
@@ -228,5 +256,4 @@
     });
   </script>
 </body>
-
 </html>
