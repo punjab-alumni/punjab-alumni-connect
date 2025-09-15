@@ -6,25 +6,24 @@
   <title>Punjab Alumni Connect</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    /* Basic Reset & Base */
     body, html {
-      margin: 0; padding: 0;
-      height: 100vh;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
       font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #101927, #18345a 70%);
       color: #eaf6ff;
-      overflow: hidden;
+      overflow-y: auto; /* Enable vertical scrolling */
       position: relative;
       display: flex;
       flex-direction: column;
     }
-    /* Particle Canvas behind all */
     #particle-canvas {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
       z-index: 0;
       pointer-events: none;
-      opacity: 0.11;
+      opacity: 0.08;
     }
     header {
       display: flex;
@@ -75,13 +74,13 @@
       display: flex;
       justify-content: center;
       align-items: stretch;
-      height: calc(100vh - 60px);
+      min-height: 600px;
       padding: 60px 50px 70px;
-      max-width: 1240px;
+      max-width: 1350px;
       margin: 0 auto;
       z-index: 1;
       position: relative;
-      overflow: hidden;
+      overflow: visible;
       gap: 48px;
       box-sizing: border-box;
     }
@@ -95,13 +94,12 @@
       max-width: 520px;
     }
     .homepage-left h1 {
-      font-size: 3.4rem;
+      font-size: 3.2rem;
       font-weight: 900;
       color: white;
       text-shadow:
-        0 0 25px white,
-        0 0 40px #3bb4ffcc,
-        0 0 60px #3bb4ffbb;
+        0 0 10px #fff8,
+        0 0 20px #3bb4ff44;
       margin-bottom: 18px;
       line-height: 1.12;
     }
@@ -120,20 +118,16 @@
       border-radius: 38px;
       border: none;
       cursor: pointer;
-      box-shadow:
-        0 0 18px #ffffffab,
-        0 0 40px #2493ffcc;
+      box-shadow: 0 0 8px #fff7, 0 0 16px #2493ff55;
       transition: background 0.3s ease, box-shadow 0.3s ease, letter-spacing 0.18s;
       width: fit-content;
       user-select: none;
       outline-offset: 4px;
-      text-shadow: 0 0 3px #296ddbcc;
+      text-shadow: 0 0 2px #296ddbc0;
     }
     .btn-get-started:hover {
       background: linear-gradient(90deg, #d5e5fb, #165ea8);
-      box-shadow:
-        0 0 30px #2493ffee,
-        0 0 52px #d5e5fbcc;
+      box-shadow: 0 0 20px #2493ff99, 0 0 32px #d5e5fb55;
       letter-spacing: 0.02em;
     }
     .homepage-right {
@@ -150,14 +144,12 @@
     .feature-card {
       background: linear-gradient(135deg, #1b2a55, #162048);
       border-radius: 24px;
-      box-shadow:
-        0 14px 28px rgba(11, 44, 89, 0.28),
-        inset 0 0 16px #3BB4FF44;
+      box-shadow: 0 8px 20px rgba(11, 44, 89, 0.18), inset 0 0 8px #3bb4ff22;
       padding: 32px 28px;
       color: white;
       cursor: pointer;
-      border: 3px solid transparent;
-      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      transition: all 0.28s ease;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -165,75 +157,63 @@
       user-select: none;
     }
     .feature-card h3 {
-      margin-bottom: 12px;
-      font-size: 1.4rem;
+      margin-bottom: 13px;
+      font-size: 1.3rem;
       font-weight: 700;
-      color: white;
-      text-shadow: 0 0 8px #3BB4FFbc;
+      color: #eaf6ff;
+      text-shadow: 0 0 4px #3BB4FF99;
     }
     .feature-card p {
       font-size: 1.05rem;
       line-height: 1.5;
       color: #c7d9ffcc;
       user-select: text;
+      opacity: 0.97;
     }
-    .feature-card:hover,
-    .feature-card:focus {
-      box-shadow:
-        0 30px 70px #3bb4ffbb,
-        inset 0 0 60px #3bb4ffbb;
-      border: 3px solid white;
-      transform: translateY(-5px) scale(1.05);
-      z-index: 5;
+    .feature-card:hover, .feature-card:focus {
+      box-shadow: 0 12px 40px #3bb4ff77, inset 0 0 30px #fff8;
+      border: 2px solid #fafafa;
       outline: none;
+      transform: scale(1.035);
+      z-index: 3;
     }
-    /* Stats bar below left section */
     .stats-bar {
-      margin-top: 50px;
+      margin-top: 35px;
       display: flex;
       justify-content: flex-start;
       gap: 48px;
       font-weight: 700;
-      font-size: 1.12rem;
+      font-size: 1.13rem;
       color: #d4e6ffcc;
       user-select: none;
     }
     .stats-bar strong {
-      color: white;
-      font-size: 1.28rem;
-      text-shadow: 0 0 12px #fff9;
+      color: #fff;
+      font-size: 1.21rem;
+      text-shadow: 0 0 8px #fff8;
     }
-    /* Particle animation canvas */
-    #particle-canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-    }
-    @media (max-width: 1000px) {
+    @media (max-width: 1100px) {
       main.container {
         flex-direction: column;
-        padding: 30px 24px;
-        height: auto;
-        gap: 36px;
-        overflow-y: auto;
+        padding: 30px 12px;
+        min-height: auto;
+        gap: 24px;
       }
       .homepage-left, .homepage-right {
-        width: 100%;
         max-width: 100%;
       }
       .homepage-right {
         display: flex;
         flex-wrap: wrap;
         gap: 18px;
-        max-height: none;
+        min-width: 0;
+        max-width: 100vw;
         justify-content: center;
       }
       .feature-card {
         width: 90%;
-        max-width: 360px;
+        max-width: 350px;
+        min-width: 220px;
       }
     }
   </style>
@@ -289,7 +269,6 @@
       </div>
     </aside>
   </main>
-
   <script>
     // Particle background animation using canvas
     const canvas = document.getElementById('particle-canvas');
@@ -308,43 +287,35 @@
     setSize();
 
     class Particle {
-      constructor() {
-        this.init();
-      }
+      constructor() { this.init(); }
       init() {
         this.x = Math.random()*width;
         this.y = Math.random()*height;
         this.vx = (Math.random()-0.5)*0.7;
         this.vy = (Math.random()-0.5)*0.7;
-        this.radius = Math.random()*2.2 + 1;
-        this.alpha = 0.25 + Math.random()*0.4;
+        this.radius = Math.random()*2.1+1.1;
+        this.alpha = 0.18+Math.random()*0.25;
       }
       update() {
         this.x += this.vx;
         this.y += this.vy;
-        if(this.x < 0 || this.x > width) this.vx *= -1;
-        if(this.y < 0 || this.y > height) this.vy *= -1;
+        if(this.x<0||this.x>width) this.vx*=-1;
+        if(this.y<0||this.y>height) this.vy*=-1;
       }
       draw() {
         ctx.beginPath();
-        const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius*6);
-        gradient.addColorStop(0, `rgba(59,180,255,${this.alpha})`);
-        gradient.addColorStop(1, 'rgba(59,180,255,0)');
+        const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius*4);
+        gradient.addColorStop(0, `rgba(255,255,255,${this.alpha})`);
+        gradient.addColorStop(1, 'rgba(255,255,255,0)');
         ctx.fillStyle = gradient;
-        ctx.arc(this.x, this.y, this.radius*6, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, this.radius*4, 0, Math.PI*2);
         ctx.fill();
       }
     }
-    for(let i=0; i<PARTICLE_COUNT; i++) {
-      particles.push(new Particle());
-    }
-
+    for(let i=0; i<PARTICLE_COUNT; i++) { particles.push(new Particle()); }
     function animate() {
-      ctx.clearRect(0, 0, width, height);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
+      ctx.clearRect(0,0,width,height);
+      particles.forEach(p=>{ p.update(); p.draw(); });
       requestAnimationFrame(animate);
     }
     animate();
