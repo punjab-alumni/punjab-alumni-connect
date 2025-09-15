@@ -16,12 +16,13 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
-  background-color: #0a1a0f; /* Dark background for text visibility */
-  border-radius: 8px;
+  background-color: #121F33;
+  border-radius: 1em;
+  color: #eaf6ff;
 }
-/* Header overrides for consistent black background */
+/* Header overrides for consistent black-blue background */
 header {
-  background-color: #0a1a0f !important;
+  background-color: #101927 !important;
   display: flex;
   align-items: center;
   padding: 10px 20px;
@@ -45,7 +46,7 @@ nav {
   align-items: center;
 }
 nav a, nav button {
-  color: #4fd7a5;
+  color: #2493ff;
   text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
@@ -58,8 +59,8 @@ nav a, nav button {
 nav a.active,
 nav a:hover,
 nav button:hover {
-  background: #4fd7a5;
-  color: #0a1a0f;
+  background: #2493ff;
+  color: #101927;
   font-weight: bold;
 }
 /* Hero Section */
@@ -76,7 +77,7 @@ nav button:hover {
 }
 .hero-text h1 {
   font-size: 3rem;
-  background: linear-gradient(135deg, #4fd1c7, #81d9e6);
+  background: linear-gradient(135deg, #2493ff, #76beff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin-bottom: 1rem;
@@ -93,8 +94,8 @@ nav button:hover {
 }
 .btn-primary {
   display: inline-block;
-  background: #4fd1c7;
-  color: #0f1419;
+  background: #2493ff;
+  color: #101927;
   padding: 1rem 2rem;
   font-weight: 700;
   font-size: 1rem;
@@ -103,39 +104,55 @@ nav button:hover {
   transition: background 0.3s ease;
 }
 .btn-primary:hover {
-  background: #36b5ad;
+  background: #165ea8;
+}
+/* Get Started Button */
+.btn-get-started {
+  background: linear-gradient(90deg, #2493ff, #76beff);
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  border-radius: 30px;
+  padding: 1em 2.2em;
+  font-size: 1.2em;
+  letter-spacing: 0.03em;
+  box-shadow: 0 4px 18px 0 rgba(36,147,255,0.15);
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.btn-get-started:hover {
+  background: linear-gradient(90deg, #165ea8, #2493ff);
+  box-shadow: 0 4px 25px 0 rgba(36,147,255,0.23);
 }
 /* Hero Features */
-.hero-features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+.feature-section {
+  display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
-  flex: 1 1 400px;
+  margin-top: 2.5rem;
+  justify-content: space-between;
 }
 .feature-card {
-  background: rgba(255 255 255 / 0.05);
-  border-radius: 15px;
-  padding: 1.5rem;
-  text-align: center;
-  backdrop-filter: blur(10px);
-  transition: background 0.3s ease;
+  flex: 1 1 320px;
+  background: rgba(36,147,255,0.07);
+  border-radius: 14px;
+  padding: 2rem 1.5rem;
+  color: #eaf6ff;
+  min-width: 260px;
+  transition: background 0.2s;
 }
 .feature-card:hover {
-  background: rgba(255 255 255 / 0.1);
+  background: rgba(36,147,255,0.14);
 }
-.feature-card .feature-icon {
-  font-size: 3rem;
-  color: #0f1419;
-  background: linear-gradient(135deg, #4fd1c7, #81d9e6);
-  border-radius: 15px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  display: inline-block;
+.feature-card h3 {
+  color: #2493ff;
+  margin-bottom: 0.7em;
 }
 /* Buttons used in dashboard */
 .btn {
-  background: #4fd1c7;
-  color: #0f1419;
+  background: #2493ff;
+  color: #101927;
   padding: 0.8rem 1.5rem;
   font-weight: 700;
   border-radius: 25px;
@@ -144,7 +161,7 @@ nav button:hover {
   transition: background 0.3s ease;
 }
 .btn:hover {
-  background: #36b5ad;
+  background: #165ea8;
 }
 /* Common Card style */
 .card {
@@ -178,5 +195,8 @@ p {
   nav .nav-list {
     flex-wrap: wrap;
     gap: 1rem;
+  }
+  .feature-section {
+    flex-direction: column;
   }
 }
