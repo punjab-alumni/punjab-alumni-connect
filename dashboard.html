@@ -24,14 +24,14 @@
       display: flex;
       gap: 12px;
       padding: 0;
-      background: rgba(255 255 255 / 0.1);
+      background: transparent !important;
       border-radius: 8px;
       margin: 0 0 1rem;
       align-items: center;
     }
     nav ul.nav-list li a,
     nav ul.nav-list li button {
-      color: white;
+      color: #4fd7a5;
       text-decoration: none;
       padding: 0.5rem 1rem;
       display: block;
@@ -57,10 +57,20 @@
       max-width: 1200px;
       margin: 0 auto;
     }
+    /* Header styling for consistent black background */
+    header {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #0a1a0f;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
   </style>
 </head>
 <body>
-  <header style="display: flex; align-items: center; padding: 10px 20px; background-color: #0a1a0f;">
+  <header>
     <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
     <nav style="flex-grow: 1;">
       <ul class="nav-list">
