@@ -216,6 +216,106 @@
         min-width: 220px;
       }
     }
+
+    /* --- Floating Help Chat Tab --- */
+    #help-tab {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #2493ff;
+      color: #101927;
+      padding: 12px 20px;
+      border-radius: 30px 30px 30px 0;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      font-weight: 700;
+      font-family: Arial, sans-serif;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      user-select: none;
+    }
+    #help-tab svg {
+      fill: #101927;
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    /* --- Help Chatbox --- */
+    #help-chatbox {
+      display: none;
+      position: fixed;
+      bottom: 70px;
+      right: 20px;
+      width: 320px;
+      max-height: 420px;
+      background: #121F33;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(36,147,255,0.4);
+      font-family: Arial, sans-serif;
+      color: #eaf6ff;
+      flex-direction: column;
+      z-index: 10001;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    #help-chat-header {
+      background: #2493ff;
+      color: #101927;
+      padding: 14px 16px;
+      font-weight: 700;
+      font-size: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    #help-close {
+      background: none;
+      border: none;
+      font-size: 22px;
+      font-weight: bold;
+      color: #101927;
+      cursor: pointer;
+      line-height: 1;
+      user-select: none;
+    }
+    #help-chat-content {
+      padding: 16px;
+      flex: 1;
+      overflow-y: auto;
+      font-size: 14px;
+    }
+    #problem-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #problem-list li {
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      background: #2493ff33;
+      user-select: none;
+      transition: background 0.2s ease;
+    }
+    #problem-list li:hover,
+    #problem-list li:focus {
+      background: #3bb4ffaa;
+      outline: none;
+    }
+    #solution-box {
+      margin-top: 16px;
+      background: #1f3460;
+      padding: 12px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      user-select: text;
+    }
   </style>
 </head>
 <body>
@@ -269,6 +369,30 @@
       </div>
     </aside>
   </main>
+
+  <!-- Floating Help Tab -->
+  <div id="help-tab" aria-label="Help and Support" role="button" tabindex="0" title="Need Help?">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M12 2A10 10 0 1022 12 10 10 0 0012 2zm0 15a2 2 0 112-2 2 2 0 01-2 2zm1-6h-2V7h2z"/>
+    </svg>
+    Need Help?
+  </div>
+
+  <!-- Help Chatbox -->
+  <div id="help-chatbox" role="dialog" aria-modal="true" aria-labelledby="help-chat-header">
+    <div id="help-chat-header">
+      Help & Support
+      <button id="help-close" aria-label="Close Help Chat">&times;</button>
+    </div>
+    <div id="help-chat-content">
+      <p>What problem do you have? Choose one of these common issues:</p>
+      <ul id="problem-list" tabindex="0">
+        <!-- Populated by JS -->
+      </ul>
+      <div id="solution-box" style="display:none;"></div>
+    </div>
+  </div>
+
   <script>
     // Particle background animation using canvas
     const canvas = document.getElementById('particle-canvas');
@@ -276,7 +400,6 @@
     let width, height;
     let particles = [];
     const PARTICLE_COUNT = 60;
-
     function setSize() {
       width = window.innerWidth;
       height = window.innerHeight;
@@ -285,7 +408,6 @@
     }
     window.addEventListener('resize', setSize);
     setSize();
-
     class Particle {
       constructor() { this.init(); }
       init() {
@@ -340,6 +462,83 @@
       sessionStorage.clear();
       window.location.href = 'login.html';
     });
+
+    // --- Floating Help Chat Feature JS ---
+    (function(){
+      const problems = [
+        {
+          title: 'Login Issues',
+          solution: 'If you are having trouble logging in, please reset your password using the "Forgot Password" link on the login page.'
+        },
+        {
+          title: 'Navigation Help',
+          solution: 'Use the top menu bar or dashboard shortcuts to quickly access different sections of the website.'
+        },
+        {
+          title: 'Donation Process',
+          solution: 'To donate, select your institution and follow the instructions on the Donations page. Contact support if you face issues.'
+        },
+        {
+          title: 'Job Application',
+          solution: 'Apply to jobs via the Jobs section. Only alumni can apply. Students and admins have restricted access.'
+        },
+        {
+          title: 'Mentorship Requests',
+          solution: 'Mentorship requests are available for students only. Alumni and admins cannot request mentorship.'
+        },
+      ];
+
+      const helpTab = document.getElementById('help-tab');
+      const helpChatbox = document.getElementById('help-chatbox');
+      const helpClose = document.getElementById('help-close');
+      const problemList = document.getElementById('problem-list');
+      const solutionBox = document.getElementById('solution-box');
+
+      // Populate the problems list
+      problems.forEach((p, index) => {
+        const li = document.createElement('li');
+        li.textContent = p.title;
+        li.tabIndex = 0;
+        li.style.padding = '8px 12px';
+        li.style.cursor = 'pointer';
+        li.style.borderRadius = '6px';
+        li.style.marginBottom = '8px';
+        li.style.background = '#2493ff33';
+        li.addEventListener('click', () => {
+          showSolution(index);
+        });
+        li.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') showSolution(index);
+        });
+        problemList.appendChild(li);
+      });
+
+      function showSolution(index) {
+        solutionBox.style.display = 'block';
+        solutionBox.textContent = problems[index].solution;
+      }
+
+      helpTab.addEventListener('click', () => {
+        if (helpChatbox.style.display === 'flex') {
+          helpChatbox.style.display = 'none';
+        } else {
+          helpChatbox.style.display = 'flex';
+          solutionBox.style.display = 'none';
+          problemList.querySelectorAll('li').forEach(li => li.style.background = '#2493ff33');
+        }
+      });
+
+      helpClose.addEventListener('click', () => {
+        helpChatbox.style.display = 'none';
+      });
+
+      // Accessibility: Allow opening chatbox by keyboard (Enter or Space on tab)
+      helpTab.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          helpTab.click();
+        }
+      });
+    })();
   </script>
 </body>
 </html>
