@@ -95,6 +95,76 @@
       margin: 2rem auto;
       color: #eaf6ff;
     }
+    /* Modal styles */
+    #application-modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    #application-modal .modal-content {
+      background-color: #121F33;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      color: #eaf6ff;
+      font-family: inherit;
+    }
+    #application-modal h2 {
+      margin-top: 0;
+      color: #2493ff;
+    }
+    #application-modal label {
+      display: block;
+      margin: 12px 0 5px;
+    }
+    #application-modal input, #application-modal select, #application-modal textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      background-color: #222d48;
+      color: #eaf6ff;
+      resize: vertical;
+      font-family: inherit;
+    }
+    #application-modal textarea {
+      height: 80px;
+    }
+    #application-modal button {
+      margin-top: 15px;
+      width: 100%;
+      background: #2493ff;
+      border: none;
+      border-radius: 20px;
+      padding: 0.7rem 0;
+      cursor: pointer;
+      font-weight: 700;
+      color: #101927;
+      font-size: 1rem;
+    }
+    #application-modal button:hover {
+      background: #165ea8;
+    }
+    #close-modal-btn {
+      background: transparent;
+      color: #2493ff;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      float: right;
+      margin-top: -10px;
+      margin-right: -10px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -118,6 +188,24 @@
     <h1 id="page-title">Job Opportunities</h1>
     <div id="job-list"></div>
   </main>
+
+  <!-- Application modal -->
+  <div id="application-modal">
+    <div class="modal-content">
+      <button id="close-modal-btn" title="Close">&times;</button>
+      <h2>Job Application</h2>
+      <form id="application-form">
+        <label for="graduation-year">Year of Graduation</label>
+        <input type="number" id="graduation-year" name="graduationYear" min="1950" max="2100" required />
+        <label for="course">Course</label>
+        <input type="text" id="course" name="course" required />
+        <label for="details">Additional Details</label>
+        <textarea id="details" name="details" placeholder="Tell us more about your skills or experience..." required></textarea>
+        <button type="submit">Submit Application</button>
+      </form>
+    </div>
+  </div>
+
   <script>
     const jobsData = {
       "Punjab University": [
@@ -234,15 +322,26 @@
         }
       ]
     };
-
     const jobListEl = document.getElementById('job-list');
     const pageTitle = document.getElementById('page-title');
     const logoutBtn = document.getElementById('logout-btn');
+    const applicationModal = document.getElementById('application-modal');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+    const applicationForm = document.getElementById('application-form');
+
+    let currentUserRole = '';
+    let currentUserEmail = '';
+    let currentInstitution = '';
+    let currentJobTitle = '';
 
     window.addEventListener('DOMContentLoaded', () => {
       const institution = sessionStorage.getItem('loggedInInstitution');
       const email = sessionStorage.getItem('loggedInEmail');
       const role = sessionStorage.getItem('loggedInRole');
+      currentUserRole = role;
+      currentUserEmail = email;
+      currentInstitution = institution;
+
       if (!institution || !email || !role) {
         window.location.href = 'login.html';
         return;
@@ -263,10 +362,45 @@
           <p>${job.description}</p>
           <p><strong>Requirements:</strong> <ul>${job.requirements.map(req => `<li>${req}</li>`).join('')}</ul></p>
           <p>${job.tags.map(tag => `<span class="job-tag">${tag}</span>`).join('')}</p>
-          <button class="apply-btn" onclick="alert('Application system coming soon!')">Apply Now</button>
+          <button class="apply-btn" data-title="${job.title}">Apply Now</button>
         </div>`;
       });
       jobListEl.innerHTML = html;
+
+      document.querySelectorAll('.apply-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          const role = currentUserRole.toLowerCase();
+          if (role === 'student') {
+            alert('Feature not available for students.');
+            return;
+          }
+          if (role === 'admin') {
+            alert('Feature not available for admins.');
+            return;
+          }
+          // Show form modal for alumni or other roles
+          currentJobTitle = button.getAttribute('data-title');
+          applicationModal.style.display = 'block';
+          applicationForm.reset();
+        });
+      });
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      applicationModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+      if (event.target === applicationModal) {
+        applicationModal.style.display = 'none';
+      }
+    });
+
+    applicationForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Optionally you can collect form data here for backend submission later
+      applicationModal.style.display = 'none';
+      alert(`Thank you for applying for the position of "${currentJobTitle}". We will get back to you soon!`);
     });
 
     logoutBtn.addEventListener('click', () => {
