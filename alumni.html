@@ -92,6 +92,95 @@
       margin: 2rem auto;
       color: #eaf6ff;
     }
+    /* Chat box styles */
+    #chatbox {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 320px;
+      height: 400px;
+      background: #121F33;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #0008;
+      z-index: 10000;
+      color: #eaf6ff;
+      font-family: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+    #chatbox-header {
+      background: #2493ff;
+      padding: 10px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      color: #101927;
+    }
+    #chatbox-close {
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      font-size: 20px;
+      font-weight: bold;
+      color: #101927;
+    }
+    #chat-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      background: #1e2a4d;
+      border-bottom: 1px solid #2493ff;
+      border-radius: 0 0 10px 10px;
+    }
+    .message {
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 15px;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+    .bot-message {
+      background: #2493ff;
+      color: #101927;
+      align-self: flex-start;
+    }
+    .user-message {
+      background: #165ea8;
+      color: #eaf6ff;
+      align-self: flex-end;
+    }
+    #chat-input-container {
+      display: flex;
+      padding: 10px;
+      background: #121F33;
+      border-radius: 0 0 10px 10px;
+    }
+    #chat-input {
+      flex: 1;
+      padding: 8px;
+      border-radius: 20px;
+      border: none;
+      outline: none;
+      font-family: inherit;
+    }
+    #send-btn {
+      margin-left: 10px;
+      padding: 0 15px;
+      background: #2493ff;
+      border: none;
+      border-radius: 20px;
+      color: #101927;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    #send-btn:hover {
+      background: #165ea8;
+    }
   </style>
 </head>
 <body>
@@ -117,6 +206,22 @@
     <input type="text" id="search" placeholder="Search alumni by name, company, or department" style="width:100%; padding:10px; margin-bottom:20px; border-radius:6px;" />
     <div id="alumni-list"></div>
   </main>
+
+  <!-- Chatbox -->
+  <div id="chatbox" aria-live="polite" role="region" aria-label="Chat with Alumni">
+    <div id="chatbox-header">
+      Chat with Alumni
+      <button id="chatbox-close" aria-label="Close chatbox">&times;</button>
+    </div>
+    <div id="chat-messages">
+      <!-- Messages will appear here -->
+    </div>
+    <div id="chat-input-container">
+      <input type="text" id="chat-input" placeholder="Type a message..." aria-label="Chat message input" autocomplete="off" />
+      <button id="send-btn" aria-label="Send message">Send</button>
+    </div>
+  </div>
+
   <script>
     const alumniData = {
       "Punjab University": [
@@ -237,6 +342,27 @@
     const searchInput = document.getElementById('search');
     const logoutBtn = document.getElementById('logout-btn');
 
+    const chatbox = document.getElementById('chatbox');
+    const chatMessages = document.getElementById('chat-messages');
+    const chatInput = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-btn');
+    const chatCloseBtn = document.getElementById('chatbox-close');
+
+    // Utility to add chat message
+    function addMessage(text, sender) {
+      const msg = document.createElement('div');
+      msg.classList.add('message');
+      msg.classList.add(sender === 'bot' ? 'bot-message' : 'user-message');
+      msg.textContent = text;
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Clear chat messages
+    function clearMessages() {
+      chatMessages.innerHTML = '';
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
       const institution = sessionStorage.getItem('loggedInInstitution');
       const email = sessionStorage.getItem('loggedInEmail');
@@ -262,12 +388,53 @@
               <p>${alum.position} at ${alum.company}</p>
               <p>Batch: ${alum.batch} | Department: ${alum.department}</p>
               <p>Expertise: ${alum.expertise}</p>
-              <button class="btn" onclick="alert('Feature coming soon!')">Connect</button>
+              <button class="btn connect-btn">Connect</button>
             </div>
           </div>
         `;
       });
       alumniList.innerHTML = html;
+
+      // Attach event listeners to Connect buttons
+      document.querySelectorAll('.connect-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          clearMessages();
+          chatbox.style.display = 'flex';
+          addMessage('Type hello to start conversation with alumni', 'bot');
+          chatInput.value = '';
+          chatInput.focus();
+        });
+      });
+    });
+
+    sendBtn.addEventListener('click', () => {
+      const userText = chatInput.value.trim();
+      if (!userText) return;
+      addMessage(userText, 'user');
+      chatInput.value = '';
+      if (userText.toLowerCase() === 'hello') {
+        setTimeout(() => {
+          addMessage('Alumni will connect with you soon.', 'bot');
+        }, 500);
+        setTimeout(() => {
+          chatbox.style.display = 'none';
+        }, 2500);
+      } else {
+        setTimeout(() => {
+          addMessage("Please type 'hello' to start the conversation.", 'bot');
+        }, 500);
+      }
+    });
+
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        sendBtn.click();
+      }
+    });
+
+    chatCloseBtn.addEventListener('click', () => {
+      chatbox.style.display = 'none';
     });
 
     searchInput.addEventListener('input', () => {
