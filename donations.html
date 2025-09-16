@@ -273,7 +273,19 @@
             <div class="progress-bar" style="width: ${data.campaign.progressPercent}%;"></div>
           </div>
           <p>${data.campaign.progressPercent}% of goal achieved with ${data.campaign.donors} donors</p>
-          <button onclick="alert('Donation feature coming soon!')">Donate Now</button>
+          <div id="donation-form">
+            <h3>Select Amount to Donate</h3>
+            <div id="amount-options" style="margin-bottom: 1rem;">
+              <button class="donation-amount" data-amount="500">₹ 500</button>
+              <button class="donation-amount" data-amount="1000">₹ 1,000</button>
+              <button class="donation-amount" data-amount="2500">₹ 2,500</button>
+              <button class="donation-amount" data-amount="5000">₹ 5,000</button>
+            </div>
+            <input type="number" id="custom-amount" placeholder="Enter custom amount (₹)" min="1" style="padding:0.5rem; border-radius:5px; border:none; width: 150px; margin-bottom: 1rem;" />
+            <br />
+            <button id="donate-btn">Donate</button>
+            <p id="thankyou-message" style="margin-top: 1rem; color:#7fffd4; font-weight:bold; display:none;"></p>
+          </div>
         </section>
         <section class="card">
           <h2>Impact Stories</h2>
@@ -288,6 +300,48 @@
           </ul>
         </section>
       `;
+
+      // Donation feature JS
+      const amountButtons = document.querySelectorAll('.donation-amount');
+      const customAmountInput = document.getElementById('custom-amount');
+      const donateBtn = document.getElementById('donate-btn');
+      const thankYouMsg = document.getElementById('thankyou-message');
+
+      let selectedAmount = 0;
+
+      amountButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Clear styles for all buttons
+          amountButtons.forEach(btn => btn.style.backgroundColor = '#2493ff');
+          // Highlight selected button
+          button.style.backgroundColor = '#165ea8';
+          selectedAmount = button.getAttribute('data-amount');
+          // Clear custom input since a preset amount is selected
+          customAmountInput.value = '';
+          thankYouMsg.style.display = 'none';
+        });
+      });
+
+      customAmountInput.addEventListener('input', () => {
+        // Deselect preset buttons when user types in custom input
+        amountButtons.forEach(btn => btn.style.backgroundColor = '#2493ff');
+        selectedAmount = customAmountInput.value;
+        thankYouMsg.style.display = 'none';
+      });
+
+      donateBtn.addEventListener('click', () => {
+        const amount = parseInt(selectedAmount);
+        if (!amount || amount <= 0) {
+          alert('Please select or enter a valid donation amount.');
+          return;
+        }
+        thankYouMsg.textContent = `Thank you for your generous donation of ₹${amount}!`;
+        thankYouMsg.style.display = 'block';
+        // Optionally reset selections
+        selectedAmount = 0;
+        amountButtons.forEach(btn => btn.style.backgroundColor = '#2493ff');
+        customAmountInput.value = '';
+      });
     });
     logoutBtn.addEventListener('click', () => {
       sessionStorage.clear();
