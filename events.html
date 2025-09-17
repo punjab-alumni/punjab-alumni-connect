@@ -80,6 +80,7 @@
       margin-top: 2.5rem;
       padding: 1.5rem 1.5rem 1.8rem 1.5rem;
       box-shadow: 0 2px 12px #18345a22;
+      min-height: 600px;
     }
     /* Calendar event color override for dark bg */
     .fc-event {
@@ -213,52 +214,55 @@
         window.location.href = 'login.html';
       });
 
-      // ---- Add FullCalendar for the yearly event calendar ----
       var calendarEl = document.getElementById('events-calendar');
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,dayGridYear'
-        },
-        events: [
-          // 2025 Events
-          { title: "New Year's Day", start: '2025-01-01', color: '#3BB4FF' },
-          { title: "Republic Day", start: '2025-01-26', color: '#085fcf' },
-          { title: "Annual Alumni Meet", start: '2025-03-15', color: '#3ae' },
-          { title: "Summer Camp", start: '2025-06-10', color: '#F88379' },
-          { title: "Diwali Festival", start: '2025-10-20', color: '#ffb347' },
-          { title: "Halloween", start: '2025-10-31', color: '#FFA500' },
-          { title: "Christmas", start: '2025-12-25', color: '#3BB4FF' },
-          // 2026 Events
-          { title: "New Year's Day", start: '2026-01-01', color: '#3BB4FF' },
-          { title: "Coding Workshop", start: "2026-01-20", color: "#09c" },
-          { title: "Innovation Workshop", start: "2026-01-25", color: "#09c" },
-          { title: "Physics Symposium", start: "2026-01-30", color: "#09c" },
-          { title: "Republic Day", start: '2026-01-26', color: '#085fcf' },
-          { title: "Career Fair", start: "2026-02-15", color: "#09c" },
-          { title: "Mathematics Seminar", start: "2026-02-10", color: "#09c" },
-          { title: "Innovative Research Workshop", start: "2026-02-15", color: "#09c" },
-          { title: "Startup Pitch Day", start: "2026-02-18", color: "#09c" },
-          { title: "Global Alumni Meet", start: "2026-02-20", color: "#3ae" },
-          { title: "Research Conference", start: "2026-03-08", color: "#3ae" },
-          { title: "Annual Alumni Meet", start: "2026-03-10", color: "#3ae" },
-          { title: "Engineering Skills Bootcamp", start: "2026-03-15", color: "#09c" },
-          { title: "Alumni Networking Night", start: "2026-03-28", color: "#3ae" },
-          { title: "Tech Talk", start: "2026-04-05", color: "#3ae" },
-          { title: "Alumni Networking Meet", start: "2026-04-10", color: "#3ae" },
-          { title: "Alumni Reunion", start: "2026-04-12", color: "#3ae" },
-          { title: "Spring Gala", start: "2026-04-20", color: "#3ae" },
-          { title: "Summer Camp", start: '2026-06-10', color: '#F88379' },
-          { title: "Diwali Festival", start: '2026-11-09', color: '#ffb347' },
-          { title: "Halloween", start: '2026-10-31', color: '#FFA500' },
-          { title: "Christmas", start: '2026-12-25', color: '#3BB4FF' }
-        ],
-        height: 600
-      });
-      calendar.render();
+      if (calendarEl) {
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,dayGridYear'
+          },
+          events: [
+            // 2025 Events
+            { title: "New Year's Day", start: '2025-01-01', color: '#3BB4FF' },
+            { title: "Republic Day", start: '2025-01-26', color: '#085fcf' },
+            { title: "Annual Alumni Meet", start: '2025-03-15', color: '#3ae' },
+            { title: "Summer Camp", start: '2025-06-10', color: '#F88379' },
+            { title: "Diwali Festival", start: '2025-10-20', color: '#ffb347' },
+            { title: "Halloween", start: '2025-10-31', color: '#FFA500' },
+            { title: "Christmas", start: '2025-12-25', color: '#3BB4FF' },
+            // 2026 Events
+            { title: "New Year's Day", start: '2026-01-01', color: '#3BB4FF' },
+            { title: "Coding Workshop", start: "2026-01-20", color: "#09c" },
+            { title: "Innovation Workshop", start: "2026-01-25", color: "#09c" },
+            { title: "Physics Symposium", start: "2026-01-30", color: "#09c" },
+            { title: "Republic Day", start: '2026-01-26', color: '#085fcf' },
+            { title: "Career Fair", start: "2026-02-15", color: "#09c" },
+            { title: "Mathematics Seminar", start: "2026-02-10", color: "#09c" },
+            { title: "Innovative Research Workshop", start: "2026-02-15", color: "#09c" },
+            { title: "Startup Pitch Day", start: "2026-02-18", color: "#09c" },
+            { title: "Global Alumni Meet", start: "2026-02-20", color: "#3ae" },
+            { title: "Research Conference", start: "2026-03-08", color: "#3ae" },
+            { title: "Annual Alumni Meet", start: "2026-03-15", color: "#3ae" },
+            { title: "Engineering Skills Bootcamp", start: "2026-03-15", color: "#09c" },
+            { title: "Alumni Networking Night", start: "2026-03-28", color: "#3ae" },
+            { title: "Tech Talk", start: "2026-04-05", color: "#3ae" },
+            { title: "Alumni Networking Meet", start: "2026-04-10", color: "#3ae" },
+            { title: "Alumni Reunion", start: "2026-04-12", color: "#3ae" },
+            { title: "Spring Gala", start: "2026-04-20", color: "#3ae" },
+            { title: "Summer Camp", start: '2026-06-10', color: '#F88379' },
+            { title: "Diwali Festival", start: '2026-11-09', color: '#ffb347' },
+            { title: "Halloween", start: '2026-10-31', color: '#FFA500' },
+            { title: "Christmas", start: '2026-12-25', color: '#3BB4FF' }
+          ],
+          height: 600
+        });
+        calendar.render();
+      }
     });
   </script>
 </body>
 </html>
+
+     
