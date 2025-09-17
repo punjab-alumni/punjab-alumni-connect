@@ -80,15 +80,22 @@
       margin-top: 2.5rem;
       padding: 1.5rem 1.5rem 1.8rem 1.5rem;
       box-shadow: 0 2px 12px #18345a22;
-      min-height: 600px;
+      min-height: 540px;
     }
-    /* Calendar event color override for dark bg */
-    .fc-event {
-      color: #101927 !important;
-      font-weight: bold;
-      border: none;
-      letter-spacing: 0.03em;
+    .fc-toolbar-chunk button {
+      background: #2493ff !important;
+      color: #fff !important;
+      border-radius: 6px !important;
+      border: none !important;
+      font-weight: bold !important;
+      margin: 0 2px;
+      padding: 0.38em 1.15em;
+      transition: background 0.2s;
     }
+    .fc-toolbar-chunk button:hover { background: #1769ac !important; }
+    .fc-event { color: #101927 !important; font-weight: 700; border-radius: 7px; }
+    .fc .fc-toolbar-title { color: #fff; font-size: 1.26rem; font-weight: 700; }
+    .fc-daygrid-day-number, .fc-col-header-cell-cushion { color: #2493ff !important; font-weight: 600; }
   </style>
   <!-- FullCalendar JS -->
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
@@ -113,7 +120,7 @@
   <main class="container">
     <h1 id="page-title">Upcoming Events</h1>
     <div id="events-list"></div>
-    <h2 style="margin-top:3rem;color:#3BB4FF;">Yearly Events Calendar (2025 & 2026)</h2>
+    <h2 style="margin-top: 3rem; color: #3BB4FF;">Yearly Events Calendar (2025 &amp; 2026)</h2>
     <div id="events-calendar"></div>
   </main>
   <script>
@@ -177,6 +184,7 @@
         ]
       }
     };
+
     function createEventCard(event) {
       return `
         <div class="event-card">
@@ -186,34 +194,23 @@
           <p>${event.description}</p>
         </div>`;
     }
-    window.addEventListener('DOMContentLoaded', () => {
-      const institution = sessionStorage.getItem('loggedInInstitution');
-      const role = sessionStorage.getItem('loggedInRole');
-      const email = sessionStorage.getItem('loggedInEmail');
-      if (!institution || !role || !email) {
-        window.location.href = 'login.html';
-        return;
-      }
-      document.getElementById('page-title').textContent = `${institution} - Upcoming Events`;
-      const data = eventsData[institution];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Show all event cards for demonstration (can adapt role logic if needed)
       const eventsList = document.getElementById('events-list');
-      if (!data) {
-        eventsList.innerHTML = "<p>No events available for this institution.</p>";
-        return;
-      }
-      if (role === 'student') {
-        eventsList.innerHTML = data.studentEvents.map(createEventCard).join('');
-      } else if (role === 'alumni') {
-        eventsList.innerHTML = data.alumniEvents.map(createEventCard).join('');
-      } else if (role === 'admin') {
-        eventsList.innerHTML = `<h2>Student Events</h2>` + data.studentEvents.map(createEventCard).join('');
-        eventsList.innerHTML += `<h2>Alumni Events</h2>` + data.alumniEvents.map(createEventCard).join('');
-      }
-      document.getElementById('logout-btn').addEventListener('click', () => {
-        sessionStorage.clear();
-        window.location.href = 'login.html';
+      let allEvents = [];
+
+      Object.values(eventsData).forEach(inst => {
+        allEvents = allEvents.concat(inst.studentEvents, inst.alumniEvents);
       });
 
+      if (allEvents.length === 0) {
+        eventsList.innerHTML = "<p>No events available.</p>";
+      } else {
+        eventsList.innerHTML = allEvents.map(createEventCard).join('');
+      }
+
+      // Initialize FullCalendar with monthly slide navigation
       var calendarEl = document.getElementById('events-calendar');
       if (calendarEl) {
         var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -221,7 +218,7 @@
           headerToolbar: {
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,dayGridYear'
+            right: ''
           },
           events: [
             // 2025 Events
@@ -256,7 +253,8 @@
             { title: "Halloween", start: '2026-10-31', color: '#FFA500' },
             { title: "Christmas", start: '2026-12-25', color: '#3BB4FF' }
           ],
-          height: 600
+          height: 550,
+          nowIndicator: true
         });
         calendar.render();
       }
@@ -264,5 +262,3 @@
   </script>
 </body>
 </html>
-
-     
