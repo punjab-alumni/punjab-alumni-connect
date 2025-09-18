@@ -114,17 +114,17 @@
     <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
     <nav>
       <ul class="nav-list">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="login.html" class="active">Login</a></li>
+        <li><a href="index.html" id="nav-home">Home</a></li>
+        <li><a href="login.html" class="active" id="nav-login">Login</a></li>
       </ul>
     </nav>
   </header>
   <div class="container">
-    <h2>Login - Punjab Alumni Connect</h2>
+    <h2 id="login-heading">Login - Punjab Alumni Connect</h2>
     <form id="loginForm">
-      <label for="institution">Select Institution</label>
+      <label for="institution" id="label-institution">Select Institution</label>
       <select id="institution" required>
-        <option value="" disabled selected>Choose your institution</option>
+        <option value="" disabled selected id="institution-placeholder">Choose your institution</option>
         <option value="Punjab University" data-logo="images/punjab_university.png">Punjab University</option>
         <option value="Punjab Engineering College" data-logo="images/pec_logo.png">Punjab Engineering College</option>
         <option value="Thapar University" data-logo="images/thapar_logo.png">Thapar University</option>
@@ -134,14 +134,25 @@
         <option value="Chitkara University" data-logo="images/chitkara_logo.png">Chitkara University</option>
       </select>
       <img id="institution-logo" alt="Institution Logo" />
-      <label for="email">Email Address</label>
+      <label for="email" id="label-email">Email Address</label>
       <input type="email" id="email" required placeholder="email@example.com" />
-      <label for="password">Password</label>
+      <label for="password" id="label-password">Password</label>
       <input type="password" id="password" required placeholder="Enter password" />
-      <button type="submit" class="btn-login">Login</button>
+      <button type="submit" class="btn-login" id="btn-login">Login</button>
     </form>
     <div class="message" id="message"></div>
   </div>
+
+  <!-- Language Selection Modal -->
+  <div id="lang-modal" role="dialog" aria-modal="true" tabindex="-1" style="display:flex;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.6);z-index:10000;justify-content:center;align-items:center;font-family:'Inter',sans-serif;">
+    <div style="background:#121F33;padding:2rem;border-radius:15px;max-width:320px;width:90%;text-align:center;color:#eaf6ff;box-shadow:0 0 20px rgba(36,147,255,0.4);">
+      <h2 style="margin-bottom:1rem;color:#5dd1ff;">Select your preferred language</h2>
+      <button class="lang-btn" data-lang="en" style="margin:0.4rem;padding:0.7rem 1.2rem;background:#2493ff;color:#101827;border:none;border-radius:8px;cursor:pointer;">English</button>
+      <button class="lang-btn" data-lang="pa" style="margin:0.4rem;padding:0.7rem 1.2rem;background:#2493ff;color:#101827;border:none;border-radius:8px;cursor:pointer;">ਪੰਜਾਬੀ</button>
+      <button class="lang-btn" data-lang="hi" style="margin:0.4rem;padding:0.7rem 1.2rem;background:#2493ff;color:#101827;border:none;border-radius:8px;cursor:pointer;">हिंदी</button>
+    </div>
+  </div>
+
   <script>
     const demoCredentials = {
       "Punjab University": {
@@ -181,6 +192,84 @@
       }
     };
 
+    // Translation dictionary
+    const translations = {
+      en: {
+        'nav-home': 'Home',
+        'nav-login': 'Login',
+        'login-heading': 'Login - Punjab Alumni Connect',
+        'label-institution': 'Select Institution',
+        'institution-placeholder': 'Choose your institution',
+        'label-email': 'Email Address',
+        'label-password': 'Password',
+        'btn-login': 'Login',
+        'msg-select-institution': 'Please select a valid institution.',
+        'msg-email-not-found': 'Email address not found for selected institution.',
+        'msg-incorrect-password': 'Incorrect password.',
+        'msg-login-success': 'Login successful! Redirecting...'
+      },
+      pa: {
+        'nav-home': 'ਘਰ',
+        'nav-login': 'ਲਾਗਇਨ',
+        'login-heading': 'ਲਾਗਇਨ - ਪੰਜਾਬ ਸਾਬਕਾ ਵਿਦਿਆਰਥੀ ਕਨੈਕਟ',
+        'label-institution': 'ਸੰਸਥਾ ਚੁਣੋ',
+        'institution-placeholder': 'ਆਪਣੀ ਸੰਸਥਾ ਚੁਣੋ',
+        'label-email': 'ਈਮੇਲ ਪਤਾ',
+        'label-password': 'ਪਾਸਵਰਡ',
+        'btn-login': 'ਲਾਗਇਨ',
+        'msg-select-institution': 'ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਵੈਧ ਸੰਸਥਾ ਚੁਣੋ।',
+        'msg-email-not-found': 'ਚੁਣੀ ਗਈ ਸੰਸਥਾ ਲਈ ਈਮੇਲ ਪਤਾ ਨਹੀਂ ਮਿਲਿਆ।',
+        'msg-incorrect-password': 'ਗਲਤ ਪਾਸਵਰਡ।',
+        'msg-login-success': 'ਲਾਗਇਨ ਸਫਲ! ਰੀਡਾਇਰੈਕਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...'
+      },
+      hi: {
+        'nav-home': 'मुख्य पृष्ठ',
+        'nav-login': 'लॉगिन',
+        'login-heading': 'लॉगिन - पंजाब पूर्व छात्र कनेक्ट',
+        'label-institution': 'संस्थान चुनें',
+        'institution-placeholder': 'अपना संस्थान चुनें',
+        'label-email': 'ईमेल पता',
+        'label-password': 'पासवर्ड',
+        'btn-login': 'लॉगिन',
+        'msg-select-institution': 'कृपया एक वैध संस्थान चुनें।',
+        'msg-email-not-found': 'चयनित संस्थान के लिए ईमेल पता नहीं मिला।',
+        'msg-incorrect-password': 'गलत पासवर्ड।',
+        'msg-login-success': 'लॉगिन सफल! रीडायरेक्ट हो रहा है...'
+      }
+    };
+
+    let currentLanguage = null;
+    let errorMessages = {};
+
+    function applyLanguage(lang) {
+      currentLanguage = lang;
+      const dict = translations[lang];
+      errorMessages = {
+        selectInstitution: dict['msg-select-institution'],
+        emailNotFound: dict['msg-email-not-found'],
+        incorrectPassword: dict['msg-incorrect-password'],
+        loginSuccess: dict['msg-login-success']
+      };
+      
+      // Apply translations to all elements
+      for (const key in dict) {
+        const elem = document.getElementById(key);
+        if (elem) {
+          if (elem.tagName === 'INPUT' && elem.type === 'email') {
+            elem.placeholder = lang === 'en' ? 'email@example.com' : 
+                              lang === 'pa' ? 'ਈਮੇਲ@ਉਦਾਹਰਣ.com' : 
+                              'ईमेल@उदाहरण.com';
+          } else if (elem.tagName === 'INPUT' && elem.type === 'password') {
+            elem.placeholder = lang === 'en' ? 'Enter password' : 
+                              lang === 'pa' ? 'ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ' : 
+                              'पासवर्ड दर्ज करें';
+          } else {
+            elem.textContent = dict[key];
+          }
+        }
+      }
+    }
+
     const institutionSelect = document.getElementById('institution');
     const institutionLogo = document.getElementById('institution-logo');
     const messageElem = document.getElementById('message');
@@ -206,15 +295,18 @@
       const passwordInput = document.getElementById('password').value;
       messageElem.textContent = '';
       messageElem.classList.remove('error');
+
       if (!institution || !demoCredentials[institution]) {
-        messageElem.textContent = 'Please select a valid institution.';
+        messageElem.textContent = errorMessages.selectInstitution || 'Please select a valid institution.';
         messageElem.classList.add('error');
         return;
       }
+
       const creds = demoCredentials[institution];
       let emailFound = false;
       let passwordMatched = false;
       let loggedRole = null;
+
       for (const role in creds) {
         if (creds[role].email.toLowerCase() === emailInput) {
           emailFound = true;
@@ -225,20 +317,23 @@
           }
         }
       }
+
       if (!emailFound) {
-        messageElem.textContent = 'Email address not found for selected institution.';
+        messageElem.textContent = errorMessages.emailNotFound || 'Email address not found for selected institution.';
         messageElem.classList.add('error');
         return;
       }
+
       if (!passwordMatched) {
-        messageElem.textContent = 'Incorrect password.';
+        messageElem.textContent = errorMessages.incorrectPassword || 'Incorrect password.';
         messageElem.classList.add('error');
         return;
       }
+
       sessionStorage.setItem('loggedInInstitution', institution);
       sessionStorage.setItem('loggedInEmail', emailInput);
       sessionStorage.setItem('loggedInRole', loggedRole);
-      messageElem.textContent = 'Login successful! Redirecting...';
+      messageElem.textContent = errorMessages.loginSuccess || 'Login successful! Redirecting...';
       setTimeout(() => {
         window.location.href = 'dashboard.html';
       }, 1500);
@@ -249,6 +344,24 @@
       if (institution) {
         window.location.href = 'dashboard.html';
       }
+    });
+
+    // Language selection - ALWAYS show modal on load
+    document.addEventListener('DOMContentLoaded', () => {
+      const langModal = document.getElementById('lang-modal');
+      langModal.style.display = 'flex';
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const chosenLang = btn.dataset.lang;
+          if (!translations[chosenLang]) {
+            alert('This language is not supported yet.');
+            return;
+          }
+          applyLanguage(chosenLang);
+          langModal.style.display = 'none';
+        });
+      });
     });
   </script>
 </body>
