@@ -216,14 +216,13 @@
         min-width: 220px;
       }
     }
-
     /* --- Floating Help Chat Tab --- */
     #help-tab {
       position: fixed;
       bottom: 20px;
       right: 20px;
       background-color: #2493ff;
-      color: #101927;
+      color: #101827;
       padding: 12px 20px;
       border-radius: 30px 30px 30px 0;
       box-shadow: 0 3px 10px rgba(0,0,0,0.2);
@@ -237,12 +236,11 @@
       user-select: none;
     }
     #help-tab svg {
-      fill: #101927;
+      fill: #101827;
       width: 24px;
       height: 24px;
       flex-shrink: 0;
     }
-
     /* --- Help Chatbox --- */
     #help-chatbox {
       display: none;
@@ -264,7 +262,7 @@
     }
     #help-chat-header {
       background: #2493ff;
-      color: #101927;
+      color: #101827;
       padding: 14px 16px;
       font-weight: 700;
       font-size: 16px;
@@ -278,7 +276,7 @@
       border: none;
       font-size: 22px;
       font-weight: bold;
-      color: #101927;
+      color: #101827;
       cursor: pointer;
       line-height: 1;
       user-select: none;
@@ -330,7 +328,7 @@
         <li><a href="events.html">Events</a></li>
         <li><a href="jobs.html">Jobs</a></li>
         <li><a href="mentorship.html">Mentorship</a></li>
-        <li><a href="collaborative.html">Collaborative Spaces</a></li
+        <li><a href="collaborative.html">Collaborative Spaces</a></li>
         <li><a href="donations.html">Donations</a></li>
         <li><a href="settings.html">Settings</a></li>
         <li><button id="logout-btn" style="background:none;border:none;color:#3BB4FF;cursor:pointer;font-size:1rem;">Logout</button></li>
@@ -339,12 +337,12 @@
   </header>
   <main class="container" role="main">
     <section class="homepage-left" aria-label="Welcome section">
-      <h1>Welcome to Punjab Alumni Connect</h1>
-      <p>
+      <h1 id="welcome-title">Welcome to Punjab Alumni Connect</h1>
+      <p id="welcome-para">
         Strengthening life-long connections among alumni, students, and institutions of Punjab.<br />
         Discover opportunities, reconnect with friends, explore campus events, and much more!
       </p>
-      <a href="login.html" class="btn-get-started" role="button">Get Started</a>
+      <a href="login.html" class="btn-get-started" id="get-started" role="button">Get Started</a>
       <div class="stats-bar" aria-label="Platform statistics">
         <div><strong>100,000+</strong> Alumni</div>
         <div><strong>650+</strong> Jobs & Internships</div>
@@ -370,7 +368,6 @@
       </div>
     </aside>
   </main>
-
   <!-- Floating Help Tab -->
   <div id="help-tab" aria-label="Help and Support" role="button" tabindex="0" title="Need Help?">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -378,7 +375,6 @@
     </svg>
     Need Help?
   </div>
-
   <!-- Help Chatbox -->
   <div id="help-chatbox" role="dialog" aria-modal="true" aria-labelledby="help-chat-header">
     <div id="help-chat-header">
@@ -387,13 +383,10 @@
     </div>
     <div id="help-chat-content">
       <p>What problem do you have? Choose one of these common issues:</p>
-      <ul id="problem-list" tabindex="0">
-        <!-- Populated by JS -->
-      </ul>
+      <ul id="problem-list" tabindex="0"></ul>
       <div id="solution-box" style="display:none;"></div>
     </div>
   </div>
-
   <script>
     // Particle background animation using canvas
     const canvas = document.getElementById('particle-canvas');
@@ -442,7 +435,6 @@
       requestAnimationFrame(animate);
     }
     animate();
-
     // Feature card clicks with login check
     document.querySelectorAll('.feature-card').forEach(card => {
       card.addEventListener('click', () => {
@@ -463,7 +455,6 @@
       sessionStorage.clear();
       window.location.href = 'login.html';
     });
-
     // --- Floating Help Chat Feature JS ---
     (function(){
       const problems = [
@@ -488,13 +479,11 @@
           solution: 'Mentorship requests are available for students only. Alumni and admins cannot request mentorship.'
         },
       ];
-
       const helpTab = document.getElementById('help-tab');
       const helpChatbox = document.getElementById('help-chatbox');
       const helpClose = document.getElementById('help-close');
       const problemList = document.getElementById('problem-list');
       const solutionBox = document.getElementById('solution-box');
-
       // Populate the problems list
       problems.forEach((p, index) => {
         const li = document.createElement('li');
@@ -513,12 +502,10 @@
         });
         problemList.appendChild(li);
       });
-
       function showSolution(index) {
         solutionBox.style.display = 'block';
         solutionBox.textContent = problems[index].solution;
       }
-
       helpTab.addEventListener('click', () => {
         if (helpChatbox.style.display === 'flex') {
           helpChatbox.style.display = 'none';
@@ -528,11 +515,9 @@
           problemList.querySelectorAll('li').forEach(li => li.style.background = '#2493ff33');
         }
       });
-
       helpClose.addEventListener('click', () => {
         helpChatbox.style.display = 'none';
       });
-
       // Accessibility: Allow opening chatbox by keyboard (Enter or Space on tab)
       helpTab.addEventListener('keypress', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -540,8 +525,83 @@
         }
       });
     })();
+    // Translation dictionary
+    const translations = {
+      en: {
+        'header-home': 'Home',
+        'header-dashboard': 'Dashboard',
+        'header-alumni': 'Alumni',
+        'header-events': 'Events',
+        'header-jobs': 'Jobs',
+        'header-mentorship': 'Mentorship',
+        'header-donations': 'Donations',
+        'header-settings': 'Settings',
+        'welcome-title': 'Welcome to Punjab Alumni Connect',
+        'welcome-para': 'Strengthening life-long connections among alumni, students, and institutions of Punjab. Discover opportunities, reconnect with friends, explore campus events, and much more!',
+        'get-started': 'Get Started'
+      },
+      pa: {
+        'header-home': '[translate:ਘਰ]',
+        'header-dashboard': '[translate:ਡੈਸ਼ਬੋਰਡ]',
+        'header-alumni': '[translate:ਸਾਬਕਾ ਵਿਦਿਆਰਥੀ]',
+        'header-events': '[translate:ਕੀਤੇ ਗਏ ਕਾਰਜ]',
+        'header-jobs': '[translate:ਨੌਕਰੀਆਂ]',
+        'header-mentorship': '[translate:ਪਰੇਰਨਾ]',
+        'header-donations': '[translate:ਦਾਨ]',
+        'header-settings': '[translate:ਸੈਟਿੰਗਜ਼]',
+        'welcome-title': '[translate:ਪੰਜਾਬ ਸਾਬਕਾ ਵਿਦਿਆਰਥੀ ਕਨੈਕਟ]',
+        'welcome-para': '[translate:ਸਾਬਕਾ ਵਿਦਿਆਰਥੀਆਂ, ਵਿਦਿਆਰਥੀਆਂ ਅਤੇ ਪੰਜਾਬ ਦੇ ਸੰਸਥਾਵਾਂ ਵਿਚ ਲੰਮਾ ਜੁੜਾਵ]',
+        'get-started': '[translate:ਸ਼ੁਰੂ ਕਰੋ]'
+      },
+      hi: {
+        'header-home': '[translate:मुख्य पृष्ठ]',
+        'header-dashboard': '[translate:पैनल]',
+        'header-alumni': '[translate:पूर्व छात्र]',
+        'header-events': '[translate:कार्यक्रम]',
+        'header-jobs': '[translate:स्नातक]',
+        'header-mentorship': '[translate:मार्गदर्शन]',
+        'header-donations': '[translate:दान]',
+        'header-settings': '[translate:सेटिंग्स]',
+        'welcome-title': '[translate:पंजाब पूर्व छात्र कनेक्ट]',
+        'welcome-para': '[translate:अलुमनी, छात्र और पंजाब के विश्वविद्यालयों की संयुक्त समुदाय]',
+        'get-started': '[translate:शुरू करें]'
+      }
+    };
+
+    function applyLanguage(lang) {
+      for (const key in translations[lang]) {
+        const elem = document.getElementById(key);
+        if (elem) {
+          elem.textContent = translations[lang][key].replace(/\[translate:(.*?)\]/g, "$1");
+        }
+      }
+    }
+
+    const savedLang = localStorage.getItem('preferredLanguage');
+    const langModal = document.createElement('div');
+    window.addEventListener('DOMContentLoaded', () => {
+      if (savedLang && translations[savedLang]) {
+        applyLanguage(savedLang);
+      } else {
+        // Show language modal
+        const modalDiv = document.getElementById('lang-modal');
+        if(modalDiv){
+          modalDiv.style.display = 'flex';
+          document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const chosenLang = btn.dataset.lang;
+              if (!translations[chosenLang]) {
+                alert('This language is not supported yet.');
+                return;
+              }
+              localStorage.setItem('preferredLanguage', chosenLang);
+              modalDiv.style.display = 'none';
+              applyLanguage(chosenLang);
+            });
+          });
+        }
+      }
+    });
   </script>
 </body>
 </html>
-
-
