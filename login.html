@@ -192,7 +192,6 @@
       }
     };
 
-    // Translation dictionary
     const translations = {
       en: {
         'nav-home': 'Home',
@@ -250,107 +249,35 @@
         incorrectPassword: dict['msg-incorrect-password'],
         loginSuccess: dict['msg-login-success']
       };
-      
-      // Apply translations to all elements
       for (const key in dict) {
-        const elem = document.getElementById(key);
-        if (elem) {
-          if (elem.tagName === 'INPUT' && elem.type === 'email') {
-            elem.placeholder = lang === 'en' ? 'email@example.com' : 
-                              lang === 'pa' ? 'ਈਮੇਲ@ਉਦਾਹਰਣ.com' : 
-                              'ईमेल@उदाहरण.com';
-          } else if (elem.tagName === 'INPUT' && elem.type === 'password') {
-            elem.placeholder = lang === 'en' ? 'Enter password' : 
-                              lang === 'pa' ? 'ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ' : 
-                              'पासवर्ड दर्ज करें';
+        const el = document.getElementById(key);
+        if (el) {
+          if (el.tagName === 'SELECT' && key === 'institution-placeholder') {
+            el.querySelector('option[disabled]').textContent = dict[key];
+          } else if (el.tagName === 'INPUT') {
+            if (el.type === 'email') {
+              el.placeholder = lang==='pa'? 'ਈਮੇਲ@ਉਦਾਹਰਣ.com' : lang==='hi'? 'ईमेल@उदाहरण.com' : 'email@example.com';
+            }
+            if (el.type === 'password') {
+              el.placeholder = lang==='pa'? 'ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ' : lang==='hi'? 'पासवर्ड दर्ज करें' : 'Enter password';
+            }
           } else {
-            elem.textContent = dict[key];
+            el.textContent = dict[key];
           }
         }
       }
     }
 
-    const institutionSelect = document.getElementById('institution');
-    const institutionLogo = document.getElementById('institution-logo');
-    const messageElem = document.getElementById('message');
-
-    institutionSelect.addEventListener('change', () => {
-      const selectedOption = institutionSelect.options[institutionSelect.selectedIndex];
-      const logoSrc = selectedOption.getAttribute('data-logo');
-      if (logoSrc) {
-        institutionLogo.src = logoSrc;
-        institutionLogo.style.display = 'block';
-      } else {
-        institutionLogo.src = '';
-        institutionLogo.style.display = 'none';
-      }
-      messageElem.textContent = '';
-      messageElem.classList.remove('error');
-    });
-
-    document.getElementById('loginForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const institution = institutionSelect.value;
-      const emailInput = document.getElementById('email').value.trim().toLowerCase();
-      const passwordInput = document.getElementById('password').value;
-      messageElem.textContent = '';
-      messageElem.classList.remove('error');
-
-      if (!institution || !demoCredentials[institution]) {
-        messageElem.textContent = errorMessages.selectInstitution || 'Please select a valid institution.';
-        messageElem.classList.add('error');
-        return;
-      }
-
-      const creds = demoCredentials[institution];
-      let emailFound = false;
-      let passwordMatched = false;
-      let loggedRole = null;
-
-      for (const role in creds) {
-        if (creds[role].email.toLowerCase() === emailInput) {
-          emailFound = true;
-          if (creds[role].password === passwordInput) {
-            passwordMatched = true;
-            loggedRole = role;
-            break;
-          }
-        }
-      }
-
-      if (!emailFound) {
-        messageElem.textContent = errorMessages.emailNotFound || 'Email address not found for selected institution.';
-        messageElem.classList.add('error');
-        return;
-      }
-
-      if (!passwordMatched) {
-        messageElem.textContent = errorMessages.incorrectPassword || 'Incorrect password.';
-        messageElem.classList.add('error');
-        return;
-      }
-
-      sessionStorage.setItem('loggedInInstitution', institution);
-      sessionStorage.setItem('loggedInEmail', emailInput);
-      sessionStorage.setItem('loggedInRole', loggedRole);
-      messageElem.textContent = errorMessages.loginSuccess || 'Login successful! Redirecting...';
-      setTimeout(() => {
-        window.location.href = 'dashboard.html';
-      }, 1500);
-    });
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const institution = sessionStorage.getItem('loggedInInstitution');
-      if (institution) {
-        window.location.href = 'dashboard.html';
-      }
-    });
-
-    // Language selection - ALWAYS show modal on load
     document.addEventListener('DOMContentLoaded', () => {
+      // Language selector logic with sessionStorage persistence
       const langModal = document.getElementById('lang-modal');
-      langModal.style.display = 'flex';
-
+      const savedLang = sessionStorage.getItem('preferredLanguage');
+      if (savedLang && translations[savedLang]) {
+        applyLanguage(savedLang);
+        langModal.style.display = 'none';
+      } else {
+        langModal.style.display = 'flex';
+      }
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           const chosenLang = btn.dataset.lang;
@@ -358,10 +285,86 @@
             alert('This language is not supported yet.');
             return;
           }
+          sessionStorage.setItem('preferredLanguage', chosenLang);
           applyLanguage(chosenLang);
           langModal.style.display = 'none';
         });
       });
+
+      // Login functionality continues...
+      const institutionSelect = document.getElementById('institution');
+      const institutionLogo = document.getElementById('institution-logo');
+      const messageElem = document.getElementById('message');
+
+      institutionSelect.addEventListener('change', () => {
+        const selectedOption = institutionSelect.options[institutionSelect.selectedIndex];
+        const logoSrc = selectedOption.getAttribute('data-logo');
+        if (logoSrc) {
+          institutionLogo.src = logoSrc;
+          institutionLogo.style.display = 'block';
+        } else {
+          institutionLogo.src = '';
+          institutionLogo.style.display = 'none';
+        }
+        messageElem.textContent = '';
+        messageElem.classList.remove('error');
+      });
+
+      document.getElementById('loginForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const institution = institutionSelect.value;
+        const emailInput = document.getElementById('email').value.trim().toLowerCase();
+        const passwordInput = document.getElementById('password').value;
+        messageElem.textContent = '';
+        messageElem.classList.remove('error');
+
+        if (!institution || !demoCredentials[institution]) {
+          messageElem.textContent = errorMessages.selectInstitution;
+          messageElem.classList.add('error');
+          return;
+        }
+
+        const creds = demoCredentials[institution];
+        let emailFound = false;
+        let passwordMatched = false;
+        let loggedRole = null;
+
+        for (const role in creds) {
+          if (creds[role].email.toLowerCase() === emailInput) {
+            emailFound = true;
+            if (creds[role].password === passwordInput) {
+              passwordMatched = true;
+              loggedRole = role;
+              break;
+            }
+          }
+        }
+
+        if (!emailFound) {
+          messageElem.textContent = errorMessages.emailNotFound;
+          messageElem.classList.add('error');
+          return;
+        }
+
+        if (!passwordMatched) {
+          messageElem.textContent = errorMessages.incorrectPassword;
+          messageElem.classList.add('error');
+          return;
+        }
+
+        sessionStorage.setItem('loggedInInstitution', institution);
+        sessionStorage.setItem('loggedInEmail', emailInput);
+        sessionStorage.setItem('loggedInRole', loggedRole);
+        messageElem.textContent = errorMessages.loginSuccess;
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 1500);
+      });
+
+      // Redirect if already logged in
+      if (sessionStorage.getItem('loggedInInstitution')) {
+        window.location.href = 'dashboard.html';
+      }
     });
   </script>
 </body>
