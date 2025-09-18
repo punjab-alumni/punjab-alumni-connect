@@ -3,22 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Collaborative Learning Spaces - Punjab Alumni Connect</title>
+  <title>Collaborative Spaces - Punjab Alumni Connect</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
   <style>
+    /* add all previous CSS here */
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg,#101827,#18345a 70%);
-      color: #eaf6ff;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
+      background: linear-gradient(135deg,#101827,#183a6a 70%);
+      color: #eafcff;
+      margin: 0; padding: 0; min-height: 100vh;
     }
     header {
       display: flex;
       align-items: center;
       padding: 10px 20px;
-      background-color: #101827;
+      background-color: #101927;
       position: sticky;
       top: 0;
       z-index: 1000;
@@ -30,8 +29,7 @@
       display: flex;
       gap: 15px;
       list-style: none;
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       font-weight: 700;
       font-size: 1rem;
       color: #3bb4ff;
@@ -54,15 +52,16 @@
       max-width: 1200px;
       margin: auto;
       padding: 1.5rem;
-      gap: 1.5rem;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
+      gap: 1.5rem;
+      min-height: 90vh;
     }
     .topbar {
       display: flex;
-      justify-content: space-between;
       flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
       gap: 20px;
     }
     .btn {
@@ -77,7 +76,7 @@
       user-select: none;
     }
     .btn:hover {
-      background: #176db6;
+      background: #176db8;
     }
     .rooms-list {
       display: flex;
@@ -90,190 +89,226 @@
       border-radius: 14px;
       flex: 1 1 260px;
       max-width: 280px;
-      padding: 16px 16px 12px;
+      padding: 1rem 1rem 0.75rem;
       cursor: pointer;
       color: #a1c9ff;
-      transition: box-shadow 0.2s, background 0.3s;
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
       border: 2px solid transparent;
+      position: relative;
     }
-    .room-card:hover, .room-card.selected {
-      background: #224380;
+    .room-card.selected, .room-card:hover {
+      box-shadow: 0 0 25px #3bb4ffcc;
       border-color: #3bb4ff;
-      box-shadow: 0 0 22px #3bb4ffaa;
       color: #e5f0ff;
+    }
+    .room-card .delete-room {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      color: #f55c5c;
+      font-weight: 700;
+      font-size: 18px;
+      cursor: pointer;
+      user-select: none;
+      display: none;
+    }
+    .room-card.selected .delete-room {
+      display: block;
     }
     .room-title {
       font-size: 1.2rem;
       font-weight: 700;
       color: #60d3ff;
-      margin-bottom: 8px;
+      margin-bottom: 0.5rem;
     }
     .room-desc {
-      font-size: 1rem;
-      margin-bottom: 12px;
-      min-height: 48px;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+      min-height: 42px;
     }
     .room-members {
-      font-size: 0.9rem;
-      color: #92b9f4;
-      margin-bottom: 6px;
-      min-height: 28px;
+      font-size: 0.85rem;
+      color: #7bbcfa;
+      min-height: 18px;
+      margin-bottom: 0.5rem;
     }
     .chat-container {
       flex-grow: 1;
-      background: #1d2f58;
+      background: #224377;
       border-radius: 16px;
-      padding: 24px 32px 20px;
+      padding: 25px;
       display: flex;
       flex-direction: column;
-      max-height: 650px;
-      min-width: 300px;
+      max-height: 700px;
+      width: 100%;
       max-width: 780px;
-      overflow: hidden;
     }
     .chat-header {
-      color: #5ad2ff;
       font-size: 1.4rem;
       font-weight: 700;
+      color: #5ef1ff;
       margin-bottom: 18px;
     }
     .messages {
-      overflow-y: auto;
       flex-grow: 1;
-      padding-right: 4px;
-      scroll-behavior: smooth;
+      overflow-y: auto;
+      padding-right: 10px;
       margin-bottom: 18px;
+      scrollbar-width: thin; /* Firefox */
+      scrollbar-color: #5ef1ff transparent;
+    }
+    .messages::-webkit-scrollbar {
+      width: 8px;
+    }
+    .messages::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .messages::-webkit-scrollbar-thumb {
+      background-color: #5ef1ff;
+      border-radius: 10px;
     }
     .message {
-      background: #144377;
-      padding: 12px 18px;
+      background: #165180;
+      padding: 12px 20px;
+      margin: 0.5rem 0;
       border-radius: 12px;
-      margin-bottom: 14px;
+      color: #d9e8ff;
       position: relative;
-      color: #c4dbff;
     }
     .message.own {
-      background: #3bb4ff;
-      color: #101827;
+      background: #64b7ff;
+      color: #0c1a2d;
       align-self: flex-end;
     }
     .message-header {
       font-weight: 600;
       font-size: 0.85rem;
-      margin-bottom: 6px;
-      color: #aad8ff;
+      color: #acdbff;
+      margin-bottom: 5px;
     }
-    .message-text {
+    .message-content {
       font-size: 1rem;
       white-space: pre-wrap;
     }
     .message-delete {
       position: absolute;
-      top: 6px;
-      right: 12px;
-      font-size: 0.9rem;
+      top: 7px;
+      right: 7px;
       background: transparent;
       border: none;
-      color: #f66e6e;
+      color: #f55c5c;
+      font-weight: 700;
+      font-size: 16px;
       cursor: pointer;
       user-select: none;
+      display: none;
     }
-    .message-delete:hover {
-      color: #d04343;
+    .message.own .message-delete {
+      display: block;
     }
     form.chat-form {
       display: flex;
-      gap: 14px;
+      gap: 15px;
       align-items: center;
     }
     form.chat-form input {
       flex-grow: 1;
+      padding: 11px 15px;
+      border-radius: 23px;
       border: none;
-      border-radius: 22px;
-      padding: 12px 18px;
+      background: #16355f;
+      color: #abdefc;
       font-size: 1rem;
-      background: #163552;
-      color: #a7cdff;
       outline: none;
     }
     form.chat-form button {
-      background: #3bb4ff;
+      padding: 11px 26px;
+      border-radius: 26px;
       border: none;
-      border-radius: 23px;
-      padding: 12px 32px;
-      color: #101827;
+      background: #5ef1ff;
+      color: #0a1a2e;
       font-weight: 700;
       cursor: pointer;
       transition: background 0.3s ease;
       user-select: none;
     }
     form.chat-form button:hover {
-      background: #176db6;
+      background: #0a6c93;
+      color: #fff;
     }
-    /* Modal */
-    .modal {
+    /* Modal Styles */
+    .modal-overlay {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(3px);
+      inset: 0;
+      background-color: rgba(0,0,0,0.75);
+      backdrop-filter: blur(4px);
+      z-index: 10000;
       display: none;
       justify-content: center;
       align-items: center;
-      z-index: 9999;
-      padding: 12px;
+      padding: 20px;
     }
-    .modal.active {
+    .modal-overlay.active {
       display: flex;
     }
     .modal-content {
-      background: #20345e;
-      padding: 24px;
+      background: #224377;
       border-radius: 18px;
-      width: 100%;
+      padding: 24px;
       max-width: 420px;
-      color: #adhcff;
+      width: 100%;
+      color: #b5d8ff;
+      box-shadow: 0 0 14px #4daaffcc;
+      user-select: none;
     }
     .modal-content h2 {
       margin-top: 0;
-      color: #5ad2ff;
+      margin-bottom: 16px;
       font-weight: 700;
+      font-size: 1.5rem;
+      color: #5ef1ff;
     }
     .modal-content label {
-      margin: 18px 0 8px;
-      display: block;
       font-weight: 600;
+      font-size: 1rem;
+      display: block;
+      margin: 10px 0 6px;
     }
     .modal-content input, .modal-content textarea {
       width: 100%;
-      padding: 10px 14px;
-      border-radius: 12px;
+      border-radius: 10px;
       border: none;
-      background: #152c58;
-      color: #a8ccff;
+      background: #1a2d54;
+      color: #a7c3f3;
+      padding: 12px 14px;
       font-size: 1rem;
       resize: vertical;
     }
     .modal-content textarea {
-      height: 90px;
+      min-height: 90px;
     }
     .modal-content button {
-      margin-top: 22px;
       width: 100%;
-      border: none;
+      margin-top: 20px;
       padding: 14px;
-      font-weight: 800;
+      font-weight: 700;
       font-size: 1.1rem;
-      border-radius: 24px;
-      background: #3bb4ff;
-      color: #101827;
+      border-radius: 26px;
+      border: none;
+      background: #5ef1ff;
+      color: #0a1a2e;
       cursor: pointer;
       transition: background 0.3s ease;
       user-select: none;
     }
     .modal-content button:hover {
-      background: #176db6;
+      background: #148aad;
+      color: #fff;
     }
   </style>
+</head>
 <body>
   <header>
     <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;">
@@ -292,69 +327,83 @@
       </ul>
     </nav>
   </header>
-  
   <main>
     <div class="topbar">
-      <h1>Collaborative Learning Spaces</h1>
+      <h1>Collaborative Spaces</h1>
       <button class="btn" id="btn-create-room">+ Start New Room</button>
     </div>
-    
     <div class="rooms-list" id="rooms-list"></div>
     <div class="chat-container" id="chat-container" style="display:none;">
       <div class="chat-header" id="chat-header">Room Title</div>
       <div class="messages" id="messages"></div>
-      <form class="chat-form" id="chat-form">
-        <input type="text" id="msg-input" placeholder="Type your message" autocomplete="off" required />
+      <form class="chat-form" id="chat-form" autocomplete="off">
+        <input type="text" id="msg-input" placeholder="Type your message..." required />
         <button type="submit">Send</button>
       </form>
     </div>
   </main>
-  
-  <!-- Modal for creating new room -->
-  <div class="modal" id="modal-create-room">
+
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-content">
-      <h2>Create New Room</h2>
-      <form id="form-create-room">
-        <label for="room-topic">Room Topic:</label>
+      <h2 id="modal-title">Create New Room</h2>
+      <form id="create-room-form" autocomplete="off">
+        <label for="room-topic">Topic</label>
         <input type="text" id="room-topic" name="room-topic" required />
-        <label for="room-desc">Description:</label>
+        <label for="room-desc">Description</label>
         <textarea id="room-desc" name="room-desc" required></textarea>
         <button type="submit">Create</button>
       </form>
     </div>
   </div>
-  
+
   <script>
-    // Redirect to login page if not logged in (sessionStorage keys)
+    // Login check (redirect if not logged in)
     const institution = sessionStorage.getItem('loggedInInstitution');
     const role = sessionStorage.getItem('loggedInRole');
     const email = sessionStorage.getItem('loggedInEmail');
     const name = sessionStorage.getItem('loggedInName') || "Anonymous";
+
     if (!institution || !role || !email) {
       window.location.href = 'login.html';
     }
-    
-    // Local storage based rooms data or default sample room
+
+    // Load saved rooms from localStorage or init with sample rooms
     let rooms = JSON.parse(localStorage.getItem('collabRooms')) || [
       {
-        id: 'room-1',
-        title: 'AI & ML Projects',
-        description: 'Discuss machine learning projects and get help from mentors.',
-        members: [{name, role, university: institution}],
-        messages: [
-          {
-            id: 1,
-            author: name,
-            role,
-            university: institution,
-            text: 'Welcome to the AI & ML project room!',
-            timestamp: new Date().toLocaleString()
-          }
-        ]
-      }
+        id: "room1",
+        title: "AI and ML Projects",
+        description: "Discuss AI & ML projects, ask for guidance.",
+        creatorEmail: email,
+        members: [{ name, role, university: institution }],
+        messages: [{ id: 1, authorEmail: email, authorName: name, authorRole: role, authorUniversity: institution, text: "Welcome to the AI & ML room!", timestamp: new Date().toLocaleString() }]
+      },
+      {
+        id: "room2",
+        title: "Business Plan Brainstorm",
+        description: "Pitch ideas and get feedback from alumni.",
+        creatorEmail: "alumni1@otheruni.edu",
+        members: [{ name: "Alumni1", role: "Alumni", university: "Other University" }],
+        messages: []
+      },
+      {
+        id: "room3",
+        title: "Research Collaboration",
+        description: "Work on joint research projects with peers.",
+        creatorEmail: "alumni2@uni.edu",
+        members: [{ name: "Alumni2", role: "Alumni", university: "Another University" }],
+        messages: []
+      },
+      {
+        id: "room4",
+        title: "Career Advice",
+        description: "Get career advice from industry experts.",
+        creatorEmail: "mentor@puni.edu",
+        members: [{ name: "Mentor", role: "Alumni", university: "Punjab University" }],
+        messages: []
+      },
     ];
 
-    let currentRoomId = rooms[0].id;
+    let currentRoomId = rooms[0]?.id;
 
     function saveRooms() {
       localStorage.setItem('collabRooms', JSON.stringify(rooms));
@@ -364,59 +413,91 @@
       const container = document.getElementById('rooms-list');
       container.innerHTML = '';
       rooms.forEach(room => {
-        const isSelected = room.id === currentRoomId ? 'selected' : '';
-        const el = document.createElement('div');
-        el.className = `room-card ${isSelected}`;
-        el.dataset.roomId = room.id;
-        el.innerHTML = `
-          <div class="room-title">${room.title}</div>
-          <div class="room-desc">${room.description}</div>
-          <div class="room-members">Members: ${room.members.map(m => `${m.name} (${m.role} - ${m.university})`).join(', ')}</div>
-        `;
-        el.onclick = () => selectRoom(room.id);
-        container.appendChild(el);
+        const selected = room.id === currentRoomId ? "selected" : "";
+        container.insertAdjacentHTML('beforeend', `
+          <div class="room-card ${selected}" data-id="${room.id}">
+            <div class="room-title">${room.title}</div>
+            <div class="room-desc">${room.description}</div>
+            <div class="room-members">
+              Members: ${room.members.map(m => m.name + ' (' + m.role + ' - ' + m.university + ')').join(', ')}
+            </div>
+            ${room.creatorEmail === email ? '<button class="delete-room" title="Delete Room">×</button>' : ''}
+          </div>
+        `);
+      });
+
+      // Add room selection event
+      document.querySelectorAll('.room-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const id = card.getAttribute('data-id');
+          if (id !== currentRoomId) {
+            currentRoomId = id;
+            renderRooms();
+            renderMessages();
+          }
+        });
+      });
+
+      // Add delete room event for user-owned rooms
+      document.querySelectorAll('.delete-room').forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.stopPropagation(); // prevent opening room
+          const card = e.target.closest('.room-card');
+          const id = card.getAttribute('data-id');
+          const room = rooms.find(r => r.id === id);
+          if (room && room.creatorEmail === email) {
+            if (confirm('Are you sure you want to delete this room? This cannot be undone.')) {
+              rooms = rooms.filter(r => r.id !== id);
+              if (currentRoomId === id) {
+                currentRoomId = rooms.length ? rooms[0].id : null;
+              }
+              saveRooms();
+              renderRooms();
+              renderMessages();
+            }
+          } else {
+            alert('You do not have permission to delete this room.');
+          }
+        });
       });
     }
 
-    function renderChatMessages() {
+    function renderMessages() {
       const chatContainer = document.getElementById('chat-container');
-      const messagesContainer = document.getElementById('messages');
-      const room = rooms.find(r => r.id === currentRoomId);
-      if (!room) {
+      if (!currentRoomId) {
         chatContainer.style.display = 'none';
         return;
       }
       chatContainer.style.display = 'flex';
-      document.getElementById('chat-header').innerText = room.title;
+
+      const room = rooms.find(r => r.id === currentRoomId);
+      if (!room) return;
+
+      document.getElementById('chat-header').textContent = room.title;
+
+      const messagesContainer = document.getElementById('messages');
       messagesContainer.innerHTML = '';
       room.messages.forEach(msg => {
-        const div = document.createElement('div');
-        div.className = 'message';
-        if (msg.author === name) div.classList.add('own');
-        div.innerHTML = `
-          <div class="message-header">${msg.author} (${msg.role} - ${msg.university}) | ${msg.timestamp}</div>
-          <div class="message-text">${escapeHTML(msg.text)}</div>
-          ${msg.author === name ? '<button class="message-delete" title="Delete message" data-msgid="'+msg.id+'">x</button>' : ''}
+        const ownClass = msg.authorEmail === email ? 'own' : '';
+        const messageEl = document.createElement('div');
+        messageEl.className = 'message ' + ownClass;
+        messageEl.innerHTML = `
+          <div class="message-header">${escapeHTML(msg.authorName)} (${escapeHTML(msg.authorRole)} - ${escapeHTML(msg.authorUniversity)}) | ${msg.timestamp}
+            ${msg.authorEmail === email ? `<button class="message-delete" data-msgid="${msg.id}" title="Delete Message">×</button>` : ''}
+          </div>
+          <div class="message-content">${escapeHTML(msg.text)}</div>
         `;
-        messagesContainer.appendChild(div);
+        messagesContainer.appendChild(messageEl);
       });
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
-      // Add delete handlers
-      document.querySelectorAll('.message-delete').forEach(btn => {
-        btn.onclick = () => deleteMessage(currentRoomId, parseInt(btn.dataset.msgid));
+
+      // Add delete event listeners for messages
+      messagesContainer.querySelectorAll('.message-delete').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const msgId = Number(e.target.getAttribute('data-msgid'));
+          deleteMessage(currentRoomId, msgId);
+        });
       });
-    }
-
-    function escapeHTML(str) {
-      var div = document.createElement('div');
-      div.appendChild(document.createTextNode(str));
-      return div.innerHTML;
-    }
-
-    function selectRoom(id) {
-      currentRoomId = id;
-      renderRooms();
-      renderChatMessages();
     }
 
     function deleteMessage(roomId, msgId) {
@@ -424,88 +505,105 @@
       if (!room) return;
       room.messages = room.messages.filter(m => m.id !== msgId);
       saveRooms();
-      renderChatMessages();
+      renderMessages();
+    }
+
+    // Escape possible HTML injection
+    function escapeHTML(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
     }
 
     document.getElementById('chat-form').addEventListener('submit', e => {
       e.preventDefault();
       const input = document.getElementById('msg-input');
-      const messageText = input.value.trim();
-      if (!messageText) return;
+      const text = input.value.trim();
+      if (!text) return;
+
       const room = rooms.find(r => r.id === currentRoomId);
       if (!room) return;
-      const newId = room.messages.length ? Math.max(...room.messages.map(m => m.id)) + 1 : 1;
+
+      const msgId = room.messages.length ? Math.max(...room.messages.map(m => m.id)) + 1 : 1;
       const now = new Date();
-      const newMessage = {
-        id: newId,
-        author: name,
-        role,
-        university: institution,
-        text: messageText,
+
+      room.messages.push({
+        id: msgId,
+        authorEmail: email,
+        authorName: name,
+        authorRole: role,
+        authorUniversity: institution,
+        text: text,
         timestamp: now.toLocaleString()
-      };
-      room.messages.push(newMessage);
+      });
+
       saveRooms();
-      renderChatMessages();
+      renderMessages();
+
       input.value = '';
+      input.focus();
     });
 
-    // Handle creating new room modal
-    const modal = document.createElement('div');
-    modal.className = 'modal';
-    modal.id = 'modal-create-room';
-    modal.innerHTML = `
+    // Create Room Modal Logic
+    const modalOverlay = document.createElement('div');
+    modalOverlay.className = 'modal-overlay';
+    modalOverlay.id = 'modal-overlay';
+    modalOverlay.innerHTML = `
       <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <h2 id="modal-title">Create New Room</h2>
-        <form id="form-create-room">
-          <label for="room-topic">Room Topic</label>
-          <input type="text" id="room-topic" required />
+        <form id="create-room-form" autocomplete="off">
+          <label for="room-topic">Topic</label>
+          <input id="room-topic" type="text" required />
           <label for="room-desc">Description</label>
           <textarea id="room-desc" required></textarea>
           <button type="submit">Create</button>
         </form>
       </div>
     `;
-    document.body.appendChild(modal);
+    document.body.appendChild(modalOverlay);
 
-    document.getElementById('btn-create-room').onclick = () => {
-      modal.style.display = 'flex';
-    };
+    document.getElementById('btn-create-room').addEventListener('click', () => {
+      modalOverlay.style.display = 'flex';
+      document.getElementById('room-topic').value = '';
+      document.getElementById('room-desc').value = '';
+    });
 
-    modal.onclick = e => {
-      if (e.target === modal) modal.style.display = 'none';
-    };
+    modalOverlay.addEventListener('click', e => {
+      if (e.target === modalOverlay) modalOverlay.style.display = 'none';
+    });
 
-    document.getElementById('form-create-room').addEventListener('submit', e => {
+    document.getElementById('create-room-form').addEventListener('submit', e => {
       e.preventDefault();
+
       const topic = document.getElementById('room-topic').value.trim();
       const desc = document.getElementById('room-desc').value.trim();
       if (!topic || !desc) return;
 
       const newRoom = {
-        id: 'room-' + Date.now(),
+        id: "room-" + Date.now(),
         title: topic,
         description: desc,
-        members: [{
-          name, role, university: institution
-        }],
+        creatorEmail: email,
+        members: [{ name, role, university: institution }],
         messages: []
       };
 
       rooms.push(newRoom);
       saveRooms();
-      modal.style.display = 'none';
+      modalOverlay.style.display = 'none';
+
       currentRoomId = newRoom.id;
       renderRooms();
-      renderChatMessages();
+      renderMessages();
     });
 
-    // Initialize
+    // Initial render
     renderRooms();
-    renderChatMessages();
+    renderMessages();
 
-    // Logout
+    // Logout button
     document.getElementById('logout-btn').addEventListener('click', () => {
+      localStorage.removeItem('collabRooms');
       sessionStorage.clear();
       window.location.href = 'login.html';
     });
