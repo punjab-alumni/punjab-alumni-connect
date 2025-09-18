@@ -322,15 +322,15 @@
     <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
     <nav style="flex-grow: 1;">
       <ul class="nav-list">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="alumni.html">Alumni</a></li>
-        <li><a href="events.html">Events</a></li>
-        <li><a href="jobs.html">Jobs</a></li>
-        <li><a href="mentorship.html">Mentorship</a></li>
-        <li><a href="collaborative.html">Collaborative Spaces</a></li>
-        <li><a href="donations.html">Donations</a></li>
-        <li><a href="settings.html">Settings</a></li>
+        <li><a href="index.html" class="active" id="header-home">Home</a></li>
+        <li><a href="dashboard.html" id="header-dashboard">Dashboard</a></li>
+        <li><a href="alumni.html" id="header-alumni">Alumni</a></li>
+        <li><a href="events.html" id="header-events">Events</a></li>
+        <li><a href="jobs.html" id="header-jobs">Jobs</a></li>
+        <li><a href="mentorship.html" id="header-mentorship">Mentorship</a></li>
+        <li><a href="collaborative.html" id="header-collaborative">Collaborative Spaces</a></li>
+        <li><a href="donations.html" id="header-donations">Donations</a></li>
+        <li><a href="settings.html" id="header-settings">Settings</a></li>
         <li><button id="logout-btn" style="background:none;border:none;color:#3BB4FF;cursor:pointer;font-size:1rem;">Logout</button></li>
       </ul>
     </nav>
@@ -364,7 +364,7 @@
       </div>
       <div class="feature-card" tabindex="0" data-link="donations.html" role="link" aria-label="Give Back">
         <h3>Give Back</h3>
-        <p>Support scholarships and donate to campus initiatives. Every contribution makes a difference in someone’s academic journey.</p>
+        <p>Support scholarships and donate to campus initiatives. Every contribution makes a difference in someone's academic journey.</p>
       </div>
     </aside>
   </main>
@@ -387,6 +387,17 @@
       <div id="solution-box" style="display:none;"></div>
     </div>
   </div>
+
+  <!-- Language Selection Modal -->
+  <div id="lang-modal" role="dialog" aria-modal="true" tabindex="-1" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.6);z-index:10000;display:flex;justify-content:center;align-items:center;font-family:'Inter',sans-serif;">
+    <div style="background:#121F33;padding:2rem;border-radius:15px;max-width:320px;width:90%;text-align:center;color:#eaf6ff;box-shadow:0 0 20px rgba(36,147,255,0.4);">
+      <h2 id="lang-header" style="margin-bottom:1rem;color:#5dd1ff;">Select your preferred language</h2>
+      <button class="lang-btn" data-lang="en" style="margin:0.4rem;padding:0.7rem 1.2rem;background:#2493ff;color:#101827;border:none;border-radius:8px;cursor:pointer;">English</button>
+      <button class="lang-btn" data-lang="pa" style="margin:0.4rem;padding:0.7rem 1.2rem;background:#2493ff;color:#101827;border:none;border-radius:8px;cursor:pointer;">ਪੰਜਾਬੀ</button>
+      <button class="lang-btn" data-lang="hi" style="margin:0.4rem;padding:0.7rem 1.2rem;background:#2493ff;color:#101827;border:none;border-radius:8px;cursor:pointer;">हिंदी</button>
+    </div>
+  </div>
+
   <script>
     // Particle background animation using canvas
     const canvas = document.getElementById('particle-canvas');
@@ -525,7 +536,8 @@
         }
       });
     })();
-    // Translation dictionary
+
+    // Translation dictionary and multilingual functionality
     const translations = {
       en: {
         'header-home': 'Home',
@@ -534,6 +546,7 @@
         'header-events': 'Events',
         'header-jobs': 'Jobs',
         'header-mentorship': 'Mentorship',
+        'header-collaborative': 'Collaborative Spaces',
         'header-donations': 'Donations',
         'header-settings': 'Settings',
         'welcome-title': 'Welcome to Punjab Alumni Connect',
@@ -541,30 +554,32 @@
         'get-started': 'Get Started'
       },
       pa: {
-        'header-home': '[translate:ਘਰ]',
-        'header-dashboard': '[translate:ਡੈਸ਼ਬੋਰਡ]',
-        'header-alumni': '[translate:ਸਾਬਕਾ ਵਿਦਿਆਰਥੀ]',
-        'header-events': '[translate:ਕੀਤੇ ਗਏ ਕਾਰਜ]',
-        'header-jobs': '[translate:ਨੌਕਰੀਆਂ]',
-        'header-mentorship': '[translate:ਪਰੇਰਨਾ]',
-        'header-donations': '[translate:ਦਾਨ]',
-        'header-settings': '[translate:ਸੈਟਿੰਗਜ਼]',
-        'welcome-title': '[translate:ਪੰਜਾਬ ਸਾਬਕਾ ਵਿਦਿਆਰਥੀ ਕਨੈਕਟ]',
-        'welcome-para': '[translate:ਸਾਬਕਾ ਵਿਦਿਆਰਥੀਆਂ, ਵਿਦਿਆਰਥੀਆਂ ਅਤੇ ਪੰਜਾਬ ਦੇ ਸੰਸਥਾਵਾਂ ਵਿਚ ਲੰਮਾ ਜੁੜਾਵ]',
-        'get-started': '[translate:ਸ਼ੁਰੂ ਕਰੋ]'
+        'header-home': 'ਘਰ',
+        'header-dashboard': 'ਡੈਸ਼ਬੋਰਡ',
+        'header-alumni': 'ਸਾਬਕਾ ਵਿਦਿਆਰਥੀ',
+        'header-events': 'ਕੀਤੇ ਗਏ ਕਾਰਜ',
+        'header-jobs': 'ਨੌਕਰੀਆਂ',
+        'header-mentorship': 'ਪਰੇਰਨਾ',
+        'header-collaborative': 'ਸਹਿਯੋਗੀ ਸਥਾਨ',
+        'header-donations': 'ਦਾਨ',
+        'header-settings': 'ਸੈਟਿੰਗਜ਼',
+        'welcome-title': 'ਪੰਜਾਬ ਸਾਬਕਾ ਵਿਦਿਆਰਥੀ ਕਨੈਕਟ ਵਿੱਚ ਸਵਾਗਤ',
+        'welcome-para': 'ਸਾਬਕਾ ਵਿਦਿਆਰਥੀਆਂ, ਵਿਦਿਆਰਥੀਆਂ ਅਤੇ ਪੰਜਾਬ ਦੇ ਸੰਸਥਾਵਾਂ ਵਿਚ ਲੰਮਾ ਜੁੜਾਵ। ਮੌਕੇ ਲੱਭੋ, ਦੋਸਤਾਂ ਨਾਲ ਮੁੜ ਜੁੜੋ ਅਤੇ ਹੋਰ ਬਹੁਤ ਕੁਝ!',
+        'get-started': 'ਸ਼ੁਰੂ ਕਰੋ'
       },
       hi: {
-        'header-home': '[translate:मुख्य पृष्ठ]',
-        'header-dashboard': '[translate:पैनल]',
-        'header-alumni': '[translate:पूर्व छात्र]',
-        'header-events': '[translate:कार्यक्रम]',
-        'header-jobs': '[translate:स्नातक]',
-        'header-mentorship': '[translate:मार्गदर्शन]',
-        'header-donations': '[translate:दान]',
-        'header-settings': '[translate:सेटिंग्स]',
-        'welcome-title': '[translate:पंजाब पूर्व छात्र कनेक्ट]',
-        'welcome-para': '[translate:अलुमनी, छात्र और पंजाब के विश्वविद्यालयों की संयुक्त समुदाय]',
-        'get-started': '[translate:शुरू करें]'
+        'header-home': 'मुख्य पृष्ठ',
+        'header-dashboard': 'डैशबोर्ड',
+        'header-alumni': 'पूर्व छात्र',
+        'header-events': 'कार्यक्रम',
+        'header-jobs': 'नौकरियां',
+        'header-mentorship': 'मार्गदर्शन',
+        'header-collaborative': 'सहयोगी स्थान',
+        'header-donations': 'दान',
+        'header-settings': 'सेटिंग्स',
+        'welcome-title': 'पंजाब पूर्व छात्र कनेक्ट में आपका स्वागत है',
+        'welcome-para': 'पूर्व छात्रों, छात्रों और पंजाब के संस्थानों के बीच जीवन भर के संबंधों को मजबूत करें। अवसर खोजें, दोस्तों से जुड़ें और बहुत कुछ!',
+        'get-started': 'शुरू करें'
       }
     };
 
@@ -572,35 +587,34 @@
       for (const key in translations[lang]) {
         const elem = document.getElementById(key);
         if (elem) {
-          elem.textContent = translations[lang][key].replace(/\[translate:(.*?)\]/g, "$1");
+          elem.textContent = translations[lang][key];
         }
       }
     }
 
-    const savedLang = localStorage.getItem('preferredLanguage');
-    const langModal = document.createElement('div');
-    window.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedLang = localStorage.getItem('preferredLanguage');
+      const langModal = document.getElementById('lang-modal');
+
       if (savedLang && translations[savedLang]) {
         applyLanguage(savedLang);
+        langModal.style.display = 'none';
       } else {
-        // Show language modal
-        const modalDiv = document.getElementById('lang-modal');
-        if(modalDiv){
-          modalDiv.style.display = 'flex';
-          document.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-              const chosenLang = btn.dataset.lang;
-              if (!translations[chosenLang]) {
-                alert('This language is not supported yet.');
-                return;
-              }
-              localStorage.setItem('preferredLanguage', chosenLang);
-              modalDiv.style.display = 'none';
-              applyLanguage(chosenLang);
-            });
-          });
-        }
+        langModal.style.display = 'flex';
       }
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const chosenLang = btn.dataset.lang;
+          if (!translations[chosenLang]) {
+            alert('This language is not supported yet.');
+            return;
+          }
+          localStorage.setItem('preferredLanguage', chosenLang);
+          applyLanguage(chosenLang);
+          langModal.style.display = 'none';
+        });
+      });
     });
   </script>
 </body>
