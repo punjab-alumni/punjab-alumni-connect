@@ -90,15 +90,15 @@
     <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
     <nav style="flex-grow: 1;">
       <ul class="nav-list">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="dashboard.html" id="dashboard-link" class="active">Dashboard</a></li>
-        <li><a href="alumni.html" id="alumni-link">Alumni</a></li>
-        <li><a href="events.html" id="events-link">Events</a></li>
-        <li><a href="jobs.html" id="jobs-link">Jobs</a></li>
-        <li><a href="mentorship.html" id="mentorship-link">Mentorship</a></li>
-        <li><a href="collaborative.html">Collaborative Spaces</a></li>
-        <li><a href="donations.html" id="donations-link">Donations</a></li>
-        <li><a href="settings.html" id="settings-link">Settings</a></li>
+        <li><a href="index.html" id="nav-home">Home</a></li>
+        <li><a href="dashboard.html" id="nav-dashboard" class="active">Dashboard</a></li>
+        <li><a href="alumni.html" id="nav-alumni">Alumni</a></li>
+        <li><a href="events.html" id="nav-events">Events</a></li>
+        <li><a href="jobs.html" id="nav-jobs">Jobs</a></li>
+        <li><a href="mentorship.html" id="nav-mentorship">Mentorship</a></li>
+        <li><a href="collaborative.html" id="nav-collaborative">Collaborative Spaces</a></li>
+        <li><a href="donations.html" id="nav-donations">Donations</a></li>
+        <li><a href="settings.html" id="nav-settings">Settings</a></li>
         <li><button id="logout-btn">Logout</button></li>
       </ul>
     </nav>
@@ -112,6 +112,17 @@
       <div id="quick-links"></div>
     </section>
   </main>
+  
+  <!-- Language Selection Modal -->
+  <div id="lang-modal" role="dialog" aria-modal="true" tabindex="-1" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.6);z-index:10000;display:flex;justify-content:center;align-items:center;font-family:'Inter',sans-serif;">
+    <div style="background:#121F33;padding:2rem;border-radius:15px;max-width:320px;width:90%;text-align:center;color:#eaf6ff;box-shadow:0 0 20px rgba(36,147,255,0.4);">
+      <h2 style="margin-bottom:1rem;color:#5dd1ff;">Select your preferred language</h2>
+      <button class="lang-btn" data-lang="en" style="margin:0.4rem;padding:0.7rem 1.2rem;background:#2493ff;color:#101827;border:none;border-radius:8px;cursor:pointer;">English</button>
+      <button class="lang-btn" data-lang="pa" style="margin:0.4rem;padding:0.7rem 1.2rem;background:#2493ff;color:#101827;border:none;border-radius:8px;cursor:pointer;">ਪੰਜਾਬੀ</button>
+      <button class="lang-btn" data-lang="hi" style="margin:0.4rem;padding:0.7rem 1.2rem;background:#2493ff;color:#101827;border:none;border-radius:8px;cursor:pointer;">हिंदी</button>
+    </div>
+  </div>
+
   <script>
     const institutionsInfo = {
       "Punjab University": {
@@ -294,7 +305,83 @@
         </div>
       `;
     }
+
+    // Translation dictionary
+    const translations = {
+      en: {
+        'nav-home': 'Home',
+        'nav-dashboard': 'Dashboard', 
+        'nav-alumni': 'Alumni',
+        'nav-events': 'Events',
+        'nav-jobs': 'Jobs',
+        'nav-mentorship': 'Mentorship',
+        'nav-collaborative': 'Collaborative Spaces',
+        'nav-donations': 'Donations',
+        'nav-settings': 'Settings',
+        'institution-name': 'Institution Dashboard',
+        'institution-info': 'Loading institution details...'
+      },
+      pa: {
+        'nav-home': 'ਘਰ',
+        'nav-dashboard': 'ਡੈਸ਼ਬੋਰਡ',
+        'nav-alumni': 'ਸਾਬਕਾ ਵਿਦਿਆਰਥੀ',
+        'nav-events': 'ਇਵੈਂਟਸ',
+        'nav-jobs': 'ਨੌਕਰੀਆਂ',
+        'nav-mentorship': 'ਮਾਰਗਦਰਸ਼ਨ',
+        'nav-collaborative': 'ਸਹਿਯੋਗੀ ਸਥਾਨ',
+        'nav-donations': 'ਦਾਨ',
+        'nav-settings': 'ਸੈਟਿੰਗਜ਼',
+        'institution-name': 'ਸੰਸਥਾ ਡੈਸ਼ਬੋਰਡ',
+        'institution-info': 'ਚੁਣੇ ਗਈ ਸੰਸਥਾ ਦੇ ਵੇਰਵੇ ਲੋਡ ਕੀਤੇ ਜਾ ਰਹੇ ਹਨ...'
+      },
+      hi: {
+        'nav-home': 'मुख्य पृष्ठ',
+        'nav-dashboard': 'डैशबोर्ड',
+        'nav-alumni': 'पूर्व छात्र',
+        'nav-events': 'कार्यक्रम',
+        'nav-jobs': 'नौकरियां',
+        'nav-mentorship': 'मार्गदर्शन',
+        'nav-collaborative': 'सहयोगी स्थान',
+        'nav-donations': 'दान',
+        'nav-settings': 'सेटिंग्स',
+        'institution-name': 'संस्थान डैशबोर्ड',
+        'institution-info': 'चयनित संस्थान का विवरण लोड किया जा रहा है...'
+      }
+    };
+
+    function applyLanguage(lang) {
+      const dict = translations[lang] || {};
+      Object.entries(dict).forEach(([id, text]) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      });
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
+      // Language selector logic with sessionStorage persistence
+      const langModal = document.getElementById('lang-modal');
+      const savedLang = sessionStorage.getItem('preferredLanguage');
+      if (savedLang && translations[savedLang]) {
+        applyLanguage(savedLang);
+        langModal.style.display = 'none';
+      } else {
+        langModal.style.display = 'flex';
+      }
+      
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const chosenLang = btn.dataset.lang;
+          if (!translations[chosenLang]) {
+            alert('This language is not supported yet.');
+            return;
+          }
+          sessionStorage.setItem('preferredLanguage', chosenLang);
+          applyLanguage(chosenLang);
+          langModal.style.display = 'none';
+        });
+      });
+
+      // Original dashboard logic
       const institution = sessionStorage.getItem('loggedInInstitution');
       const email = sessionStorage.getItem('loggedInEmail');
       const role = sessionStorage.getItem('loggedInRole');
