@@ -387,7 +387,6 @@
       <div id="solution-box" style="display:none;"></div>
     </div>
   </div>
-
   <!-- Language Selection Modal -->
   <div id="lang-modal" role="dialog" aria-modal="true" tabindex="-1" style="display:flex;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.6);z-index:10000;justify-content:center;align-items:center;font-family:'Inter',sans-serif;">
     <div style="background:#121F33;padding:2rem;border-radius:15px;max-width:320px;width:90%;text-align:center;color:#eaf6ff;box-shadow:0 0 20px rgba(36,147,255,0.4);">
@@ -397,7 +396,6 @@
       <button class="lang-btn" data-lang="hi" style="margin:0.4rem;padding:0.7rem 1.2rem;background:#2493ff;color:#101827;border:none;border-radius:8px;cursor:pointer;">हिंदी</button>
     </div>
   </div>
-
   <script>
     // Particle background animation using canvas
     const canvas = document.getElementById('particle-canvas');
@@ -446,7 +444,6 @@
       requestAnimationFrame(animate);
     }
     animate();
-
     // Feature card clicks with login check
     document.querySelectorAll('.feature-card').forEach(card => {
       card.addEventListener('click', () => {
@@ -467,7 +464,6 @@
       sessionStorage.clear();
       window.location.href = 'login.html';
     });
-
     // Enhanced comprehensive translation dictionary
     const translations = {
       en: {
@@ -618,7 +614,6 @@
         'solution-mentorship': 'मेंटरशिप अनुरोध केवल छात्रों के लिए उपलब्ध हैं। पूर्व छात्र और प्रशासक मेंटरशिप का अनुरोध नहीं कर सकते।'
       }
     };
-
     // Help problems data
     const helpProblems = [
       {
@@ -642,10 +637,8 @@
         solutionKey: 'solution-mentorship'
       }
     ];
-
     // Store current language globally
     let currentLanguage = null;
-
     function applyLanguage(lang) {
       currentLanguage = lang;
       const dict = translations[lang];
@@ -661,7 +654,6 @@
       // Populate help problems with translated text
       populateHelpProblems(lang);
     }
-
     function populateHelpProblems(lang) {
       const problemList = document.getElementById('problem-list');
       const solutionBox = document.getElementById('solution-box');
@@ -694,7 +686,6 @@
         solutionBox.textContent = dict[solutionKey];
       }
     }
-
     // --- Floating Help Chat Feature JS ---
     (function(){
       const helpTab = document.getElementById('help-tab');
@@ -702,7 +693,6 @@
       const helpClose = document.getElementById('help-close');
       const solutionBox = document.getElementById('solution-box');
       const problemList = document.getElementById('problem-list');
-
       helpTab.addEventListener('click', () => {
         if (helpChatbox.style.display === 'flex') {
           helpChatbox.style.display = 'none';
@@ -712,11 +702,9 @@
           problemList.querySelectorAll('li').forEach(li => li.style.background = '#2493ff33');
         }
       });
-
       helpClose.addEventListener('click', () => {
         helpChatbox.style.display = 'none';
       });
-
       // Accessibility: Allow opening chatbox by keyboard
       helpTab.addEventListener('keypress', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -724,14 +712,20 @@
         }
       });
     })();
-
-    // Language selection - ALWAYS show modal on load (no localStorage persistence)
+    // Language selection - show modal if NO language saved, otherwise use saved language
     document.addEventListener('DOMContentLoaded', () => {
       const langModal = document.getElementById('lang-modal');
+      const savedLang = sessionStorage.getItem('preferredLanguage');
       
-      // Always show language modal - no saved language persistence
-      langModal.style.display = 'flex';
-
+      if (savedLang && translations[savedLang]) {
+        // Apply saved language and hide modal
+        applyLanguage(savedLang);
+        langModal.style.display = 'none';
+      } else {
+        // Show language modal
+        langModal.style.display = 'flex';
+      }
+      
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           const chosenLang = btn.dataset.lang;
@@ -740,7 +734,8 @@
             return;
           }
           
-          // Apply language but DON'T save to localStorage
+          // Save to sessionStorage for persistence across pages
+          sessionStorage.setItem('preferredLanguage', chosenLang);
           applyLanguage(chosenLang);
           langModal.style.display = 'none';
         });
