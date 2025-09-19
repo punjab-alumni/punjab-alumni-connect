@@ -202,7 +202,29 @@
     <div id="alert-message" class="alert-message"></div>
   </div>
   <script>
-  const jobsData = {
+  window.addEventListener('DOMContentLoaded', () => {
+  const lang = sessionStorage.getItem('preferredLanguage');
+  console.log('Language:', lang);
+  if (!lang || !translations[lang]) return location.href = 'index.html';
+
+  applyLanguage(lang);
+
+  const institution = sessionStorage.getItem('loggedInInstitution');
+  const email = sessionStorage.getItem('loggedInEmail');
+  const role = sessionStorage.getItem('loggedInRole');
+
+  console.log('Institution:', institution);
+  console.log('Email:', email);
+  console.log('Role:', role);
+
+  if (!institution || !email || !role) return location.href = 'login.html';
+
+  const jobs = jobsData[institution] || [];
+  console.log('Jobs for institution:', jobs);
+
+});
+
+    const jobsData = {
     "Punjab University": [
       { title: "Senior Software Engineer", company: "Google India", location: "Bengaluru", salary: "₹25 LPA", description: "Join Google's cloud team focused on machine learning.", requirements: ["3+ years experience", "Knowledge of ML frameworks", "Strong coding skills"], tags: ["Full-time", "Remote Possible"] },
       { title: "Product Manager", company: "Flipkart", location: "Bengaluru", salary: "₹20 LPA", description: "Lead product strategy and development.", requirements: ["5+ years experience", "Strong leadership", "Agile methodology"], tags: ["Full-time", "Onsite"] }
