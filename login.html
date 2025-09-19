@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Login - Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Your existing styles */
     .container {
       max-width: 400px;
       margin: 80px auto;
@@ -82,7 +81,6 @@
       font-weight: 700;
       font-size: 1rem;
       align-items: center;
-      background: transparent;
     }
     nav ul.nav-list li a {
       color: #2493ff;
@@ -107,6 +105,35 @@
       border-radius: 8px;
       box-shadow: 0 0 16px rgba(36, 147, 255, 0.6);
     }
+    #lang-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.6);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+    }
+    #lang-modal .modal-content {
+      background: #121F33;
+      padding: 2rem;
+      border-radius: 15px;
+      max-width: 320px;
+      width: 90%;
+      text-align: center;
+      color: #eaf6ff;
+      box-shadow: 0 0 20px rgba(36,147,255,0.4);
+    }
+    .lang-btn {
+      margin: 0.4rem;
+      padding: 0.7rem 1.2rem;
+      background: #2493ff;
+      color: #101827;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -119,6 +146,7 @@
       </ul>
     </nav>
   </header>
+
   <div class="container">
     <h2 id="login-heading">Login - Punjab Alumni Connect</h2>
     <form id="loginForm">
@@ -142,15 +170,16 @@
     </form>
     <div class="message" id="message"></div>
   </div>
-  <!-- Language Selection Modal -->
-  <div id="lang-modal" role="dialog" aria-modal="true" tabindex="-1" style="display:flex;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.6);z-index:10000;justify-content:center;align-items:center;font-family:'Inter',sans-serif;">
-    <div style="background:#121F33;padding:2rem;border-radius:15px;max-width:320px;width:90%;text-align:center;color:#eaf6ff;box-shadow:0 0 20px rgba(36,147,255,0.4);">
-      <h2 style="margin-bottom:1rem;color:#5dd1ff;">Select your preferred language</h2>
-      <button class="lang-btn" data-lang="en" style="margin:0.4rem;padding:0.7rem 1.2rem;background:#2493ff;color:#101827;border:none;border-radius:8px;cursor:pointer;">English</button>
-      <button class="lang-btn" data-lang="pa" style="margin:0.4rem;padding:0.7rem 1.2rem;background:#2493ff;color:#101827;border:none;border-radius:8px;cursor:pointer;">ਪੰਜਾਬੀ</button>
-      <button class="lang-btn" data-lang="hi" style="margin:0.4rem;padding:0.7rem 1.2rem;background:#2493ff;color:#101827;border:none;border-radius:8px;cursor:pointer;">हिंदी</button>
+
+  <div id="lang-modal">
+    <div class="modal-content">
+      <h2>Select your preferred language</h2>
+      <button class="lang-btn" data-lang="en">English</button>
+      <button class="lang-btn" data-lang="pa">ਪੰਜਾਬੀ</button>
+      <button class="lang-btn" data-lang="hi">हिंदी</button>
     </div>
   </div>
+
   <script>
     const demoCredentials = {
       "Punjab University": {
@@ -189,6 +218,7 @@
         alumni: { email: "alumni@punjabalumni-chitkara.in", password: "PunjabChitkaraAlumni2025!" }
       }
     };
+
     const translations = {
       en: {
         'nav-home': 'Home',
@@ -219,7 +249,7 @@
         'msg-login-success': 'ਲਾਗਇਨ ਸਫਲ! ਰੀਡਾਇਰੈਕਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...'
       },
       hi: {
-        'nav-home': 'मुख्य पृष्ठ',
+        'nav-home': 'मुखपृष्ठ',
         'nav-login': 'लॉगिन',
         'login-heading': 'लॉगिन - पंजाब पूर्व छात्र कनेक्ट',
         'label-institution': 'संस्थान चुनें',
@@ -233,8 +263,10 @@
         'msg-login-success': 'लॉगिन सफल! रीडायरेक्ट हो रहा है...'
       }
     };
+
     let currentLanguage = null;
     let errorMessages = {};
+
     function applyLanguage(lang) {
       currentLanguage = lang;
       const dict = translations[lang];
@@ -244,114 +276,105 @@
         incorrectPassword: dict['msg-incorrect-password'],
         loginSuccess: dict['msg-login-success']
       };
-      for (const key in dict) {
-        const el = document.getElementById(key);
-        if (el) {
-          if (el.tagName === 'SELECT' && key === 'institution-placeholder') {
-            el.querySelector('option[disabled]').textContent = dict[key];
-          } else if (el.tagName === 'INPUT') {
-            if (el.type === 'email') {
-              el.placeholder = lang==='pa'? 'ਈਮੇਲ@ਉਦਾਹਰਣ.com' : lang==='hi'? 'ईमेल@उदाहरण.com' : 'email@example.com';
-            }
-            if (el.type === 'password') {
-              el.placeholder = lang==='pa'? 'ਪਾਸਵਰਡ ਦਰਜ ਕਰੋ' : lang==='hi'? 'पासवर्ड दर्ज करें' : 'Enter password';
-            }
-          } else {
-            el.textContent = dict[key];
-          }
-        }
-      }
+      document.getElementById('nav-home').textContent = dict['nav-home'];
+      document.getElementById('nav-login').textContent = dict['nav-login'];
+      document.getElementById('login-heading').textContent = dict['login-heading'];
+      document.getElementById('label-institution').textContent = dict['label-institution'];
+      document.getElementById('institution-placeholder').textContent = dict['institution-placeholder'];
+      document.getElementById('label-email').textContent = dict['label-email'];
+      document.getElementById('label-password').textContent = dict['label-password'];
+      document.getElementById('btn-login').textContent = dict['btn-login'];
     }
+
     document.addEventListener('DOMContentLoaded', () => {
-      // FIXED: Changed from sessionStorage to localStorage for language persistence
       const langModal = document.getElementById('lang-modal');
-      const savedLang = localStorage.getItem('preferredLanguage'); // CHANGED TO localStorage
+      const savedLang = sessionStorage.getItem('preferredLanguage') || localStorage.getItem('preferredLanguage');
       if (savedLang && translations[savedLang]) {
         applyLanguage(savedLang);
         langModal.style.display = 'none';
       } else {
         langModal.style.display = 'flex';
       }
+
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           const chosenLang = btn.dataset.lang;
-          if (!translations[chosenLang]) {
-            alert('This language is not supported yet.');
-            return;
-          }
-          localStorage.setItem('preferredLanguage', chosenLang); // CHANGED TO localStorage
-          sessionStorage.setItem('preferredLanguage', chosenLang); // Keep in session too for other pages
+          localStorage.setItem('preferredLanguage', chosenLang);
+          sessionStorage.setItem('preferredLanguage', chosenLang);
           applyLanguage(chosenLang);
           langModal.style.display = 'none';
         });
       });
-      // Login functionality continues...
+
       const institutionSelect = document.getElementById('institution');
       const institutionLogo = document.getElementById('institution-logo');
       const messageElem = document.getElementById('message');
+
       institutionSelect.addEventListener('change', () => {
-        const selectedOption = institutionSelect.options[institutionSelect.selectedIndex];
-        const logoSrc = selectedOption.getAttribute('data-logo');
-        if (logoSrc) {
-          institutionLogo.src = logoSrc;
+        const opt = institutionSelect.options[institutionSelect.selectedIndex];
+        const logo = opt.getAttribute('data-logo');
+        if (logo) {
+          institutionLogo.src = logo;
           institutionLogo.style.display = 'block';
         } else {
-          institutionLogo.src = '';
           institutionLogo.style.display = 'none';
         }
         messageElem.textContent = '';
         messageElem.classList.remove('error');
       });
-      document.getElementById('loginForm').addEventListener('submit', (e) => {
+
+      document.getElementById('loginForm').addEventListener('submit', e => {
         e.preventDefault();
-        const institution = institutionSelect.value;
-        const emailInput = document.getElementById('email').value.trim().toLowerCase();
-        const passwordInput = document.getElementById('password').value;
+        const inst = institutionSelect.value;
+        const email = document.getElementById('email').value.trim().toLowerCase();
+        const pwd = document.getElementById('password').value;
         messageElem.textContent = '';
         messageElem.classList.remove('error');
-        if (!institution || !demoCredentials[institution]) {
+
+        if (!inst || !demoCredentials[inst]) {
           messageElem.textContent = errorMessages.selectInstitution;
           messageElem.classList.add('error');
           return;
         }
-        const creds = demoCredentials[institution];
+        const creds = demoCredentials[inst];
+        let roleFound = null;
         let emailFound = false;
-        let passwordMatched = false;
-        let loggedRole = null;
-        for (const role in creds) {
-          if (creds[role].email.toLowerCase() === emailInput) {
+        let pwdMatch = false;
+
+        for (const r in creds) {
+          if (creds[r].email.toLowerCase() === email) {
             emailFound = true;
-            if (creds[role].password === passwordInput) {
-              passwordMatched = true;
-              loggedRole = role;
-              break;
+            if (creds[r].password === pwd) {
+              pwdMatch = true;
+              roleFound = r;
             }
+            break;
           }
         }
+
         if (!emailFound) {
           messageElem.textContent = errorMessages.emailNotFound;
           messageElem.classList.add('error');
           return;
         }
-        if (!passwordMatched) {
+        if (!pwdMatch) {
           messageElem.textContent = errorMessages.incorrectPassword;
           messageElem.classList.add('error');
           return;
         }
-        sessionStorage.setItem('loggedInInstitution', institution);
-        sessionStorage.setItem('loggedInEmail', emailInput);
-        sessionStorage.setItem('loggedInRole', loggedRole);
-        // ADDED: Copy language preference to sessionStorage on successful login
-        const currentLang = localStorage.getItem('preferredLanguage');
-        if (currentLang) {
-          sessionStorage.setItem('preferredLanguage', currentLang);
-        }
+
+        sessionStorage.setItem('loggedInInstitution', inst);
+        sessionStorage.setItem('loggedInEmail', email);
+        sessionStorage.setItem('loggedInRole', roleFound);
+        const lang = localStorage.getItem('preferredLanguage');
+        if (lang) sessionStorage.setItem('preferredLanguage', lang);
+
         messageElem.textContent = errorMessages.loginSuccess;
         setTimeout(() => {
           window.location.href = 'dashboard.html';
         }, 1500);
       });
-      // Redirect if already logged in
+
       if (sessionStorage.getItem('loggedInInstitution')) {
         window.location.href = 'dashboard.html';
       }
