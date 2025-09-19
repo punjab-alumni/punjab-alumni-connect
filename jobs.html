@@ -1,280 +1,411 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Job Opportunities - Punjab Alumni Connect</title>
-  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="styles.css" />
   <style>
-    .job-card { background: rgba(36,147,255,0.07); padding:1rem; margin-bottom:1rem; border-radius:10px; color:#eaf6ff; transition:background 0.3s;}
-    .job-card:hover { background: rgba(36,147,255,0.14); }
-    .job-card h3 { margin-top:0; color:#2493ff; }
-    .job-tag { display:inline-block; background:#2493ff; color:#101927; padding:0.2rem 0.6rem; border-radius:15px; font-size:0.8rem; margin:5px 5px 0 0; }
-    .apply-btn { margin-top:10px; background:#2493ff; border:none; border-radius:20px; padding:0.7rem 1.5rem; color:#101927; font-weight:700; cursor:pointer; transition:background 0.3s;}
-    .apply-btn:hover { background:#165ea8; }
-    header { display:flex; align-items:center; padding:10px 20px; background-color:#101927; position:sticky; top:0; z-index:1000; }
-    nav { flex-grow:1; }
-    nav ul.nav-list { display:flex; gap:15px; list-style:none; padding:0; margin:0; font-weight:700; font-size:1rem; align-items:center; }
-    nav ul.nav-list li a, nav ul.nav-list li button { color:#2493ff; text-decoration:none; padding:0.5rem 1rem; border-radius:6px; background:none; border:none; cursor:pointer; }
-    nav ul.nav-list li a.active, nav ul.nav-list li a:hover, nav ul.nav-list li button:hover { background:#2493ff; color:#101927; font-weight:bold; }
-    .container { background-color:#121F33; border-radius:1em; padding:2rem; max-width:1200px; margin:2rem auto; color:#eaf6ff; }
-    /* Modal styles */
-    #application-modal { display:none; position:fixed; z-index:2000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.6); }
-    #application-modal .modal-content { background:#121F33; margin:10% auto; padding:20px; border-radius:10px; width:90%; max-width:400px; color:#eaf6ff; font-family:inherit; }
-    #application-modal h2 { margin-top:0; color:#2493ff; }
-    #application-modal label { display:block; margin:12px 0 5px; }
-    #application-modal input, #application-modal select, #application-modal textarea { width:100%; padding:8px; border-radius:6px; border:none; background:#222d48; color:#eaf6ff; resize:vertical; font-family:inherit; }
-    #application-modal textarea { height:80px; }
-    #application-modal button { margin-top:15px; width:100%; background:#2493ff; border:none; border-radius:20px; padding:0.7rem 0; cursor:pointer; font-weight:700; color:#101927; font-size:1rem; }
-    #application-modal button:hover { background:#165ea8; }
-    #close-modal-btn { background:transparent; color:#2493ff; border:none; font-size:1.2rem; cursor:pointer; float:right; margin:-10px -10px 0 0; font-weight:bold; }
-    /* Chat box */
-    #chatbox { display:none; position:fixed; bottom:20px; right:20px; width:320px; height:400px; background:#121F33; border-radius:10px; box-shadow:0 0 10px #0008; z-index:10000; color:#eaf6ff; font-family:inherit; flex-direction:column; }
-    #chatbox-header { background:#2493ff; padding:10px; font-weight:bold; display:flex; justify-content:space-between; align-items:center; border-top-left-radius:10px; border-top-right-radius:10px; color:#101927; }
-    #chatbox-close { background:transparent; border:none; font-size:20px; font-weight:bold; color:#101927; cursor:pointer; }
-    #chat-messages { flex:1; padding:10px; overflow-y:auto; background:#1e2a4d; border-bottom:1px solid #2493ff; border-radius:0 0 10px 10px; }
-    .message { margin-bottom:10px; padding:8px 12px; border-radius:15px; max-width:80%; word-wrap:break-word; }
-    .bot-message { background:#2493ff; color:#101927; align-self:flex-start; }
-    .user-message { background:#165ea8; color:#eaf6ff; align-self:flex-end; }
-    #chat-input-container { display:flex; padding:10px; background:#121F33; border-radius:0 0 10px 10px; }
-    #chat-input { flex:1; padding:8px; border-radius:20px; border:none; outline:none; font-family:inherit; }
-    #send-btn { margin-left:10px; padding:0 15px; background:#2493ff; border:none; border-radius:20px; color:#101927; font-weight:700; cursor:pointer; transition:background 0.3s; }
-    #send-btn:hover { background:#165ea8; }
+    .job-card {
+      background: rgba(36, 147, 255, 0.07);
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      color: #eaf6ff;
+      transition: background 0.3s ease;
+    }
+    .job-card:hover {
+      background: rgba(36, 147, 255, 0.14);
+    }
+    .job-card h3 {
+      margin-top: 0;
+      color: #2499de;
+    }
+    .job-card p {
+      margin: 4px 0;
+    }
+    .job-card ul {
+      margin: 4px 0 0 20px;
+      padding: 0;
+    }
+    .job-card ul li {
+      margin-bottom: 4px;
+    }
+    .job-tag {
+      display: inline-block;
+      background: #2497de;
+      color: #121923;
+      padding: 0.2rem 0.6rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      margin: 0 5px 5px 0;
+    }
+    .apply-btn {
+      margin-top: 10px;
+      background: #2499de;
+      border: none;
+      border-radius: 20px;
+      padding: 0.7rem 1.2rem;
+      color: #121923;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .apply-btn:hover {
+      background: #1667ba;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      background: #121922;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav {
+      flex-grow: 1;
+    }
+    nav ul.nav-list {
+      display: flex;
+      gap: 15px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-weight: 700;
+      font-size: 0.95rem;
+      align-items: center;
+    }
+    nav ul.nav-list li a,
+    nav ul.nav-list li button {
+      color: #2499de;
+      text-decoration: none;
+      padding: 0.4rem 0.9rem;
+      border-radius: 7px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    nav ul.nav-list li a.active,
+    nav ul.nav-list li a:hover,
+    nav ul.nav-list li button:hover {
+      background: #2499de;
+      color: #121923;
+      font-weight: 700;
+    }
+    .container {
+      background: #121922;
+      border-radius: 20px;
+      padding: 20px 30px;
+      max-width: 1200px;
+      margin: 40px auto 60px;
+      color: #e1e9f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    /* Application Form Interface */
+    #application-interface {
+      display: none;
+      background: #1b2541;
+      border-radius: 20px;
+      padding: 20px 30px;
+      max-width: 400px;
+      margin: 40px auto;
+      box-shadow: 0 0 20px rgb(146 147 148 / 0.36);
+      color: #e1e9f0;
+    }
+    #application-interface h2 {
+      color: #2b7efc;
+      margin-bottom: 20px;
+    }
+    #application-interface label {
+      display: block;
+      margin: 12px 0 6px;
+    }
+    #application-interface input,
+    #application-interface textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      background: #121922;
+      color: #e1e9f0;
+      font-family: inherit;
+      font-size: 1rem;
+      resize: none;
+    }
+    #application-interface textarea {
+      height: 90px;
+    }
+    #application-interface button.submit-btn {
+      margin-top: 20px;
+      width: 100%;
+      background: #2499de;
+      border: none;
+      color: #121923;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 12px 0;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+    #application-interface button.submit-btn:hover {
+      background: #1667ba;
+    }
+    .alert-message {
+      margin-top: 20px;
+      background: #2a3450;
+      padding: 12px 15px;
+      border-radius: 10px;
+      font-weight: 700;
+      color: #68b7f2;
+      display: none;
+    }
   </style>
 </head>
 <body>
   <header>
-    <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height:60px;margin-right:20px;">
+    <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;">
     <nav>
       <ul class="nav-list">
-        <li><a href="index.html" id="nav-home">Home</a></li>
-        <li><a href="dashboard.html" id="nav-dashboard">Dashboard</a></li>
-        <li><a href="alumni.html" id="nav-alumni">Alumni</a></li>
-        <li><a href="events.html" id="nav-events">Events</a></li>
-        <li><a href="jobs.html" id="nav-jobs" class="active">Jobs</a></li>
-        <li><a href="mentorship.html" id="nav-mentorship">Mentorship</a></li>
-        <li><a href="collaborative.html" id="nav-collaborative">Collaborative Spaces</a></li>
-        <li><a href="donations.html" id="nav-donations">Donations</a></li>
-        <li><a href="settings.html" id="nav-settings">Settings</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="alumni.html">Alumni</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="jobs.html" class="active">Jobs</a></li>
+        <li><a href="mentorship.html">Mentorship</a></li>
+        <li><a href="collaborative.html">Collaborative Spaces</a></li>
+        <li><a href="donations.html">Donations</a></li>
+        <li><a href="settings.html">Settings</a></li>
         <li><button id="logout-btn">Logout</button></li>
       </ul>
     </nav>
   </header>
+
   <main class="container">
     <h1 id="page-title">Job Opportunities</h1>
     <div id="job-list"></div>
   </main>
-  <div id="application-modal">
-    <div class="modal-content">
-      <button id="close-modal-btn" title="Close">&times;</button>
-      <h2 id="modal-title">Job Application</h2>
-      <form id="application-form">
-        <label for="graduation-year" id="label-graduation">Year of Graduation</label>
-        <input type="number" id="graduation-year" min="1950" max="2100" required/>
-        <label for="course" id="label-course">Course</label>
-        <input type="text" id="course" required/>
-        <label for="details" id="label-details">Additional Details</label>
-        <textarea id="details" placeholder="Tell us more about your skills or experience..." required></textarea>
-        <button type="submit" id="submit-btn">Submit Application</button>
-      </form>
-    </div>
-  </div>
-  <div id="chatbox" aria-live="polite" role="region" aria-label="Chat with Recruiter">
-    <div id="chatbox-header">
-      <span id="chatbox-title">Chat</span>
-      <button id="chatbox-close">&times;</button>
-    </div>
-    <div id="chat-messages"></div>
-    <div id="chat-input-container">
-      <input id="chat-input" type="text" placeholder="Type a message...">
-      <button id="send-btn">Send</button>
-    </div>
+
+  <div id="application-interface">
+    <h2 id="app-title">Job Application</h2>
+    <label for="app-name" id="label-name">Full Name</label>
+    <input type="text" id="app-name" placeholder="Enter your full name" required>
+
+    <label for="app-grad-year" id="label-year">Year of Graduation</label>
+    <input type="number" id="app-grad-year" placeholder="Enter your graduation year" min="1950" max="2100" required>
+
+    <label for="app-skills" id="label-skills">Skills / Experience</label>
+    <textarea id="app-skills" placeholder="List your relevant skills or experience" required></textarea>
+
+    <button id="submit-application" class="submit-btn">Submit Application</button>
+    <div id="alert-message" class="alert-message"></div>
   </div>
   <script>
-    const jobsData = {
-      "Punjab University": [
-        { title:"Senior Software Engineer",company:"Google India",location:"Bengaluru",salary:"₹25 LPA",description:"Join Google's cloud team focused on machine learning.",requirements:["3+ years experience","Knowledge of ML frameworks","Strong coding skills"],tags:["Full-time","Remote Possible"] },
-        { title:"Product Manager",company:"Flipkart",location:"Bengaluru",salary:"₹20 LPA",description:"Lead product strategy and development.",requirements:["5+ years experience","Strong leadership","Agile methodology"],tags:["Full-time","Onsite"] }
-      ],
-      "Thapar University": [
-        { title:"Data Scientist",company:"Amazon",location:"Seattle",salary:"₹28 LPA",description:"Work on recommendation systems and customer analytics.",requirements:["2+ years experience","Expertise in Python and R","Statistics knowledge"],tags:["Full-time","Remote"] },
-        { title:"Civil Engineer",company:"L&T",location:"Chandigarh",salary:"₹10 LPA",description:"Infrastructure and construction projects.",requirements:["4+ years experience","AutoCAD proficiency","Project Management skills"],tags:["Full-time","Onsite"] }
-      ],
-      "Lovely Professional University": [
-        { title:"Startup Founder & CEO",company:"TechStartup Inc.",location:"Punjab",salary:"Equity Based",description:"Leading a startup in the tech education sector.",requirements:["Entrepreneurship experience","Strong networking","Fundraising skills"],tags:["Full-time"] },
-        { title:"Marketing Head",company:"Infosys",location:"Bangalore",salary:"₹18 LPA",description:"Develop and lead marketing strategies.",requirements:["5+ years experience","Digital marketing expertise","Leadership skills"],tags:["Full-time","Remote Possible"] }
-      ],
-      "Punjab Engineering College": [
-        { title:"Engineering Consultant",company:"Siemens",location:"Mumbai",salary:"₹22 LPA",description:"Consult on advanced engineering projects.",requirements:["Experience in automation","Project management","Strong technical skills"],tags:["Contract","Onsite"] }
-      ],
-      "Guru Nanak Dev University": [
-        { title:"Research Scientist",company:"CSIR Labs",location:"New Delhi",salary:"₹15 LPA",description:"Research in nanotechnology and quantum physics.",requirements:["PhD preferred","Publication record","Strong analytical skills"],tags:["Full-time"] }
-      ],
-      "Chandigarh University": [
-        { title:"Cloud Engineer",company:"SAP",location:"Pune",salary:"₹23 LPA",description:"Manage and deploy cloud infrastructure solutions.",requirements:["Cloud certifications","Experience with AWS/Azure","Team collaboration"],tags:["Full-time","Remote"] }
-      ],
-      "Chitkara University": [
-        { title:"Research Associate",company:"Chitkara University R&D",location:"Rajpura",salary:"₹20 LPA",description:"Work on innovative research projects.",requirements:["Masters in relevant field","Research experience","Strong analytical skills"],tags:["Full-time","Onsite"] },
-        { title:"Software Developer",company:"Infosys",location:"Bangalore",salary:"₹15 LPA",description:"Develop and maintain software solutions.",requirements:["Software development experience","Knowledge of Java and Python"],tags:["Full-time","Remote Possible"] }
-      ]
-    };
+  const jobsData = {
+    "Punjab University": [
+      { title: "Senior Software Engineer", company: "Google India", location: "Bengaluru", salary: "₹25 LPA", description: "Join Google's cloud team focused on machine learning.", requirements: ["3+ years experience", "Knowledge of ML frameworks", "Strong coding skills"], tags: ["Full-time", "Remote Possible"] },
+      { title: "Product Manager", company: "Flipkart", location: "Bengaluru", salary: "₹20 LPA", description: "Lead product strategy and development.", requirements: ["5+ years experience", "Strong leadership", "Agile methodology"], tags: ["Full-time", "Onsite"] }
+    ],
+    "Thapar University": [
+      { title: "Data Scientist", company: "Amazon", location: "Seattle", salary: "₹28 LPA", description: "Work on recommendation systems and customer analytics.", requirements: ["2+ years experience", "Expertise in Python and R", "Statistics knowledge"], tags: ["Full-time", "Remote"] },
+      { title: "Civil Engineer", company: "L&T", location: "Chandigarh", salary: "₹10 LPA", description: "Infrastructure and construction projects.", requirements: ["4+ years experience", "AutoCAD proficiency", "Project Management skills"], tags: ["Full-time", "Onsite"] }
+    ],
+    "Lovely Professional University": [
+      { title: "Startup Founder & CEO", company: "TechStartup Inc.", location: "Punjab", salary: "Equity Based", description: "Leading a startup in the tech education sector.", requirements: ["Entrepreneurship experience", "Strong networking", "Fundraising skills"], tags: ["Full-time"] },
+      { title: "Marketing Head", company: "Infosys", location: "Bangalore", salary: "₹18 LPA", description: "Develop and lead marketing strategies.", requirements: ["5+ years experience", "Digital marketing expertise", "Leadership skills"], tags: ["Full-time", "Remote Possible"] }
+    ],
+    "Punjab Engineering College": [
+      { title: "Engineering Consultant", company: "Siemens", location: "Mumbai", salary: "₹22 LPA", description: "Consult on advanced engineering projects.", requirements: ["Experience in automation", "Project management", "Strong technical skills"], tags: ["Contract", "Onsite"] }
+    ],
+    "Guru Nanak Dev University": [
+      { title: "Research Scientist", company: "CSIR Labs", location: "New Delhi", salary: "₹15 LPA", description: "Research in nanotechnology and quantum physics.", requirements: ["PhD preferred", "Publication record", "Strong analytical skills"], tags: ["Full-time"] }
+    ],
+    "Chandigarh University": [
+      { title: "Cloud Engineer", company: "SAP", location: "Pune", salary: "₹23 LPA", description: "Manage and deploy cloud infrastructure solutions.", requirements: ["Cloud certifications", "Experience with AWS/Azure", "Team collaboration"], tags: ["Full-time", "Remote"] }
+    ],
+    "Chitkara University": [
+      { title: "Research Associate", company: "Chitkara University R&D", location: "Rajpura", salary: "₹20 LPA", description: "Work on innovative research projects.", requirements: ["Masters in relevant field", "Research experience", "Strong analytical skills"], tags: ["Full-time", "Onsite"] },
+      { title: "Software Developer", company: "Infosys", location: "Bangalore", salary: "₹15 LPA", description: "Develop and maintain software solutions.", requirements: ["Software development experience", "Knowledge of Java and Python"], tags: ["Full-time", "Remote Possible"] }
+    ]
+  };
 
-    const translations = {
-  en: {
-    'nav-home': 'Home',
-    'nav-dashboard': 'Dashboard',
-    'nav-alumni': 'Alumni',
-    'nav-events': 'Events',
-    'nav-jobs': 'Jobs',
-    'nav-mentorship': 'Mentorship',
-    'nav-collaborative': 'Collaborative Spaces',
-    'nav-donations': 'Donations',
-    'nav-settings': 'Settings',
-    'page-title': 'Job Opportunities',
-    'modal-title': 'Job Application',
-    'label-graduation': 'Year of Graduation',
-    'label-course': 'Course',
-    'label-details': 'Additional Details',
-    'submit-btn': 'Submit Application',
-    'apply-btn': 'Apply Now',
-    'no-jobs': 'No job postings available.',
-    'feature-not-available': 'Feature not available.',
-    'chatbox-title': 'Chat',
-    'chat-placeholder': 'Type a message...',
-    'send-btn': 'Send',
-    'chat-welcome': 'Type hello to start your application chat',
-    'chat-confirm': 'Application received, we will be in touch.',
-    'chat-instructions': "Please type 'hello' to proceed."
-  },
-  pa: {
-    'nav-home': 'ਘਰ',
-    'nav-dashboard': 'ਡੈਸ਼ਬੋਰਡ',
-    'nav-alumni': 'ਸਾਬਕਾ',
-    'nav-events': 'ਕਾਰਜਕ੍ਰਮ',
-    'nav-jobs': 'ਨੌਕਰੀਆਂ',
-    'nav-mentorship': 'ਮਾਰਗਦਰਸ਼ਨ',
-    'nav-collaborative': 'ਸਹਿਯੋਗੀ ਸਥਾਨ',
-    'nav-donations': 'ਦਾਨ',
-    'nav-settings': 'ਸੈਟਿੰਗ',
-    'page-title': 'ਨੌਕਰੀ ਦੇ ਮੌਕੇ',
-    'modal-title': 'ਰੋਕੜ ਲਈ ਅਰਜ਼ੀ',
-    'label-graduation': 'ਸਨਅਤ ਦੀ ਵਰ੍ਹਾ',
-    'label-course': 'ਕੋਰਸ',
-    'label-details': 'ਵਧੂ ਵੇਰਵਾ',
-    'submit-btn': 'ਅਰਜ਼ੀ ਭੇਜੋ',
-    'apply-btn': 'ਹੁਣੀ ਅਰਜ਼ੀ ਕਰੋ',
-    'no-jobs': 'ਕੋਈ ਨੌਕਰੀਆਂ ਉਪਲਬਧ ਨਹੀਂ',
-    'feature-not-available': 'ਫੀਚਰ ਉਪਲਬਧ ਨਹੀਂ',
-    'chatbox-title': 'ਚੈਟ',
-    'chat-placeholder': 'ਸੁਨੇਹਾ ਲਿਖੋ...',
-    'send-btn': 'ਭੇਜੋ',
-    'chat-welcome': 'ਆਪਣੀ ਅਰਜ਼ੀ ਸ਼ੁਰੂ ਕਰਨ ਲਈ hello ਲਿਖੋ',
-    'chat-confirm': 'ਅਰਜ਼ੀ ਪ੍ਰਾਪਤ ਹੋ ਗਈ ਹੈ। ਅਸੀਂ ਜਲਦ ਸੰਪਰਕ ਕਰਾਂਗੇ।',
-    'chat-instructions': "'hello' ਲਿਖੋ ਤੱਕਤਾਡ ਹੇਠਲਾਂ"
-  },
-  hi: {
-    'nav-home': 'मुखपृष्ठ',
-    'nav-dashboard': 'डैशबोर्ड',
-    'nav-alumni': 'पूर्व छात्र',
-    'nav-events': 'कार्यक्रम',
-    'nav-jobs': 'नौकरियां',
-    'nav-mentorship': 'मार्गदर्शन',
-    'nav-collaborative': 'सहयोगात्मक स्थान',
-    'nav-donations': 'दान',
-    'nav-settings': 'सेटिंग्स',
-    'page-title': 'नौकरी के अवसर',
-    'modal-title': 'नौकरी आवेदन',
-    'label-graduation': 'स्नातक वर्ष',
-    'label-course': 'कोर्स',
-    'label-details': 'अतिरिक्त विवरण',
-    'submit-btn': 'आवेदन भेजें',
-    'apply-btn': 'अब आवेदन करें',
-    'no-jobs': 'कोई नौकरियां उपलब्ध नहीं',
-    'feature-not-available': 'विशेषता उपलब्ध नहीं',
-    'chatbox-title': 'चैट',
-    'chat-placeholder': 'संदेश लिखें...',
-    'send-btn': 'भेजें',
-    'chat-welcome': 'अपनी आवेदन प्रक्रिया शुरू करने के लिए hello टाइप करें',
-    'chat-confirm': 'आवेदन प्राप्त हो गया है। हम शीघ्र संपर्क करेंगे।',
-    'chat-instructions': "'hello' टाइप करें आगे बढ़ने के लिए"
-  }
-};
-
-
-    let currentLanguage='en';
-    function applyLanguage(lang){
-      const dict=translations[lang]||translations.en;
-      currentLanguage=lang;
-      Object.entries(dict).forEach(([id,txt])=>{
-        const el=document.getElementById(id);
-        if(!el)return;
-        if(id==='chat-placeholder')document.getElementById('chat-input').placeholder=txt;
-        else el.textContent=txt;
-      });
+  const translations = {
+    en: {
+      'nav-home': 'Home',
+      'nav-dashboard': 'Dashboard',
+      'nav-alumni': 'Alumni',
+      'nav-events': 'Events',
+      'nav-jobs': 'Jobs',
+      'nav-mentorship': 'Mentorship',
+      'nav-collaborative': 'Collaborative Spaces',
+      'nav-donations': 'Donations',
+      'nav-settings': 'Settings',
+      'page-title': 'Job Opportunities',
+      'modal-title': 'Job Application',
+      'label-name': 'Full Name',
+      'label-graduation': 'Year of Graduation',
+      'label-skills': 'Skills / Experience',
+      'submit-btn': 'Submit Application',
+      'apply-btn': 'Apply Now',
+      'no-jobs': 'No job postings available.',
+      'feature-not-available-student': 'Feature not available for students.',
+      'feature-not-available-admin': 'Feature not available for admins.',
+      'application-success': 'Thank you for applying. We will connect with you soon!'
+    },
+    pa: {
+      'nav-home': 'ਘਰ',
+      'nav-dashboard': 'ਡੈਸ਼ਬੋਰਡ',
+      'nav-alumni': 'ਸਾਬਕਾ',
+      'nav-events': 'ਕਾਰਜਕ੍ਰਮ',
+      'nav-jobs': 'ਨੌਕਰੀਆਂ',
+      'nav-mentorship': 'ਮਾਰਗਦਰਸ਼ਨ',
+      'nav-collaborative': 'ਸਹਿਯੋਗੀ ਸਥਾਨ',
+      'nav-donations': 'ਦਾਨ',
+      'nav-settings': 'ਸੈਟਿੰਗ',
+      'page-title': 'ਨੌਕਰੀ ਦੇ ਮੌਕੇ',
+      'modal-title': 'ਨੌਕਰੀ ਲਈ ਅਰਜ਼ੀ',
+      'label-name': 'ਪੂਰਾ ਨਾਮ',
+      'label-graduation': 'ਗ੍ਰੈਜੂਏਸ਼ਨ ਦਾ ਸਾਲ',
+      'label-skills': 'ਕੌਸ਼ਲ / ਤਜਰਬਾ',
+      'submit-btn': 'ਅਰਜ਼ੀ ਭੇਜੋ',
+      'apply-btn': 'ਹੁਣ ਅਰਜ਼ੀ ਦਿਓ',
+      'no-jobs': 'ਕੋਈ ਨੌਕਰੀ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।',
+      'feature-not-available-student': 'ਵਿਦਿਆਰਥੀਆਂ ਲਈ ਫੀਚਰ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।',
+      'feature-not-available-admin': 'ਐਡਮਿਨ ਲਈ ਫੀਚਰ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।',
+      'application-success': 'ਆਪਣੀ ਅਰਜ਼ੀ ਲਈ ਧੰਨਵਾਦ। ਅਸੀਂ ਜਲਦੀ ਤੁਹਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰਾਂਗੇ!'
+    },
+    hi: {
+      'nav-home': 'मुखपृष्ठ',
+      'nav-dashboard': 'डैशबोर्ड',
+      'nav-alumni': 'पूर्व छात्र',
+      'nav-events': 'कार्यक्रम',
+      'nav-jobs': 'नौकरियां',
+      'nav-mentorship': 'मार्गदर्शन',
+      'nav-collaborative': 'सहयोगी स्थान',
+      'nav-donations': 'दान',
+      'nav-settings': 'सेटिंग्स',
+      'page-title': 'नौकरी के अवसर',
+      'modal-title': 'नौकरी आवेदन',
+      'label-name': [translate:पूरा नाम],
+      'label-graduation': [translate:स्नातक वर्ष],
+      'label-skills': [translate:कौशल / अनुभव],
+      'submit-btn': [translate:आवेदन करें],
+      'apply-btn': [translate:अब आवेदन करें],
+      'no-jobs': [translate:कोई नौकरी उपलब्ध नहीं है।],
+      'feature-not-available-student': [translate:छात्रों के लिए सुविधा उपलब्ध नहीं है।],
+      'feature-not-available-admin': [translate:व्यवस्थापक के लिए सुविधा उपलब्ध नहीं है।],
+      'application-success': [translate:आवेदन के लिए धन्यवाद। हम शीघ्र संपर्क करेंगे!]
     }
+  };
 
-    function addMessage(key,sender){
-      const txt=translations[currentLanguage][key];
-      const msg=document.createElement('div');
-      msg.className=`message ${sender}-message`;
-      msg.textContent=txt;
-      document.getElementById('chat-messages').appendChild(msg);
-      document.getElementById('chat-messages').scrollTop=document.getElementById('chat-messages').scrollHeight;
-    }
-    function clearMessages(){document.getElementById('chat-messages').innerHTML='';}
+  let currentLanguage = 'en';
 
-    window.addEventListener('DOMContentLoaded',()=>{
-      const lang=sessionStorage.getItem('preferredLanguage');
-      if(!lang||!translations[lang])return location.href='index.html';
-      applyLanguage(lang);
-
-      const inst=sessionStorage.getItem('loggedInInstitution'),em=sessionStorage.getItem('loggedInEmail'),ro=sessionStorage.getItem('loggedInRole');
-      if(!inst||!em||!ro) return location.href='login.html';
-
-      document.getElementById('page-title').textContent=`${inst} - ${translations[lang]['page-title']}`;
-      const jobs=jobsData[inst]||[], listEl=document.getElementById('job-list');
-      if(!jobs.length) listEl.innerHTML=`<p>${translations[lang]['no-jobs']}</p>`;
-      else listEl.innerHTML=jobs.map(j=>`
-        <div class="job-card">
-          <h3>${j.title}</h3>
-          <p><strong>${translations[lang]['label-course']}:</strong> ${j.company}</p>
-          <p><strong>${translations[lang]['label-details']}:</strong> ${j.location}</p>
-          <p><strong>Salary:</strong> ${j.salary}</p>
-          <p>${j.description}</p>
-          <p>${j.tags.map(t=>`<span class="job-tag">${t}</span>`).join('')}</p>
-          <button class="apply-btn" data-title="${j.title}">${translations[lang]['apply-btn']}</button>
-        </div>`).join('');
-
-      document.querySelectorAll('.apply-btn').forEach(btn=>{
-        btn.onclick=()=>{
-          if(ro.toLowerCase()==='student') return alert(translations[lang]['feature-not-available-student']);
-          if(ro.toLowerCase()==='admin') return alert(translations[lang]['feature-not-available-admin']);
-          document.getElementById('application-modal').style.display='none';
-          document.getElementById('chatbox').style.display='flex';
-          clearMessages(); addMessage('chat-welcome-apply','bot');
-          document.getElementById('chat-input').focus();
-        };
-      });
-
-      document.getElementById('send-btn').onclick=()=>{
-        const txt=document.getElementById('chat-input').value.trim();
-        if(!txt)return;
-        const u=document.createElement('div');
-        u.className='message user-message';u.textContent=txt;document.getElementById('chat-messages').appendChild(u);
-        document.getElementById('chat-input').value='';
-        if(txt.toLowerCase()==='hello'){
-          setTimeout(()=>addMessage('chat-apply-confirm','bot'),500);
-          setTimeout(()=>document.getElementById('chatbox').style.display='none',2500);
-        } else setTimeout(()=>addMessage('chat-type-hello','bot'),500);
-      };
-
-      document.getElementById('chatbox-close').onclick=()=>document.getElementById('chatbox').style.display='none';
-      document.getElementById('close-modal-btn').onclick=()=>document.getElementById('application-modal').style.display='none';
-      document.getElementById('application-form').onsubmit=e=>{
-        e.preventDefault();document.getElementById('application-modal').style.display='none';
-      };
-      document.getElementById('logout-btn').onclick=()=>{sessionStorage.clear();location.href='login.html';};
+  function applyLanguage(lang) {
+    const dict = translations[lang] || translations.en;
+    currentLanguage = lang;
+    Object.entries(dict).forEach(([id, txt]) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (id === 'label-skills' || id === 'label-name' || id === 'label-graduation') {
+        el.textContent = txt;
+      } else if (id === 'submit-btn' || id === 'apply-btn') {
+        el.textContent = txt;
+      } else if (id === 'page-title') {
+        el.textContent = txt;
+      }
     });
-  </script>
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const lang = sessionStorage.getItem('preferredLanguage');
+    if (!lang || !translations[lang]) return window.location.href = 'index.html';
+    applyLanguage(lang);
+
+    const institution = sessionStorage.getItem('loggedInInstitution');
+    const email = sessionStorage.getItem('loggedInEmail');
+    const role = sessionStorage.getItem('loggedInRole');
+    if (!institution || !email || !role) return window.location.href = 'login.html';
+
+    document.getElementById('page-title').textContent = `${institution} - ${translations[lang]['page-title']}`;
+    
+    const jobs = jobsData[institution] || [];
+    const jobListEl = document.getElementById('job-list');
+
+    if (jobs.length === 0) {
+      jobListEl.innerHTML = `<p>${translations[lang]['no-jobs']}</p>`;
+      return;
+    }
+
+    let html = '';
+    jobs.forEach(job => {
+      html += `
+        <div class="job-card">
+          <h3>${job.title}</h3>
+          <p><strong>${translations[lang]['label-course']}:</strong> ${job.company}</p>
+          <p><strong>${translations[lang]['label-details']}:</strong> ${job.location}</p>
+          <p><strong>Salary:</strong> ${job.salary}</p>
+          <p>${job.description}</p>
+          <p>${job.tags.map(t => `<span class="job-tag">${t}</span>`).join('')}</p>
+          <button class="apply-btn" data-title="${job.title}">${translations[lang]['apply-btn']}</button>
+        </div>`;
+    });
+    
+    jobListEl.innerHTML = html;
+
+    document.querySelectorAll('.apply-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        if (role.toLowerCase() === 'student') {
+          alert(translations[lang]['feature-not-available-student']);
+          return;
+        }
+        if (role.toLowerCase() === 'admin') {
+          alert(translations[lang]['feature-not-available-admin']);
+          return;
+        }
+
+        document.getElementById('application-interface').style.display = 'block';
+        clearAlerts();
+        // Store selected job title if needed
+        window.selectedJobTitle = button.getAttribute('data-title');
+      });
+    });
+
+    document.getElementById('submit-application').addEventListener('click', () => {
+      const name = document.getElementById('app-name').value.trim();
+      const gradYear = document.getElementById('app-grad-year').value.trim();
+      const skills = document.getElementById('app-skills').value.trim();
+      if (!name || !gradYear || !skills) {
+        showAlert('Please fill all fields.');
+        return;
+      }
+      // clear form and hide interface
+      document.getElementById('application-interface').style.display = 'none';
+      document.getElementById('app-name').value = '';
+      document.getElementById('app-grad-year').value = '';
+      document.getElementById('app-skills').value = '';
+      alert(translations[lang]['application-success']);
+      // Optionally do something with data
+      // e.g., send to backend server here
+    });
+
+    function showAlert(message) {
+      const alertDiv = document.getElementById('alert-message');
+      alertDiv.style.display = 'block';
+      alertDiv.textContent = message;
+    }
+
+    function clearAlerts() {
+      const alertDiv = document.getElementById('alert-message');
+      alertDiv.style.display = 'none';
+      alertDiv.textContent = '';
+    }
+
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      sessionStorage.clear();
+      window.location.href = 'login.html';
+    });
+  });
+</script>
 </body>
 </html>
