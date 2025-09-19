@@ -142,7 +142,6 @@
     </form>
     <div class="message" id="message"></div>
   </div>
-
   <!-- Language Selection Modal -->
   <div id="lang-modal" role="dialog" aria-modal="true" tabindex="-1" style="display:flex;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.6);z-index:10000;justify-content:center;align-items:center;font-family:'Inter',sans-serif;">
     <div style="background:#121F33;padding:2rem;border-radius:15px;max-width:320px;width:90%;text-align:center;color:#eaf6ff;box-shadow:0 0 20px rgba(36,147,255,0.4);">
@@ -152,7 +151,6 @@
       <button class="lang-btn" data-lang="hi" style="margin:0.4rem;padding:0.7rem 1.2rem;background:#2493ff;color:#101827;border:none;border-radius:8px;cursor:pointer;">हिंदी</button>
     </div>
   </div>
-
   <script>
     const demoCredentials = {
       "Punjab University": {
@@ -191,7 +189,6 @@
         alumni: { email: "alumni@punjabalumni-chitkara.in", password: "PunjabChitkaraAlumni2025!" }
       }
     };
-
     const translations = {
       en: {
         'nav-home': 'Home',
@@ -236,10 +233,8 @@
         'msg-login-success': 'लॉगिन सफल! रीडायरेक्ट हो रहा है...'
       }
     };
-
     let currentLanguage = null;
     let errorMessages = {};
-
     function applyLanguage(lang) {
       currentLanguage = lang;
       const dict = translations[lang];
@@ -267,11 +262,10 @@
         }
       }
     }
-
     document.addEventListener('DOMContentLoaded', () => {
-      // Language selector logic with sessionStorage persistence
+      // FIXED: Changed from sessionStorage to localStorage for language persistence
       const langModal = document.getElementById('lang-modal');
-      const savedLang = sessionStorage.getItem('preferredLanguage');
+      const savedLang = localStorage.getItem('preferredLanguage'); // CHANGED TO localStorage
       if (savedLang && translations[savedLang]) {
         applyLanguage(savedLang);
         langModal.style.display = 'none';
@@ -285,17 +279,16 @@
             alert('This language is not supported yet.');
             return;
           }
-          sessionStorage.setItem('preferredLanguage', chosenLang);
+          localStorage.setItem('preferredLanguage', chosenLang); // CHANGED TO localStorage
+          sessionStorage.setItem('preferredLanguage', chosenLang); // Keep in session too for other pages
           applyLanguage(chosenLang);
           langModal.style.display = 'none';
         });
       });
-
       // Login functionality continues...
       const institutionSelect = document.getElementById('institution');
       const institutionLogo = document.getElementById('institution-logo');
       const messageElem = document.getElementById('message');
-
       institutionSelect.addEventListener('change', () => {
         const selectedOption = institutionSelect.options[institutionSelect.selectedIndex];
         const logoSrc = selectedOption.getAttribute('data-logo');
@@ -309,7 +302,6 @@
         messageElem.textContent = '';
         messageElem.classList.remove('error');
       });
-
       document.getElementById('loginForm').addEventListener('submit', (e) => {
         e.preventDefault();
         const institution = institutionSelect.value;
@@ -317,18 +309,15 @@
         const passwordInput = document.getElementById('password').value;
         messageElem.textContent = '';
         messageElem.classList.remove('error');
-
         if (!institution || !demoCredentials[institution]) {
           messageElem.textContent = errorMessages.selectInstitution;
           messageElem.classList.add('error');
           return;
         }
-
         const creds = demoCredentials[institution];
         let emailFound = false;
         let passwordMatched = false;
         let loggedRole = null;
-
         for (const role in creds) {
           if (creds[role].email.toLowerCase() === emailInput) {
             emailFound = true;
@@ -339,28 +328,29 @@
             }
           }
         }
-
         if (!emailFound) {
           messageElem.textContent = errorMessages.emailNotFound;
           messageElem.classList.add('error');
           return;
         }
-
         if (!passwordMatched) {
           messageElem.textContent = errorMessages.incorrectPassword;
           messageElem.classList.add('error');
           return;
         }
-
         sessionStorage.setItem('loggedInInstitution', institution);
         sessionStorage.setItem('loggedInEmail', emailInput);
         sessionStorage.setItem('loggedInRole', loggedRole);
+        // ADDED: Copy language preference to sessionStorage on successful login
+        const currentLang = localStorage.getItem('preferredLanguage');
+        if (currentLang) {
+          sessionStorage.setItem('preferredLanguage', currentLang);
+        }
         messageElem.textContent = errorMessages.loginSuccess;
         setTimeout(() => {
           window.location.href = 'dashboard.html';
         }, 1500);
       });
-
       // Redirect if already logged in
       if (sessionStorage.getItem('loggedInInstitution')) {
         window.location.href = 'dashboard.html';
