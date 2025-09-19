@@ -112,15 +112,6 @@
       <div id="quick-links"></div>
     </section>
   </main>
-  <!-- Language Selection Modal -->
-  <div id="lang-modal" role="dialog" aria-modal="true" tabindex="-1" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.6);z-index:10000;display:flex;justify-content:center;align-items:center;font-family:'Inter',sans-serif;">
-    <div style="background:#121F33;padding:2rem;border-radius:15px;max-width:320px;width:90%;text-align:center;color:#eaf6ff;box-shadow:0 0 20px rgba(36,147,255,0.4);">
-      <h2 style="margin-bottom:1rem;color:#5dd1ff;">Select your preferred language</h2>
-      <button class="lang-btn" data-lang="en" style="margin:0.4rem;padding:0.7rem 1.2rem;background:#2493ff;color:#101827;border:none;border-radius:8px;cursor:pointer;">English</button>
-      <button class="lang-btn" data-lang="pa" style="margin:0.4rem;padding:0.7rem 1.2rem;background:#2493ff;color:#101827;border:none;border-radius:8px;cursor:pointer;">ਪੰਜਾਬੀ</button>
-      <button class="lang-btn" data-lang="hi" style="margin:0.4rem;padding:0.7rem 1.2rem;background:#2493ff;color:#101827;border:none;border-radius:8px;cursor:pointer;">हिंदी</button>
-    </div>
-  </div>
   <script>
     const institutionsInfo = {
       "Punjab University": {
@@ -251,6 +242,7 @@
         ]
       }
     };
+
     function displayDashboard(institution) {
       const info = institutionsInfo[institution];
       const institutionNameEl = document.getElementById('institution-name');
@@ -258,51 +250,56 @@
       const statsCardsEl = document.getElementById('stats-cards');
       const newsCardsEl = document.getElementById('news-cards');
       const quickLinksEl = document.getElementById('quick-links');
-      institutionNameEl.textContent = institution + " Dashboard";
+      
+      const currentLang = sessionStorage.getItem('preferredLanguage') || 'en';
+      const dict = translations[currentLang] || translations.en;
+      
+      institutionNameEl.textContent = institution + " " + dict['dashboard-title'];
       if (!info) {
-        institutionInfoEl.textContent = "Information not available for selected institution.";
+        institutionInfoEl.textContent = dict['no-info-available'];
         statsCardsEl.innerHTML = "";
         newsCardsEl.innerHTML = "";
         quickLinksEl.innerHTML = "";
         return;
       }
       institutionInfoEl.innerHTML = `
-        <p><strong>Location:</strong> ${info.location}</p>
-        <p><strong>Established:</strong> ${info.established}</p>
-        <p><strong>Students:</strong> ${info.students.toLocaleString()}</p>
-        <p><strong>Alumni:</strong> ${info.alumni.toLocaleString()}+</p>
-        <p><strong>Website:</strong> <a href="${info.website}" target="_blank" rel="noopener">${info.website}</a></p>`;
+        <p><strong>${dict['location']}:</strong> ${info.location}</p>
+        <p><strong>${dict['established']}:</strong> ${info.established}</p>
+        <p><strong>${dict['students']}:</strong> ${info.students.toLocaleString()}</p>
+        <p><strong>${dict['alumni']}:</strong> ${info.alumni.toLocaleString()}+</p>
+        <p><strong>${dict['website']}:</strong> <a href="${info.website}" target="_blank" rel="noopener">${info.website}</a></p>`;
       statsCardsEl.innerHTML = `
         <div class="card">
-          <h3>Platform Statistics</h3>
+          <h3>${dict['platform-statistics']}</h3>
           <ul>
-            <li><strong>Alumni Network:</strong> ${info.stats.alumniNetwork}</li>
-            <li><strong>Active Institutions:</strong> ${info.stats.activeInstitutions}</li>
-            <li><strong>Connections Made:</strong> ${info.stats.connectionsMade}</li>
-            <li><strong>Job Placements:</strong> ${info.stats.jobPlacements}</li>
-            <li><strong>Mentorship Sessions:</strong> ${info.stats.mentorshipSessions}</li>
+            <li><strong>${dict['alumni-network']}:</strong> ${info.stats.alumniNetwork}</li>
+            <li><strong>${dict['active-institutions']}:</strong> ${info.stats.activeInstitutions}</li>
+            <li><strong>${dict['connections-made']}:</strong> ${info.stats.connectionsMade}</li>
+            <li><strong>${dict['job-placements']}:</strong> ${info.stats.jobPlacements}</li>
+            <li><strong>${dict['mentorship-sessions']}:</strong> ${info.stats.mentorshipSessions}</li>
           </ul>
         </div>`;
       newsCardsEl.innerHTML = `
         <div class="card">
-          <h3>Recent News & Events</h3>
+          <h3>${dict['recent-news-events']}</h3>
           <ul>
             ${info.news.map(item => `<li>${item}</li>`).join("")}
           </ul>
         </div>`;
       quickLinksEl.innerHTML = `
         <div class="card">
-          <h3>Quick Links</h3>
+          <h3>${dict['quick-links']}</h3>
           <ul>
-            <li><a href="alumni.html">Alumni Directory</a></li>
-            <li><a href="jobs.html">Job Opportunities</a></li>
-            <li><a href="mentorship.html">Mentorship Program</a></li>
-            <li><a href="donations.html">Support & Donations</a></li>
+            <li><a href="alumni.html">${dict['alumni-directory']}</a></li>
+            <li><a href="jobs.html">${dict['job-opportunities']}</a></li>
+            <li><a href="mentorship.html">${dict['mentorship-program']}</a></li>
+            <li><a href="donations.html">${dict['support-donations']}</a></li>
           </ul>
         </div>
       `;
     }
-    // Translation dictionary
+
+    // EXPANDED Translation dictionary
     const translations = {
       en: {
         'nav-home': 'Home',
@@ -315,7 +312,26 @@
         'nav-donations': 'Donations',
         'nav-settings': 'Settings',
         'institution-name': 'Institution Dashboard',
-        'institution-info': 'Loading institution details...'
+        'institution-info': 'Loading institution details...',
+        'dashboard-title': 'Dashboard',
+        'location': 'Location',
+        'established': 'Established',
+        'students': 'Students',
+        'alumni': 'Alumni',
+        'website': 'Website',
+        'platform-statistics': 'Platform Statistics',
+        'alumni-network': 'Alumni Network',
+        'active-institutions': 'Active Institutions',
+        'connections-made': 'Connections Made',
+        'job-placements': 'Job Placements',
+        'mentorship-sessions': 'Mentorship Sessions',
+        'recent-news-events': 'Recent News & Events',
+        'quick-links': 'Quick Links',
+        'alumni-directory': 'Alumni Directory',
+        'job-opportunities': 'Job Opportunities',
+        'mentorship-program': 'Mentorship Program',
+        'support-donations': 'Support & Donations',
+        'no-info-available': 'Information not available for selected institution.'
       },
       pa: {
         'nav-home': 'ਘਰ',
@@ -328,7 +344,26 @@
         'nav-donations': 'ਦਾਨ',
         'nav-settings': 'ਸੈਟਿੰਗਜ਼',
         'institution-name': 'ਸੰਸਥਾ ਡੈਸ਼ਬੋਰਡ',
-        'institution-info': 'ਚੁਣੇ ਗਈ ਸੰਸਥਾ ਦੇ ਵੇਰਵੇ ਲੋਡ ਕੀਤੇ ਜਾ ਰਹੇ ਹਨ...'
+        'institution-info': 'ਚੁਣੇ ਗਈ ਸੰਸਥਾ ਦੇ ਵੇਰਵੇ ਲੋਡ ਕੀਤੇ ਜਾ ਰਹੇ ਹਨ...',
+        'dashboard-title': 'ਡੈਸ਼ਬੋਰਡ',
+        'location': 'ਸਥਿਤੀ',
+        'established': 'ਸਥਾਪਿਤ',
+        'students': 'ਵਿਦਿਆਰਥੀ',
+        'alumni': 'ਸਾਬਕਾ ਵਿਦਿਆਰਥੀ',
+        'website': 'ਵੈੱਬਸਾਈਟ',
+        'platform-statistics': 'ਪਲੇਟਫਾਰਮ ਅੰਕੜੇ',
+        'alumni-network': 'ਸਾਬਕਾ ਵਿਦਿਆਰਥੀ ਨੈਟਵਰਕ',
+        'active-institutions': 'ਸਰਗਰਮ ਸੰਸਥਾਨ',
+        'connections-made': 'ਬਣਾਏ ਗਏ ਸੰਪਰਕ',
+        'job-placements': 'ਨੌਕਰੀ ਪਲੇਸਮੈਂਟਸ',
+        'mentorship-sessions': 'ਮਾਰਗਦਰਸ਼ਨ ਸੈਸ਼ਨਜ਼',
+        'recent-news-events': 'ਤਾਜ਼ਾ ਖ਼ਬਰਾਂ ਅਤੇ ਇਵੈਂਟਸ',
+        'quick-links': 'ਤੇਜ਼ ਲਿੰਕਸ',
+        'alumni-directory': 'ਸਾਬਕਾ ਵਿਦਿਆਰਥੀ ਡਾਇਰੈਕਟਰੀ',
+        'job-opportunities': 'ਨੌਕਰੀ ਦੇ ਮੌਕੇ',
+        'mentorship-program': 'ਮਾਰਗਦਰਸ਼ਨ ਪ੍ਰੋਗਰਾਮ',
+        'support-donations': 'ਸਹਾਇਤਾ ਅਤੇ ਦਾਨ',
+        'no-info-available': 'ਚੁਣੇ ਗਏ ਸੰਸਥਾਨ ਲਈ ਜਾਣਕਾਰੀ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।'
       },
       hi: {
         'nav-home': 'मुख्य पृष्ठ',
@@ -341,9 +376,29 @@
         'nav-donations': 'दान',
         'nav-settings': 'सेटिंग्स',
         'institution-name': 'संस्थान डैशबोर्ड',
-        'institution-info': 'चयनित संस्थान का विवरण लोड किया जा रहा है...'
+        'institution-info': 'चयनित संस्थान का विवरण लोड किया जा रहा है...',
+        'dashboard-title': 'डैशबोर्ड',
+        'location': 'स्थान',
+        'established': 'स्थापित',
+        'students': 'छात्र',
+        'alumni': 'पूर्व छात्र',
+        'website': 'वेबसाइट',
+        'platform-statistics': 'प्लेटफॉर्म सांख्यिकी',
+        'alumni-network': 'पूर्व छात्र नेटवर्क',
+        'active-institutions': 'सक्रिय संस्थान',
+        'connections-made': 'बनाए गए कनेक्शन',
+        'job-placements': 'नौकरी प्लेसमेंट',
+        'mentorship-sessions': 'मेंटरशिप सत्र',
+        'recent-news-events': 'हाल की खबरें और कार्यक्रम',
+        'quick-links': 'त्वरित लिंक',
+        'alumni-directory': 'पूर्व छात्र निर्देशिका',
+        'job-opportunities': 'नौकरी के अवसर',
+        'mentorship-program': 'मेंटरशिप कार्यक्रम',
+        'support-donations': 'सहायता और दान',
+        'no-info-available': 'चयनित संस्थान के लिए जानकारी उपलब्ध नहीं है।'
       }
     };
+
     function applyLanguage(lang) {
       const dict = translations[lang] || {};
       Object.entries(dict).forEach(([id, text]) => {
@@ -351,31 +406,18 @@
         if (el) el.textContent = text;
       });
     }
+
     window.addEventListener('DOMContentLoaded', () => {
-      // Language selector logic with sessionStorage persistence - MODIFIED TO NOT SHOW MODAL ON DASHBOARD
-      const langModal = document.getElementById('lang-modal');
+      // Language application - apply saved language or redirect to home
       const savedLang = sessionStorage.getItem('preferredLanguage');
       if (savedLang && translations[savedLang]) {
         applyLanguage(savedLang);
-        langModal.style.display = 'none';
       } else {
-        // If no language is set, redirect to home page to choose language instead of showing modal
+        // If no language is set, redirect to home page to choose language
         window.location.href = 'index.html';
         return;
       }
       
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const chosenLang = btn.dataset.lang;
-          if (!translations[chosenLang]) {
-            alert('This language is not supported yet.');
-            return;
-          }
-          sessionStorage.setItem('preferredLanguage', chosenLang);
-          applyLanguage(chosenLang);
-          langModal.style.display = 'none';
-        });
-      });
       // Original dashboard logic
       const institution = sessionStorage.getItem('loggedInInstitution');
       const email = sessionStorage.getItem('loggedInEmail');
