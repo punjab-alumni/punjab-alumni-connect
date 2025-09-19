@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Job Opportunities - Punjab Alumni Connect</title>
-  <link rel="stylesheet" href="styles.css" />
   <style>
     .job-card {
       background: rgba(36, 147, 255, 0.07);
@@ -165,269 +164,227 @@
 </head>
 <body>
   <header>
-    <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;">
+    <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
     <nav>
       <ul class="nav-list">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="alumni.html">Alumni</a></li>
-        <li><a href="events.html">Events</a></li>
-        <li><a href="jobs.html" class="active">Jobs</a></li>
-        <li><a href="mentorship.html">Mentorship</a></li>
-        <li><a href="collaborative.html">Collaborative Spaces</a></li>
-        <li><a href="donations.html">Donations</a></li>
-        <li><a href="settings.html">Settings</a></li>
-        <li><button id="logout-btn">Logout</button></li>
+        <li><a href="index.html" id="navHome">Home</a></li>
+        <li><a href="dashboard.html" id="navDashboard">Dashboard</a></li>
+        <li><a href="alumni.html" id="navAlumni">Alumni</a></li>
+        <li><a href="events.html" id="navEvents">Events</a></li>
+        <li><a href="jobs.html" id="navJobs" class="active">Jobs</a></li>
+        <li><a href="mentorship.html" id="navMentorship">Mentorship</a></li>
+        <li><a href="collaborative.html" id="navCollaborative">Collaborative Spaces</a></li>
+        <li><a href="donations.html" id="navDonations">Donations</a></li>
+        <li><a href="settings.html" id="navSettings">Settings</a></li>
+        <li><button id="logoutBtn">Logout</button></li>
       </ul>
     </nav>
   </header>
-
+  
   <main class="container">
-    <h1 id="page-title">Job Opportunities</h1>
-    <div id="job-list"></div>
+    <h1 id="pageTitle">Job Opportunities</h1>
+    <div id="jobList"></div>
   </main>
 
-  <div id="application-interface">
-    <h2 id="app-title">Job Application</h2>
-    <label for="app-name" id="label-name">Full Name</label>
-    <input type="text" id="app-name" placeholder="Enter your full name" required>
-
-    <label for="app-grad-year" id="label-year">Year of Graduation</label>
-    <input type="number" id="app-grad-year" placeholder="Enter your graduation year" min="1950" max="2100" required>
-
-    <label for="app-skills" id="label-skills">Skills / Experience</label>
-    <textarea id="app-skills" placeholder="List your relevant skills or experience" required></textarea>
-
-    <button id="submit-application" class="submit-btn">Submit Application</button>
-    <div id="alert-message" class="alert-message"></div>
+  <div id="applicationInterface" style="display:none;">
+    <h2 id="applicationTitle">Job Application</h2>
+    <label for="appName" id="labelName">Full Name</label>
+    <input type="text" id="appName" placeholder="Enter your full name" required />
+    <label for="appGradYear" id="labelGradYear">Year of Graduation</label>
+    <input type="number" id="appGradYear" placeholder="Enter your graduation year" min="1950" max="2100" required />
+    <label for="appSkills" id="labelSkills">Skills / Experience</label>
+    <textarea id="appSkills" placeholder="List your relevant skills or experience" required></textarea>
+    <button id="submitApplicationBtn">Submit</button>
+    <div id="alertMessage" style="display:none; color:#29f; font-weight:700;"></div>
   </div>
+
   <script>
-  window.addEventListener('DOMContentLoaded', () => {
-  const lang = sessionStorage.getItem('preferredLanguage');
-  console.log('Language:', lang);
-  if (!lang || !translations[lang]) return location.href = 'index.html';
-
-  applyLanguage(lang);
-
-  const institution = sessionStorage.getItem('loggedInInstitution');
-  const email = sessionStorage.getItem('loggedInEmail');
-  const role = sessionStorage.getItem('loggedInRole');
-
-  console.log('Institution:', institution);
-  console.log('Email:', email);
-  console.log('Role:', role);
-
-  if (!institution || !email || !role) return location.href = 'login.html';
-
-  const jobs = jobsData[institution] || [];
-  console.log('Jobs for institution:', jobs);
-
-});
-
     const jobsData = {
-    "Punjab University": [
-      { title: "Senior Software Engineer", company: "Google India", location: "Bengaluru", salary: "₹25 LPA", description: "Join Google's cloud team focused on machine learning.", requirements: ["3+ years experience", "Knowledge of ML frameworks", "Strong coding skills"], tags: ["Full-time", "Remote Possible"] },
-      { title: "Product Manager", company: "Flipkart", location: "Bengaluru", salary: "₹20 LPA", description: "Lead product strategy and development.", requirements: ["5+ years experience", "Strong leadership", "Agile methodology"], tags: ["Full-time", "Onsite"] }
-    ],
-    "Thapar University": [
-      { title: "Data Scientist", company: "Amazon", location: "Seattle", salary: "₹28 LPA", description: "Work on recommendation systems and customer analytics.", requirements: ["2+ years experience", "Expertise in Python and R", "Statistics knowledge"], tags: ["Full-time", "Remote"] },
-      { title: "Civil Engineer", company: "L&T", location: "Chandigarh", salary: "₹10 LPA", description: "Infrastructure and construction projects.", requirements: ["4+ years experience", "AutoCAD proficiency", "Project Management skills"], tags: ["Full-time", "Onsite"] }
-    ],
-    "Lovely Professional University": [
-      { title: "Startup Founder & CEO", company: "TechStartup Inc.", location: "Punjab", salary: "Equity Based", description: "Leading a startup in the tech education sector.", requirements: ["Entrepreneurship experience", "Strong networking", "Fundraising skills"], tags: ["Full-time"] },
-      { title: "Marketing Head", company: "Infosys", location: "Bangalore", salary: "₹18 LPA", description: "Develop and lead marketing strategies.", requirements: ["5+ years experience", "Digital marketing expertise", "Leadership skills"], tags: ["Full-time", "Remote Possible"] }
-    ],
-    "Punjab Engineering College": [
-      { title: "Engineering Consultant", company: "Siemens", location: "Mumbai", salary: "₹22 LPA", description: "Consult on advanced engineering projects.", requirements: ["Experience in automation", "Project management", "Strong technical skills"], tags: ["Contract", "Onsite"] }
-    ],
-    "Guru Nanak Dev University": [
-      { title: "Research Scientist", company: "CSIR Labs", location: "New Delhi", salary: "₹15 LPA", description: "Research in nanotechnology and quantum physics.", requirements: ["PhD preferred", "Publication record", "Strong analytical skills"], tags: ["Full-time"] }
-    ],
-    "Chandigarh University": [
-      { title: "Cloud Engineer", company: "SAP", location: "Pune", salary: "₹23 LPA", description: "Manage and deploy cloud infrastructure solutions.", requirements: ["Cloud certifications", "Experience with AWS/Azure", "Team collaboration"], tags: ["Full-time", "Remote"] }
-    ],
-    "Chitkara University": [
-      { title: "Research Associate", company: "Chitkara University R&D", location: "Rajpura", salary: "₹20 LPA", description: "Work on innovative research projects.", requirements: ["Masters in relevant field", "Research experience", "Strong analytical skills"], tags: ["Full-time", "Onsite"] },
-      { title: "Software Developer", company: "Infosys", location: "Bangalore", salary: "₹15 LPA", description: "Develop and maintain software solutions.", requirements: ["Software development experience", "Knowledge of Java and Python"], tags: ["Full-time", "Remote Possible"] }
-    ]
-  };
+      "Punjab University": [
+        { title: "Senior Software Engineer", company: "Google India", location: "Bengaluru", salary: "₹25 LPA", description: "Join Google's cloud team focused on machine learning.", tags: ["Full-time", "Remote Possible"] },
+        { title: "Product Manager", company: "Flipkart", location: "Bengaluru", salary: "₹20 LPA", description: "Lead product strategy and development.", tags: ["Full-time", "Onsite"] }
+      ],
+      "Thapar University": [
+        { title: "Data Scientist", company: "Amazon", location: "Seattle", salary: "₹28 LPA", description: "Work on recommendation systems and customer analytics.", tags: ["Full-time", "Remote"] },
+        { title: "Civil Engineer", company: "L&T", location: "Chandigarh", salary: "₹10 LPA", description: "Infrastructure and construction projects.", tags: ["Full-time", "Onsite"] }
+      ],
+      "Lovely Professional University": [
+        { title: "Startup Founder & CEO", company: "TechStartup Inc.", location: "Punjab", salary: "Equity Based", description: "Leading a startup in the tech education sector.", tags: ["Full-time"] },
+        { title: "Marketing Head", company: "Infosys", location: "Bangalore", salary: "₹18 LPA", description: "Develop and lead marketing strategies.", tags: ["Full-time", "Remote Possible"] }
+      ],
+      "Punjab Engineering College": [
+        { title: "Engineering Consultant", company: "Siemens", location: "Mumbai", salary: "₹22 LPA", description: "Consult on advanced engineering projects.", tags: ["Contract", "Onsite"] }
+      ],
+      "Guru Nanak University": [
+        { title: "Research Scientist", company: "CSIR Labs", location: "New Delhi", salary: "₹15 LPA", description: "Research in nanotechnology and quantum physics.", tags: ["Full-time"] }
+      ],
+      "Chandigarh University": [
+        { title: "Cloud Engineer", company: "SAP", location: "Pune", salary: "₹23 LPA", description: "Manage and deploy cloud infrastructure solutions.", tags: ["Full-time", "Remote"] }
+      ],
+      "Chitkara University": [
+        { title: "Research Associate", company: "Chitkara University R&D", location: "Rajpura", salary: "₹20 LPA", description: "Work on innovative research projects.", tags: ["Full-time", "Onsite"] },
+        { title: "Software Developer", company: "Infosys", location: "Bangalore", salary: "₹15 LPA", description: "Develop and maintain software solutions.", tags: ["Full-time", "Remote Possible"] }
+      ],
+    };
 
-  const translations = {
-    en: {
-      'nav-home': 'Home',
-      'nav-dashboard': 'Dashboard',
-      'nav-alumni': 'Alumni',
-      'nav-events': 'Events',
-      'nav-jobs': 'Jobs',
-      'nav-mentorship': 'Mentorship',
-      'nav-collaborative': 'Collaborative Spaces',
-      'nav-donations': 'Donations',
-      'nav-settings': 'Settings',
-      'page-title': 'Job Opportunities',
-      'modal-title': 'Job Application',
-      'label-name': 'Full Name',
-      'label-graduation': 'Year of Graduation',
-      'label-skills': 'Skills / Experience',
-      'submit-btn': 'Submit Application',
-      'apply-btn': 'Apply Now',
-      'no-jobs': 'No job postings available.',
-      'feature-not-available-student': 'Feature not available for students.',
-      'feature-not-available-admin': 'Feature not available for admins.',
-      'application-success': 'Thank you for applying. We will connect with you soon!'
-    },
-    pa: {
-      'nav-home': 'ਘਰ',
-      'nav-dashboard': 'ਡੈਸ਼ਬੋਰਡ',
-      'nav-alumni': 'ਸਾਬਕਾ',
-      'nav-events': 'ਕਾਰਜਕ੍ਰਮ',
-      'nav-jobs': 'ਨੌਕਰੀਆਂ',
-      'nav-mentorship': 'ਮਾਰਗਦਰਸ਼ਨ',
-      'nav-collaborative': 'ਸਹਿਯੋਗੀ ਸਥਾਨ',
-      'nav-donations': 'ਦਾਨ',
-      'nav-settings': 'ਸੈਟਿੰਗ',
-      'page-title': 'ਨੌਕਰੀ ਦੇ ਮੌਕੇ',
-      'modal-title': 'ਨੌਕਰੀ ਲਈ ਅਰਜ਼ੀ',
-      'label-name': 'ਪੂਰਾ ਨਾਮ',
-      'label-graduation': 'ਗ੍ਰੈਜੂਏਸ਼ਨ ਦਾ ਸਾਲ',
-      'label-skills': 'ਕੌਸ਼ਲ / ਤਜਰਬਾ',
-      'submit-btn': 'ਅਰਜ਼ੀ ਭੇਜੋ',
-      'apply-btn': 'ਹੁਣ ਅਰਜ਼ੀ ਦਿਓ',
-      'no-jobs': 'ਕੋਈ ਨੌਕਰੀ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।',
-      'feature-not-available-student': 'ਵਿਦਿਆਰਥੀਆਂ ਲਈ ਫੀਚਰ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।',
-      'feature-not-available-admin': 'ਐਡਮਿਨ ਲਈ ਫੀਚਰ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।',
-      'application-success': 'ਆਪਣੀ ਅਰਜ਼ੀ ਲਈ ਧੰਨਵਾਦ। ਅਸੀਂ ਜਲਦੀ ਤੁਹਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰਾਂਗੇ!'
-    },
-    hi: {
-      'nav-home': 'मुखपृष्ठ',
-      'nav-dashboard': 'डैशबोर्ड',
-      'nav-alumni': 'पूर्व छात्र',
-      'nav-events': 'कार्यक्रम',
-      'nav-jobs': 'नौकरियां',
-      'nav-mentorship': 'मार्गदर्शन',
-      'nav-collaborative': 'सहयोगी स्थान',
-      'nav-donations': 'दान',
-      'nav-settings': 'सेटिंग्स',
-      'page-title': 'नौकरी के अवसर',
-      'modal-title': 'नौकरी आवेदन',
-      'label-name': [translate:पूरा नाम],
-      'label-graduation': [translate:स्नातक वर्ष],
-      'label-skills': [translate:कौशल / अनुभव],
-      'submit-btn': [translate:आवेदन करें],
-      'apply-btn': [translate:अब आवेदन करें],
-      'no-jobs': [translate:कोई नौकरी उपलब्ध नहीं है।],
-      'feature-not-available-student': [translate:छात्रों के लिए सुविधा उपलब्ध नहीं है।],
-      'feature-not-available-admin': [translate:व्यवस्थापक के लिए सुविधा उपलब्ध नहीं है।],
-      'application-success': [translate:आवेदन के लिए धन्यवाद। हम शीघ्र संपर्क करेंगे!]
-    }
-  };
-
-  let currentLanguage = 'en';
-
-  function applyLanguage(lang) {
-    const dict = translations[lang] || translations.en;
-    currentLanguage = lang;
-    Object.entries(dict).forEach(([id, txt]) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      if (id === 'label-skills' || id === 'label-name' || id === 'label-graduation') {
-        el.textContent = txt;
-      } else if (id === 'submit-btn' || id === 'apply-btn') {
-        el.textContent = txt;
-      } else if (id === 'page-title') {
-        el.textContent = txt;
-      }
-    });
+    const translations = {
+  en: {
+    navHome: "Home",
+    navDashboard: "Dashboard",
+    navAlumni: "Alumni",
+    navEvents: "Events",
+    navJobs: "Jobs",
+    navMentorship: "Mentorship",
+    navCollaborative: "Collaborative Spaces",
+    navDonations: "Donations",
+    navSettings: "Settings",
+    logout: "Logout",
+    pageTitle: "Job Opportunities",
+    applyBtn: "Apply Now",
+    noJobs: "No job postings available.",
+    fillFields: "Please fill all fields.",
+    notAllowedStudent: "Feature not available for students.",
+    notAllowedAdmin: "Feature not available for admins.",
+    appliedSuccess: "Thank you for applying. We will connect with you soon."
+  },
+  pa: {
+    navHome: "ਘਰ",
+    navDashboard: "ਡੈਸ਼ਬੋਰਡ",
+    navAlumni: "ਸਾਬਕਾ",
+    navEvents: "ਕਾਰਜ",
+    navJobs: "ਨੌਕਰੀਆਂ",
+    navMentorship: "ਮਾਰਗਦਰਸ਼ਨ",
+    navCollaborative: "ਸਹਿਯੋਗੀ ਸਥਾਨ",
+    navDonations: "ਦਾਨ",
+    navSettings: "ਸੈਟਿੰਗ",
+    logout: "ਲਾਗਆਉਟ",
+    pageTitle: "ਨੌਕਰੀਆਂ ਦੇ ਮੌਕੇ",
+    applyBtn: "ਹੁਣ ਅਰਜ਼ੀ ਦੇੋ",
+    noJobs: "ਕੋਈ ਨੌਕਰੀਆਂ ਨਹੀਂ ਮਿਲੀਆਂ।",
+    fillFields: "ਕਿਰਪਾ ਕਰਕੇ ਸਾਰੇ ਖਾਣੇ ਭਰੋ।",
+    notAllowedStudent: "ਵਿਦਿਆਰਥੀਆਂ ਲਈ ਇਹ ਫੀਚਰ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ।",
+    notAllowedAdmin: "ਐਡਮਿਨ ਲਈ ਇਹ ਫੀਚਰ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ।",
+    appliedSuccess: "ਆਪਣੀ ਅਰਜ਼ੀ ਲਈ ਧੰਨਵਾਦ। ਅਸੀਂ ਜਲਦ ਸੰਪਰਕ ਕਰਾਂਗੇ।"
+  },
+  hi: {
+    navHome: "मुखपृष्ठ",
+    navDashboard: "डैशबोर्ड",
+    navAlumni: "पूर्व छात्र",
+    navEvents: "कार्यक्रम",
+    navJobs: "नौकरियां",
+    navMentorship: "मार्गदर्शन",
+    navCollaborative: "सहयोगी स्थान",
+    navDonations: "दान",
+    navSettings: "सेटिंग्स",
+    logout: "लॉगआउट",
+    pageTitle: "रोज़गार के अवसर",
+    applyBtn: "अब आवेदन करें",
+    noJobs: "कोई नौकरियां उपलब्ध नहीं हैं।",
+    fillFields: "कृपया सभी क्षेत्रों को भरें।",
+    notAllowedStudent: "छात्रों के लिए यह सुविधा उपलब्ध नहीं है।",
+    notAllowedAdmin: "प्रशासनिक उपयोगकर्ता के लिए यह सुविधा उपलब्ध नहीं है।",
+    appliedSuccess: "आवेदन के लिए धन्यवाद। हम जल्द संपर्क करेंगे।"
   }
+};
 
-  window.addEventListener('DOMContentLoaded', () => {
-    const lang = sessionStorage.getItem('preferredLanguage');
-    if (!lang || !translations[lang]) return window.location.href = 'index.html';
-    applyLanguage(lang);
+    let currentLang = "en";
 
-    const institution = sessionStorage.getItem('loggedInInstitution');
-    const email = sessionStorage.getItem('loggedInEmail');
-    const role = sessionStorage.getItem('loggedInRole');
-    if (!institution || !email || !role) return window.location.href = 'login.html';
-
-    document.getElementById('page-title').textContent = `${institution} - ${translations[lang]['page-title']}`;
-    
-    const jobs = jobsData[institution] || [];
-    const jobListEl = document.getElementById('job-list');
-
-    if (jobs.length === 0) {
-      jobListEl.innerHTML = `<p>${translations[lang]['no-jobs']}</p>`;
-      return;
+    function applyTranslations(lang) {
+      currentLang = lang;
+      const dict = translations[lang] || translations.en;
+      document.getElementById("navHome").textContent = dict.navHome;
+      document.getElementById("navDashboard").textContent = dict.navDashboard;
+      document.getElementById("navAlumni").textContent = dict.navAlumni;
+      document.getElementById("navEvents").textContent = dict.navEvents;
+      document.getElementById("navJobs").textContent = dict.navJobs;
+      document.getElementById("navMentorship").textContent = dict.navMentorship;
+      document.getElementById("navCollaborative").textContent = dict.navCollaborative;
+      document.getElementById("navDonations").textContent = dict.navDonations;
+      document.getElementById("navSettings").textContent = dict.navSettings;
+      document.getElementById("logoutBtn").textContent = dict.logout;
+      document.getElementById("pageTitle").textContent = dict.pageTitle;
     }
 
-    let html = '';
-    jobs.forEach(job => {
-      html += `
-        <div class="job-card">
-          <h3>${job.title}</h3>
-          <p><strong>${translations[lang]['label-course']}:</strong> ${job.company}</p>
-          <p><strong>${translations[lang]['label-details']}:</strong> ${job.location}</p>
-          <p><strong>Salary:</strong> ${job.salary}</p>
-          <p>${job.description}</p>
-          <p>${job.tags.map(t => `<span class="job-tag">${t}</span>`).join('')}</p>
-          <button class="apply-btn" data-title="${job.title}">${translations[lang]['apply-btn']}</button>
-        </div>`;
-    });
-    
-    jobListEl.innerHTML = html;
+    window.addEventListener("DOMContentLoaded", () => {
+      const institution = sessionStorage.getItem("institution");
+      const role = (sessionStorage.getItem("role") || "").toLowerCase();
+      const lang = sessionStorage.getItem("preferredLanguage") || "en";
 
-    document.querySelectorAll('.apply-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        if (role.toLowerCase() === 'student') {
-          alert(translations[lang]['feature-not-available-student']);
-          return;
-        }
-        if (role.toLowerCase() === 'admin') {
-          alert(translations[lang]['feature-not-available-admin']);
-          return;
-        }
-
-        document.getElementById('application-interface').style.display = 'block';
-        clearAlerts();
-        // Store selected job title if needed
-        window.selectedJobTitle = button.getAttribute('data-title');
-      });
-    });
-
-    document.getElementById('submit-application').addEventListener('click', () => {
-      const name = document.getElementById('app-name').value.trim();
-      const gradYear = document.getElementById('app-grad-year').value.trim();
-      const skills = document.getElementById('app-skills').value.trim();
-      if (!name || !gradYear || !skills) {
-        showAlert('Please fill all fields.');
+      if (!institution || !role) {
+        window.location.href = "/login.html";
         return;
       }
-      // clear form and hide interface
-      document.getElementById('application-interface').style.display = 'none';
-      document.getElementById('app-name').value = '';
-      document.getElementById('app-grad-year').value = '';
-      document.getElementById('app-skills').value = '';
-      alert(translations[lang]['application-success']);
-      // Optionally do something with data
-      // e.g., send to backend server here
+
+      applyTranslations(lang);
+
+      const jobs = jobsData[institution] || [];
+      const jobList = document.getElementById("jobList");
+      const appInterface = document.getElementById("applicationInterface");
+      const alertMessage = document.getElementById("alertMessage");
+
+      if (!jobs.length) {
+        jobList.innerHTML = `<p>${translations[lang].noJobs}</p>`;
+        return;
+      }
+
+      let html = "";
+      jobs.forEach((job) => {
+        html += `
+          <div class="job-card">
+            <h3>${job.title}</h3>
+            <p><strong>Company:</strong> ${job.company}</p>
+            <p><strong>Location:</strong> ${job.location}</p>
+            <p><strong>Salary:</strong> ${job.salary}</p>
+            <p>${job.description}</p>
+            <p>${job.tags.map(tag => `<span class="job-tag">${tag}</span>`).join(" ")}</p>
+            <button class="applyBtn" data-title="${job.title}">${translations[lang].applyBtn}</button>
+          </div>
+        `;
+      });
+      jobList.innerHTML = html;
+
+      document.querySelectorAll(".applyBtn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          if (role === "student") {
+            alert(translations[lang].notAllowedStudent);
+            return;
+          }
+          if (role === "admin") {
+            alert(translations[lang].notAllowedAdmin);
+            return;
+          }
+          appInterface.style.display = "block";
+          alertMessage.style.display = "none";
+          appInterface.scrollIntoView({ behavior: "smooth" });
+          window.selectedJobTitle = btn.getAttribute("data-title");
+        });
+      });
+
+      document.getElementById("submitApplicationBtn").addEventListener("click", () => {
+        const name = document.getElementById("appName").value.trim();
+        const year = document.getElementById("appGradYear").value.trim();
+        const skills = document.getElementById("appSkills").value.trim();
+
+        if (!name || !year || !skills) {
+          alertMessage.textContent = translations[lang].fillFields;
+          alertMessage.style.display = "block";
+          return;
+        }
+
+        alertMessage.style.display = "none";
+        alert(translations[lang].applicationSuccess);
+
+        appInterface.style.display = "none";
+        document.getElementById("appName").value = "";
+        document.getElementById("appGradYear").value = "";
+        document.getElementById("appSkills").value = "";
+      });
+
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        sessionStorage.clear();
+        window.location.href = "/login.html";
+      });
     });
-
-    function showAlert(message) {
-      const alertDiv = document.getElementById('alert-message');
-      alertDiv.style.display = 'block';
-      alertDiv.textContent = message;
-    }
-
-    function clearAlerts() {
-      const alertDiv = document.getElementById('alert-message');
-      alertDiv.style.display = 'none';
-      alertDiv.textContent = '';
-    }
-
-    document.getElementById('logout-btn').addEventListener('click', () => {
-      sessionStorage.clear();
-      window.location.href = 'login.html';
-    });
-  });
-</script>
+  </script>
 </body>
 </html>
