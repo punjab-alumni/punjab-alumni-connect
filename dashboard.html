@@ -112,7 +112,6 @@
       <div id="quick-links"></div>
     </section>
   </main>
-  
   <!-- Language Selection Modal -->
   <div id="lang-modal" role="dialog" aria-modal="true" tabindex="-1" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.6);z-index:10000;display:flex;justify-content:center;align-items:center;font-family:'Inter',sans-serif;">
     <div style="background:#121F33;padding:2rem;border-radius:15px;max-width:320px;width:90%;text-align:center;color:#eaf6ff;box-shadow:0 0 20px rgba(36,147,255,0.4);">
@@ -122,7 +121,6 @@
       <button class="lang-btn" data-lang="hi" style="margin:0.4rem;padding:0.7rem 1.2rem;background:#2493ff;color:#101827;border:none;border-radius:8px;cursor:pointer;">हिंदी</button>
     </div>
   </div>
-
   <script>
     const institutionsInfo = {
       "Punjab University": {
@@ -253,7 +251,6 @@
         ]
       }
     };
-
     function displayDashboard(institution) {
       const info = institutionsInfo[institution];
       const institutionNameEl = document.getElementById('institution-name');
@@ -305,7 +302,6 @@
         </div>
       `;
     }
-
     // Translation dictionary
     const translations = {
       en: {
@@ -348,7 +344,6 @@
         'institution-info': 'चयनित संस्थान का विवरण लोड किया जा रहा है...'
       }
     };
-
     function applyLanguage(lang) {
       const dict = translations[lang] || {};
       Object.entries(dict).forEach(([id, text]) => {
@@ -356,16 +351,17 @@
         if (el) el.textContent = text;
       });
     }
-
     window.addEventListener('DOMContentLoaded', () => {
-      // Language selector logic with sessionStorage persistence
+      // Language selector logic with sessionStorage persistence - MODIFIED TO NOT SHOW MODAL ON DASHBOARD
       const langModal = document.getElementById('lang-modal');
       const savedLang = sessionStorage.getItem('preferredLanguage');
       if (savedLang && translations[savedLang]) {
         applyLanguage(savedLang);
         langModal.style.display = 'none';
       } else {
-        langModal.style.display = 'flex';
+        // If no language is set, redirect to home page to choose language instead of showing modal
+        window.location.href = 'index.html';
+        return;
       }
       
       document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -380,7 +376,6 @@
           langModal.style.display = 'none';
         });
       });
-
       // Original dashboard logic
       const institution = sessionStorage.getItem('loggedInInstitution');
       const email = sessionStorage.getItem('loggedInEmail');
