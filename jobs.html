@@ -102,7 +102,6 @@
       color: #e1e9f0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-    /* Application Form Interface */
     #application-interface {
       display: none;
       background: #1b2541;
@@ -180,12 +179,10 @@
       </ul>
     </nav>
   </header>
-  
   <main class="container">
     <h1 id="pageTitle">Job Opportunities</h1>
     <div id="jobList"></div>
   </main>
-
   <div id="applicationInterface" style="display:none;">
     <h2 id="applicationTitle">Job Application</h2>
     <label for="appName" id="labelName">Full Name</label>
@@ -197,7 +194,6 @@
     <button id="submitApplicationBtn">Submit</button>
     <div id="alertMessage" style="display:none; color:#29f; font-weight:700;"></div>
   </div>
-
   <script>
     const jobsData = {
       "Punjab University": [
@@ -224,111 +220,25 @@
       "Chitkara University": [
         { title: "Research Associate", company: "Chitkara University R&D", location: "Rajpura", salary: "₹20 LPA", description: "Work on innovative research projects.", tags: ["Full-time", "Onsite"] },
         { title: "Software Developer", company: "Infosys", location: "Bangalore", salary: "₹15 LPA", description: "Develop and maintain software solutions.", tags: ["Full-time", "Remote Possible"] }
-      ],
+      ]
     };
-
-    const translations = {
-  en: {
-    navHome: "Home",
-    navDashboard: "Dashboard",
-    navAlumni: "Alumni",
-    navEvents: "Events",
-    navJobs: "Jobs",
-    navMentorship: "Mentorship",
-    navCollaborative: "Collaborative Spaces",
-    navDonations: "Donations",
-    navSettings: "Settings",
-    logout: "Logout",
-    pageTitle: "Job Opportunities",
-    applyBtn: "Apply Now",
-    noJobs: "No job postings available.",
-    fillFields: "Please fill all fields.",
-    notAllowedStudent: "Feature not available for students.",
-    notAllowedAdmin: "Feature not available for admins.",
-    appliedSuccess: "Thank you for applying. We will connect with you soon."
-  },
-  pa: {
-    navHome: "ਘਰ",
-    navDashboard: "ਡੈਸ਼ਬੋਰਡ",
-    navAlumni: "ਸਾਬਕਾ",
-    navEvents: "ਕਾਰਜ",
-    navJobs: "ਨੌਕਰੀਆਂ",
-    navMentorship: "ਮਾਰਗਦਰਸ਼ਨ",
-    navCollaborative: "ਸਹਿਯੋਗੀ ਸਥਾਨ",
-    navDonations: "ਦਾਨ",
-    navSettings: "ਸੈਟਿੰਗ",
-    logout: "ਲਾਗਆਉਟ",
-    pageTitle: "ਨੌਕਰੀਆਂ ਦੇ ਮੌਕੇ",
-    applyBtn: "ਹੁਣ ਅਰਜ਼ੀ ਦੇੋ",
-    noJobs: "ਕੋਈ ਨੌਕਰੀਆਂ ਨਹੀਂ ਮਿਲੀਆਂ।",
-    fillFields: "ਕਿਰਪਾ ਕਰਕੇ ਸਾਰੇ ਖਾਣੇ ਭਰੋ।",
-    notAllowedStudent: "ਵਿਦਿਆਰਥੀਆਂ ਲਈ ਇਹ ਫੀਚਰ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ।",
-    notAllowedAdmin: "ਐਡਮਿਨ ਲਈ ਇਹ ਫੀਚਰ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ।",
-    appliedSuccess: "ਆਪਣੀ ਅਰਜ਼ੀ ਲਈ ਧੰਨਵਾਦ। ਅਸੀਂ ਜਲਦ ਸੰਪਰਕ ਕਰਾਂਗੇ।"
-  },
-  hi: {
-    navHome: "मुखपृष्ठ",
-    navDashboard: "डैशबोर्ड",
-    navAlumni: "पूर्व छात्र",
-    navEvents: "कार्यक्रम",
-    navJobs: "नौकरियां",
-    navMentorship: "मार्गदर्शन",
-    navCollaborative: "सहयोगी स्थान",
-    navDonations: "दान",
-    navSettings: "सेटिंग्स",
-    logout: "लॉगआउट",
-    pageTitle: "रोज़गार के अवसर",
-    applyBtn: "अब आवेदन करें",
-    noJobs: "कोई नौकरियां उपलब्ध नहीं हैं।",
-    fillFields: "कृपया सभी क्षेत्रों को भरें।",
-    notAllowedStudent: "छात्रों के लिए यह सुविधा उपलब्ध नहीं है।",
-    notAllowedAdmin: "प्रशासनिक उपयोगकर्ता के लिए यह सुविधा उपलब्ध नहीं है।",
-    appliedSuccess: "आवेदन के लिए धन्यवाद। हम जल्द संपर्क करेंगे।"
-  }
-};
-
-    let currentLang = "en";
-
-    function applyTranslations(lang) {
-      currentLang = lang;
-      const dict = translations[lang] || translations.en;
-      document.getElementById("navHome").textContent = dict.navHome;
-      document.getElementById("navDashboard").textContent = dict.navDashboard;
-      document.getElementById("navAlumni").textContent = dict.navAlumni;
-      document.getElementById("navEvents").textContent = dict.navEvents;
-      document.getElementById("navJobs").textContent = dict.navJobs;
-      document.getElementById("navMentorship").textContent = dict.navMentorship;
-      document.getElementById("navCollaborative").textContent = dict.navCollaborative;
-      document.getElementById("navDonations").textContent = dict.navDonations;
-      document.getElementById("navSettings").textContent = dict.navSettings;
-      document.getElementById("logoutBtn").textContent = dict.logout;
-      document.getElementById("pageTitle").textContent = dict.pageTitle;
-    }
-
     window.addEventListener("DOMContentLoaded", () => {
       const institution = sessionStorage.getItem("institution");
       const role = (sessionStorage.getItem("role") || "").toLowerCase();
-      const lang = sessionStorage.getItem("preferredLanguage") || "en";
-
+      const jobList = document.getElementById("jobList");
+      const applicationInterface = document.getElementById("applicationInterface");
+      const alertMessage = document.getElementById("alertMessage");
       if (!institution || !role) {
         window.location.href = "/login.html";
         return;
       }
-
-      applyTranslations(lang);
-
       const jobs = jobsData[institution] || [];
-      const jobList = document.getElementById("jobList");
-      const appInterface = document.getElementById("applicationInterface");
-      const alertMessage = document.getElementById("alertMessage");
-
       if (!jobs.length) {
-        jobList.innerHTML = `<p>${translations[lang].noJobs}</p>`;
+        jobList.innerHTML = "<p>No job postings available.</p>";
         return;
       }
-
       let html = "";
-      jobs.forEach((job) => {
+      jobs.forEach(job => {
         html += `
           <div class="job-card">
             <h3>${job.title}</h3>
@@ -337,49 +247,43 @@
             <p><strong>Salary:</strong> ${job.salary}</p>
             <p>${job.description}</p>
             <p>${job.tags.map(tag => `<span class="job-tag">${tag}</span>`).join(" ")}</p>
-            <button class="applyBtn" data-title="${job.title}">${translations[lang].applyBtn}</button>
+            <button class="apply-btn" data-title="${job.title}">Apply Now</button>
           </div>
         `;
       });
       jobList.innerHTML = html;
-
-      document.querySelectorAll(".applyBtn").forEach(btn => {
+      document.querySelectorAll(".apply-btn").forEach(btn => {
         btn.addEventListener("click", () => {
           if (role === "student") {
-            alert(translations[lang].notAllowedStudent);
+            alert("Feature not available for students.");
             return;
           }
           if (role === "admin") {
-            alert(translations[lang].notAllowedAdmin);
+            alert("Feature not available for admins.");
             return;
           }
-          appInterface.style.display = "block";
+          applicationInterface.style.display = "block";
           alertMessage.style.display = "none";
-          appInterface.scrollIntoView({ behavior: "smooth" });
+          applicationInterface.scrollIntoView({ behavior: "smooth" });
           window.selectedJobTitle = btn.getAttribute("data-title");
         });
       });
-
       document.getElementById("submitApplicationBtn").addEventListener("click", () => {
         const name = document.getElementById("appName").value.trim();
         const year = document.getElementById("appGradYear").value.trim();
         const skills = document.getElementById("appSkills").value.trim();
-
         if (!name || !year || !skills) {
-          alertMessage.textContent = translations[lang].fillFields;
+          alertMessage.textContent = "Please fill all fields.";
           alertMessage.style.display = "block";
           return;
         }
-
         alertMessage.style.display = "none";
-        alert(translations[lang].applicationSuccess);
-
-        appInterface.style.display = "none";
+        alert("Thank you for applying. We will connect with you soon.");
+        applicationInterface.style.display = "none";
         document.getElementById("appName").value = "";
         document.getElementById("appGradYear").value = "";
         document.getElementById("appSkills").value = "";
       });
-
       document.getElementById("logoutBtn").addEventListener("click", () => {
         sessionStorage.clear();
         window.location.href = "/login.html";
