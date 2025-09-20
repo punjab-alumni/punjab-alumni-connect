@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard - Punjab Alumni Connect</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Dashboard - Punjab  Alumni Connect</title>
   <style>
     body {
       background: #101927;
@@ -21,10 +20,15 @@
     }
     ul.nav-list {
       list-style: none;
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
       display: flex;
       gap: 15px;
       font-weight: 700;
+    }
+    ul.nav-list li {
+      display: inline-flex;
+      align-items: center;
     }
     ul.nav-list li a,
     ul.nav-list li button {
@@ -36,6 +40,7 @@
       border: none;
       cursor: pointer;
       font-size: 1rem;
+      font-family: inherit;
     }
     ul.nav-list li a.active,
     ul.nav-list li a:hover,
@@ -43,6 +48,10 @@
       background: #2499ff;
       color: #101827;
       font-weight: 700;
+    }
+    .logo {
+      height: 40px;
+      margin-right: 15px;
     }
     .container {
       background-color: #121823;
@@ -79,6 +88,7 @@
 </head>
 <body>
   <nav>
+    <img src="logo.jpg" alt="Punjab Alumni Connect Logo" class="logo" />
     <ul class="nav-list">
       <li><a href="index.html" id="nav-home">Home</a></li>
       <li><a href="dashboard.html" id="nav-dashboard" class="active">Dashboard</a></li>
@@ -95,14 +105,14 @@
 
   <div class="container">
     <h1 id="institution-name">Institution Dashboard</h1>
-    <p id="institution-info">Loading institution details...</p>
+    <p id="institution-info">Loading information...</p>
     <div id="stats-cards"></div>
     <div id="news-cards"></div>
     <div id="quick-links"></div>
   </div>
 
   <script>
-    const institutionsInfo = {
+    const institutions = {
       "Punjab University": {
         location: "Chandigarh",
         established: 1882,
@@ -199,7 +209,7 @@
         established: 2012,
         students: 28000,
         alumni: 35000,
-        website: "https://www.chandigarhuniversity.ac.in",
+        website: "https://www.chandigarh.edu.in",
         stats: {
           alumniNetwork: "35,000+",
           activeInstitutions: 4,
@@ -236,16 +246,15 @@
       const institution = sessionStorage.getItem('loggedInInstitution');
       const email = sessionStorage.getItem('loggedInEmail');
       const role = sessionStorage.getItem('loggedInRole');
-      
+
       if (!institution || !email || !role) {
         window.location.href = 'login.html';
         return;
       }
 
-      document.getElementById('institution-name').textContent = institution + " Dashboard";
+      document.getElementById('institution-name').textContent = `${institution} Dashboard`;
 
-      const info = institutionsInfo[institution];
-
+      const info = institutions[institution];
       if (!info) {
         document.getElementById('institution-info').textContent = 'Information not available for selected institution.';
         return;
@@ -256,7 +265,8 @@
         <p><strong>Established:</strong> ${info.established}</p>
         <p><strong>Students:</strong> ${info.students.toLocaleString()}</p>
         <p><strong>Alumni:</strong> ${info.alumni.toLocaleString()}+</p>
-        <p><strong>Website:</strong> <a href="${info.website}" target="_blank" rel="noopener">${info.website}</a></p>`;
+        <p><strong>Website:</strong> <a href="${info.website}" target="_blank" rel="noopener">${info.website}</a></p>
+      `;
 
       document.getElementById('stats-cards').innerHTML = `
         <div class="card">
@@ -268,7 +278,8 @@
             <li><strong>Job Placements:</strong> ${info.stats.jobPlacements}</li>
             <li><strong>Mentorship Sessions:</strong> ${info.stats.mentorshipSessions}</li>
           </ul>
-        </div>`;
+        </div>
+      `;
 
       document.getElementById('news-cards').innerHTML = `
         <div class="card">
@@ -276,7 +287,8 @@
           <ul>
             ${info.news.map(item => `<li>${item}</li>`).join('')}
           </ul>
-        </div>`;
+        </div>
+      `;
 
       document.getElementById('quick-links').innerHTML = `
         <div class="card">
@@ -287,7 +299,8 @@
             <li><a href="mentorship.html">Mentorship Program</a></li>
             <li><a href="donations.html">Support & Donations</a></li>
           </ul>
-        </div>`;
+        </div>
+      `;
 
       document.getElementById('logout-btn').addEventListener('click', () => {
         sessionStorage.clear();
