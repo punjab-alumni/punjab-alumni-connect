@@ -96,8 +96,7 @@
       margin: 2rem auto;
       color: #eaf6ff;
     }
-
-    /* --- New chat feature styles --- */
+    /* --- Chat feature styles --- */
     #chatbox {
       display: none;
       position: fixed;
@@ -108,7 +107,6 @@
       background-color: #121F33;
       border-radius: 10px;
       box-shadow: 0 0 10px #0008;
-      display: flex;
       flex-direction: column;
       font-family: Arial, sans-serif;
       z-index: 10000;
@@ -206,7 +204,7 @@
       display: none;
       padding: 10px;
       background: #121F33;
-      display: flex;
+      flex-direction: row;
       gap: 8px;
     }
     #chat-input {
@@ -258,7 +256,7 @@
     <div id="mentors-list"></div>
     <div id="students-list"></div>
   </main>
-
+  
   <!-- Chatbox for mentorship request -->
   <div id="chatbox" aria-live="polite" role="region" aria-label="Mentorship Chat">
     <div id="chatbox-header">
@@ -284,7 +282,7 @@
       <button id="send-btn" aria-label="Send message">Send</button>
     </div>
   </div>
-
+  
   <script>
     // Data as before, preserved exactly
     const alumniAsMentors = {
@@ -397,6 +395,7 @@
     const nameInput = document.getElementById('name-input');
     const yearInput = document.getElementById('year-input');
     const courseInput = document.getElementById('course-input');
+    const chatControls = document.getElementById('chat-controls');
 
     function addMessage(text, sender) {
       const msg = document.createElement('div');
@@ -406,26 +405,34 @@
       messagesDiv.appendChild(msg);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
+
     function clearMessages() {
       messagesDiv.innerHTML = '';
     }
+
     function resetChat() {
       clearMessages();
       chatInput.value = '';
-      chatInput.style.display = 'none';
-      sendBtn.style.display = 'none';
+      chatControls.style.display = 'none';
       detailsForm.style.display = 'block';
+      nameInput.value = '';
+      yearInput.value = '';
+      courseInput.value = '';
     }
+
+    let currentRole = '';
 
     window.addEventListener('DOMContentLoaded', () => {
       const institution = sessionStorage.getItem('loggedInInstitution');
       const role = sessionStorage.getItem('loggedInRole');
       const email = sessionStorage.getItem('loggedInEmail');
-
+      
       if (!institution || !role || !email) {
         window.location.href = 'login.html';
         return;
       }
+
+      currentRole = role; // Store role globally for use in event handlers
 
       document.getElementById('page-title').textContent = `${institution} Mentorship Program`;
 
@@ -451,12 +458,14 @@
       setTimeout(() => {
         document.querySelectorAll('.request-mentorship-btn').forEach(btn => {
           btn.addEventListener('click', () => {
-            if (role === 'student') {
+            if (currentRole === 'student') {
               resetChat();
               chatbox.style.display = 'flex';
               addMessage('Please fill your details to start mentorship request.', 'bot');
-            } else {
-              alert('Feature not for alumni or admin.');
+            } else if (currentRole === 'admin') {
+              alert('Feature not available for admins.');
+            } else if (currentRole === 'alumni') {
+              alert('Feature not available for alumni.');
             }
           });
         });
@@ -479,8 +488,7 @@
         return;
       }
       detailsForm.style.display = 'none';
-      chatInput.style.display = 'inline-block';
-      sendBtn.style.display = 'inline-block';
+      chatControls.style.display = 'flex';
       clearMessages();
       addMessage(`Thank you, ${nameInput.value.trim()}. Type 'hello' to start conversation with the mentor.`, 'bot');
       chatInput.focus();
