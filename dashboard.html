@@ -4,44 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Dashboard - Punjab  Alumni Connect</title>
-  <link rel="stylesheet" href="styles.css" />
   <style>
     body {
       background: #101927;
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #eaf6ff;
-    }
-    nav ul.nav-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      gap: 15px;
-      font-weight: 700;
-    }
-    nav ul.nav-list li {
-      display: inline-flex;
-      align-items: center;
-    }
-    nav ul.nav-list li a,
-    nav ul.nav-list li button {
-      color: #2499ff;
-      text-decoration: none;
-      padding: 8px 14px;
-      border-radius: 6px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      font-family: inherit;
-    }
-    nav ul.nav-list li a.active,
-    nav ul.nav-list li a:hover,
-    nav ul.nav-list li button:hover {
-      background: #2499ff;
-      color: #101827;
-      font-weight: 700;
     }
     header {
       display: flex;
@@ -53,8 +21,42 @@
       z-index: 1000;
     }
     .logo {
-      height: 40px;
-      margin-right: 15px;
+      height: 60px;
+      margin-right: 20px;
+    }
+    nav {
+      flex-grow: 1;
+    }
+    ul.nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 15px;
+      font-weight: 700;
+    }
+    ul.nav-list li {
+      display: inline-flex;
+      align-items: center;
+    }
+    ul.nav-list li a,
+    ul.nav-list li button {
+      color: #2499ff;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+    ul.nav-list li a.active,
+    ul.nav-list li a:hover,
+    ul.nav-list li button:hover {
+      background: #2499ff;
+      color: #101827;
+      font-weight: 700;
     }
     .container {
       background-color: #121823;
@@ -92,7 +94,7 @@
 <body>
   <header>
     <img src="logo.jpg" alt="Punjab Alumni Connect Logo" class="logo" />
-    <nav style="flex-grow: 1;">
+    <nav>
       <ul class="nav-list">
         <li><a href="index.html" id="nav-home">Home</a></li>
         <li><a href="dashboard.html" id="nav-dashboard" class="active">Dashboard</a></li>
@@ -107,7 +109,6 @@
       </ul>
     </nav>
   </header>
-
   <div class="container">
     <h1 id="institution-name">Institution Dashboard</h1>
     <p id="institution-info">Loading information...</p>
@@ -115,7 +116,6 @@
     <div id="news-cards"></div>
     <div id="quick-links"></div>
   </div>
-
   <script>
     const institutions = {
       "Punjab University": {
@@ -264,42 +264,42 @@
       }
 
       document.getElementById('institution-info').innerHTML =
-        `<p><strong>Location:</strong> ${info.location}</p>` +
-        `<p><strong>Established:</strong> ${info.established}</p>` +
-        `<p><strong>Students:</strong> ${info.students.toLocaleString()}</p>` +
-        `<p><strong>Alumni:</strong> ${info.alumni.toLocaleString()}+</p>` +
-        `<p><strong>Website:</strong> <a href="${info.website}" target="_blank">${info.website}</a></p>`;
+          `<p><strong>Location:</strong> ${info.location}</p>` +
+          `<p><strong>Established:</strong> ${info.established}</p>` +
+          `<p><strong>Students:</strong> ${info.students.toLocaleString()}</p>` +
+          `<p><strong>Alumni:</strong> ${info.alumni.toLocaleString()}+</p>` +
+          `<p><strong>Website:</strong> <a href="${info.website}" target="_blank">${info.website}</a></p>`;
 
       document.getElementById('stats-cards').innerHTML =
-        `<div class="card">` +
-          `<h3>Platform Statistics</h3>` +
-          `<ul>` +
-            `<li><strong>Alumni Network:</strong> ${info.stats.alumniNetwork}</li>` +
-            `<li><strong>Active Institutions:</strong> ${info.stats.activeInstitutions}</li>` +
-            `<li><strong>Connections Made:</strong> ${info.stats.connectionsMade}</li>` +
-            `<li><strong>Job Placements:</strong> ${info.stats.jobPlacements}</li>` +
-            `<li><strong>Mentorship Sessions:</strong> ${info.stats.mentorshipSessions}</li>` +
-          `</ul>` +
-        `</div>`;
+          `<div class="card">` +
+            `<h3>Platform Statistics</h3>` +
+            `<ul>` +
+              `<li><strong>Alumni Network:</strong> ${info.stats.alumniNetwork}</li>` +
+              `<li><strong>Active Institutions:</strong> ${info.stats.activeInstitutions}</li>` +
+              `<li><strong>Connections Made:</strong> ${info.stats.connectionsMade}</li>` +
+              `<li><strong>Job Placements:</strong> ${info.stats.jobPlacements}</li>` +
+              `<li><strong>Mentorship Sessions:</strong> ${info.stats.mentorshipSessions}</li>` +
+            `</ul>` +
+          `</div>`;
 
       document.getElementById('news-cards').innerHTML =
-        `<div class="card">` +
-          `<h3>Recent News & Events</h3>` +
-          `<ul>` +
-            info.news.map(item => `<li>${item}</li>`).join('') +
-          `</ul>` +
-        `</div>`;
+          `<div class="card">` +
+            `<h3>Recent News & Events</h3>` +
+            `<ul>` +
+              info.news.map(item => `<li>${item}</li>`).join('') +
+            `</ul>` +
+          `</div>`;
 
       document.getElementById('quick-links').innerHTML =
-        `<div class="card">` +
-          `<h3>Quick Links</h3>` +
-          `<ul>` +
-            `<li><a href="alumni.html">Alumni Directory</a></li>` +
-            `<li><a href="jobs.html">Job Opportunities</a></li>` +
-            `<li><a href="mentorship.html">Mentorship Program</a></li>` +
-            `<li><a href="donations.html">Support & Donations</a></li>` +
-          `</ul>` +
-        `</div>`;
+          `<div class="card">` +
+            `<h3>Quick Links</h3>` +
+            `<ul>` +
+              `<li><a href="alumni.html">Alumni Directory</a></li>` +
+              `<li><a href="jobs.html">Job Opportunities</a></li>` +
+              `<li><a href="mentorship.html">Mentorship Program</a></li>` +
+              `<li><a href="donations.html">Support & Donations</a></li>` +
+            `</ul>` +
+          `</div>`;
 
       document.getElementById('logout-btn').addEventListener('click', () => {
         sessionStorage.clear();
