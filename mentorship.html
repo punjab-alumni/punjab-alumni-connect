@@ -6,6 +6,7 @@
   <title>Mentorship Program - Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
+    /* Existing styles preserved unchanged */
     .profile-card {
       background: rgba(36, 147, 255, 0.07);
       padding: 1rem;
@@ -238,53 +239,53 @@
     <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
     <nav>
       <ul class="nav-list">
-        <li><a href="index.html" id="navHome">Home</a></li>
-        <li><a href="dashboard.html" id="navDashboard">Dashboard</a></li>
-        <li><a href="alumni.html" id="navAlumni">Alumni</a></li>
-        <li><a href="events.html" id="navEvents">Events</a></li>
-        <li><a href="jobs.html" id="navJobs">Jobs</a></li>
-        <li><a href="mentorship.html" id="navMentorship" class="active">Mentorship</a></li>
-        <li><a href="collaborative.html" id="navCollaborative">Collaborative Spaces</a></li>
-        <li><a href="donations.html" id="navDonations">Donations</a></li>
-        <li><a href="settings.html" id="navSettings">Settings</a></li>
-        <li><button id="logoutBtn">Logout</button></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="alumni.html">Alumni</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="jobs.html">Jobs</a></li>
+        <li><a href="mentorship.html" class="active">Mentorship</a></li>
+        <li><a href="donations.html">Donations</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        <li><button id="logout-btn">Logout</button></li>
       </ul>
     </nav>
   </header>
-
   <main class="container">
-    <h1 id="pageTitle">Mentorship Program</h1>
+    <h1 id="page-title">Mentorship Program</h1>
     <p id="description">Connect with your mentorship community.</p>
-    <div id="mentorsList"></div>
-    <div id="studentsList"></div>
+    <div id="mentors-list"></div>
+    <div id="students-list"></div>
   </main>
 
+  <!-- Chatbox for mentorship request -->
   <div id="chatbox" aria-live="polite" role="region" aria-label="Mentorship Chat">
-    <div id="chatboxHeader">
-      <span id="chatboxTitle">Request Mentorship</span>
-      <button id="closeChat" aria-label="Close Chatbox">&times;</button>
+    <div id="chatbox-header">
+      Request Mentorship
+      <button id="close-chat" aria-label="Close chatbox">&times;</button>
     </div>
-    <div id="chatArea">
+    <div id="chat-area">
       <div id="messages"></div>
     </div>
-    <div id="formArea">
-      <form id="detailsForm">
-        <label for="nameInput" id="labelName">Your Name:</label>
-        <input type="text" id="nameInput" required />
-        <label for="yearInput" id="labelYear">Which Year Student Are You?</label>
-        <input type="number" id="yearInput" min="1" max="10" required />
-        <label for="courseInput" id="labelCourse">Your Course:</label>
-        <input type="text" id="courseInput" required />
-        <button id="submitDetails" type="submit">Submit Details</button>
+    <div id="form-area">
+      <form id="details-form">
+        <label for="name-input">Your Name:</label>
+        <input type="text" id="name-input" required />
+        <label for="year-input">Which Year Student are you?</label>
+        <input type="number" id="year-input" min="1" max="10" required />
+        <label for="course-input">Your Course:</label>
+        <input type="text" id="course-input" required />
+        <button id="submit-details" type="submit">Submit Details</button>
       </form>
     </div>
-    <div id="chatControls">
-      <input type="text" id="chatInput" placeholder="Type 'hello' to start" />
-      <button id="sendBtn">Send</button>
+    <div id="chat-controls">
+      <input type="text" id="chat-input" placeholder="Type 'hello' to start..." aria-label="Chat input" autocomplete="off" />
+      <button id="send-btn" aria-label="Send message">Send</button>
     </div>
   </div>
 
   <script>
+    // Data as before, preserved exactly
     const alumniAsMentors = {
       "Punjab University": [
         { name: "Dr. Rajesh Kumar", expertise: "Machine Learning, Cloud Computing", contact: "rajesh.kumar@pu.edu", bio: "Expert in AI and cloud technologies with 10+ years experience." },
@@ -355,132 +356,7 @@
       ]
     };
 
-    const translations = {
-  en: {
-    navHome: "Home",
-    navDashboard: "Dashboard",
-    navAlumni: "Alumni",
-    navEvents: "Events",
-    navJobs: "Jobs",
-    navMentorship: "Mentorship",
-    navCollaborative: "Collaborative Spaces",
-    navDonations: "Donations",
-    navSettings: "Settings",
-    logout: "Logout",
-    pageTitle: "Mentorship Program",
-    description: "Connect with your mentorship community.",
-    requestMentorshipBtn: "Request Mentorship",
-    chatboxTitle: "Request Mentorship",
-    labelName: "Your Name:",
-    labelYear: "Which Year Student are you?",
-    labelCourse: "Your Course:",
-    submitDetails: "Submit Details",
-    chatInputPlaceholder: "Type 'hello' to start...",
-    sendBtn: "Send",
-    alertFillAll: "Please fill all fields.",
-    alertNotAllowed: "Feature not available for your role.",
-    alertThanks: "Thank you for your request. We will connect soon.",
-    chatWelcome: "Fill your details to start mentorship request",
-    chatPrompt: "Please type 'hello' to start the conversation.",
-    chatApproved: "Mentor will connect soon."
-  },
-  pa: {
-    navHome: "ਘਰ",
-    navDashboard: "ਡੈਸ਼ਬੋਰਡ",
-    navAlumni: "ਸਾਬਕਾ",
-    navEvents: "ਕਾਰਜਕਰਮ",
-    navJobs: "ਨੌਕਰੀਆਂ",
-    navMentorship: "ਮਾਰਗਦਰਸ਼ਨ",
-    navCollaborative: "ਸਹਿਯੋਗੀ ਸਥਾਨ",
-    navDonations: "ਦਾਨ",
-    navSettings: "ਸੈਟਿੰਗ",
-    logout: "ਲੌਗਆਊਟ",
-    pageTitle: "ਮਾਰਗਦਰਸ਼ਨ ਪ੍ਰੋਗਰਾਮ",
-    description: "ਆਪਣੇ ਮਾਰਗਦਰਸ਼ਨ ਸਮੂਹ ਨਾਲ ਜੁੜੋ।",
-    requestMentorshipBtn: "ਮਾਰਗਦਰਸ਼ਨ ਲਈ ਬੇਨਤੀ ਕਰੋ",
-    chatboxTitle: "ਮਾਰਗਦਰਸ਼ਨ ਲਈ ਬੇਨਤੀ",
-    labelName: "ਤੁਹਾਡਾ ਨਾਮ:",
-    labelYear: "ਤੁਸੀਂ ਕਿਹੜੇ ਸਾਲ ਦੇ ਵਿਦਿਆਰਥੀ ਹੋ?",
-    labelCourse: "ਤੁਹਾਡਾ ਕੋਰਸ:",
-    submitDetails: "ਵੇਰਵੇ ਭੇਜੋ",
-    chatInputPlaceholder: "'hello' ਲਿਖੋ ਚੈਟ ਸ਼ੁਰੂ ਕਰਨ ਲਈ",
-    sendBtn: "ਭੇਜੋ",
-    alertFillAll: "ਕਿਰਪਾ ਕਰਕੇ ਸਾਰੇ ਖੇਤਰ ਭਰੋ।",
-    alertNotAllowed: "ਤੁਹਾਡੇ ਰੋਲ ਲਈ ਇਹ ਫੀਚਰ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।",
-    alertThanks: "ਧੰਨਵਾਦ! ਅਸੀਂ ਜਲਦੀ ਸੰਪਰਕ ਕਰਾਂਗੇ।",
-    chatWelcome: "ਮਾਰਗਦਰਸ਼ਨ ਲਈ ਆਪਣਾ ਵੇਰਵਾ ਭਰੋ",
-    chatPrompt: "'hello' ਲਿਖੋ ਗੱਲਬਾਤ ਸ਼ੁਰੂ ਕਰਨ ਲਈ",
-    chatApproved: "ਮਾਰਗਦਰਸ਼ਕ ਜਲਦੀ ਜੁੜੇਗਾ।"
-  },
-  hi: {
-    navHome: "मुख्य पृष्ठ",
-    navDashboard: "डैशबोर्ड",
-    navAlumni: "पूर्व छात्र",
-    navEvents: "कार्यक्रम",
-    navJobs: "नौकरियां",
-    navMentorship: "मार्गदर्शन",
-    navCollaborative: "सहयोगी स्थान",
-    navDonations: "दान",
-    navSettings: "सेटिंग",
-    logout: "लॉगआउट",
-    pageTitle: "मार्गदर्शन कार्यक्रम",
-    description: "अपने मार्गदर्शन समुदाय से जुड़ें।",
-    requestMentorshipBtn: "मार्गदर्शन के लिए अनुरोध करें",
-    chatboxTitle: "मार्गदर्शन के लिए अनुरोध",
-    labelName: "आपका नाम:",
-    labelYear: "आप किस वर्ष के छात्र हैं?",
-    labelCourse: "आपका पाठ्यक्रम:",
-    submitDetails: "विवरण सबमिट करें",
-    chatInputPlaceholder: "'hello' टाइप करें चैट शुरू करने के लिए",
-    sendBtn: "भेजें",
-    alertFillAll: "कृपया सभी फ़ील्ड भरें।",
-    alertNotAllowed: "यह फ़ीचर आपके रोल के लिए उपलब्ध नहीं है।",
-    alertThanks: "धन्यवाद! हम शीघ्र संपर्क करेंगे।",
-    chatWelcome: "मार्गदर्शन के लिए अपना विवरण भरें",
-    chatPrompt: "'hello' टाइप करें बातचीत शुरू करने के लिए",
-    chatApproved: "मार्गदर्शक शीघ्र जुड़ेंगे।"
-  }
-};
-
-    let currentLang = "en";
-
-    function applyLanguage(lang) {
-      currentLang = lang;
-      const t = translations[lang] || translations.en;
-      document.getElementById("navHome").textContent = t.navHome;
-      document.getElementById("navDashboard").textContent = t.navDashboard;
-      document.getElementById("navAlumni").textContent = t.navAlumni;
-      document.getElementById("navEvents").textContent = t.navEvents;
-      document.getElementById("navJobs").textContent = t.navJobs;
-      document.getElementById("navMentorship").textContent = t.navMentorship;
-      document.getElementById("navCollaborative").textContent = t.navCollaborative;
-      document.getElementById("navDonations").textContent = t.navDonations;
-      document.getElementById("navSettings").textContent = t.navSettings;
-      document.getElementById("logoutBtn").textContent = t.logout;
-      document.getElementById("pageTitle").textContent = t.pageTitle;
-      document.getElementById("description").textContent = t.description;
-      document.getElementById("chatboxTitle").textContent = t.chatTitle;
-      document.getElementById("labelName").textContent = t.labelName;
-      document.getElementById("labelYear").textContent = t.labelYear;
-      document.getElementById("labelCourse").textContent = t.labelCourse;
-      document.getElementById("submitDetails").textContent = t.submitDetails;
-      document.getElementById("chatInput").placeholder = t.chatPlaceholder;
-      document.getElementById("sendBtn").textContent = t.send;
-    }
-
-    const mentorContainer = document.getElementById("mentorsList");
-    const studentContainer = document.getElementById("studentsList");
-    const logoutBtn = document.getElementById("logoutBtn");
-    const chatbox = document.getElementById("chatbox");
-    const closeChatBtn = document.getElementById("closeChat");
-    const messagesDiv = document.getElementById("messages");
-    const chatInput = document.getElementById("chatInput");
-    const sendBtn = document.getElementById("sendBtn");
-    const detailsForm = document.getElementById("detailsForm");
-    const nameInput = document.getElementById("nameInput");
-    const yearInput = document.getElementById("yearInput");
-    const courseInput = document.getElementById("courseInput");
-
+    // Create cards (unchanged)
     function createMentorCard(mentor) {
       return `
         <div class="profile-card">
@@ -490,12 +366,10 @@
             <p><strong>Expertise:</strong> ${mentor.expertise}</p>
             <p><strong>Contact:</strong> <a href="mailto:${mentor.contact}">${mentor.contact}</a></p>
             <p>${mentor.bio}</p>
-            <button class="btn requestMentorshipBtn">${translations[currentLang].requestMentorship}</button>
+            <button class="btn request-mentorship-btn">Request Mentorship</button>
           </div>
-        </div>
-      `;
+        </div>`;
     }
-
     function createStudentCard(student) {
       return `
         <div class="profile-card">
@@ -505,211 +379,137 @@
             <p><strong>Department:</strong> ${student.department}</p>
             <p><strong>Email:</strong> <a href="mailto:${student.email}">${student.email}</a></p>
           </div>
-        </div>
-      `;
+        </div>`;
     }
 
-    window.addEventListener("DOMContentLoaded", () => {
-      const institution = sessionStorage.getItem("institution");
-      const role = (sessionStorage.getItem("role") || "").toLowerCase();
-      const lang = sessionStorage.getItem("preferredLanguage") || "en";
+    const mentorsList = document.getElementById('mentors-list');
+    const studentsList = document.getElementById('students-list');
+    const logoutBtn = document.getElementById('logout-btn');
 
-      if (!institution || !role) {
-        window.location.href = "login.html";
+    // Chatbox elements
+    const chatbox = document.getElementById('chatbox');
+    const closeChatBtn = document.getElementById('close-chat');
+    const messagesDiv = document.getElementById('messages');
+    const chatInput = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-btn');
+    const detailsForm = document.getElementById('details-form');
+    const nameInput = document.getElementById('name-input');
+    const yearInput = document.getElementById('year-input');
+    const courseInput = document.getElementById('course-input');
+
+    function addMessage(text, sender) {
+      const msg = document.createElement('div');
+      msg.classList.add('msg');
+      msg.classList.add(sender === 'bot' ? 'bot' : 'user');
+      msg.textContent = text;
+      messagesDiv.appendChild(msg);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+    function clearMessages() {
+      messagesDiv.innerHTML = '';
+    }
+    function resetChat() {
+      clearMessages();
+      chatInput.value = '';
+      chatInput.style.display = 'none';
+      sendBtn.style.display = 'none';
+      detailsForm.style.display = 'block';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const institution = sessionStorage.getItem('loggedInInstitution');
+      const role = sessionStorage.getItem('loggedInRole');
+      const email = sessionStorage.getItem('loggedInEmail');
+
+      if (!institution || !role || !email) {
+        window.location.href = 'login.html';
         return;
       }
 
-      applyLanguage(lang);
+      document.getElementById('page-title').textContent = `${institution} Mentorship Program`;
 
-      if (role === "student") {
-        mentorContainer.innerHTML = "";
-        studentContainer.innerHTML = "";
-        const mentors = alumni[institution] || [];
-        if (mentors.length > 0) {
-          mentorContainer.innerHTML = mentors.map(createMentorCard).join("");
-        } else {
-          mentorContainer.innerHTML = `<p>No mentors available.</p>`;
-        }
-      } else if (role === "alumni") {
-        mentorContainer.innerHTML = "";
-        studentContainer.innerHTML = "";
-        const students = students[institution] || [];
-        if (students.length > 0) {
-          studentContainer.innerHTML = students.map(createStudentCard).join("");
-        } else {
-          studentContainer.innerHTML = `<p>No students available.</p>`;
-        }
-      } else if (role === "admin") {
-        const mentors = alumni[institution] || [];
-        const studentsList = students[institution] || [];
-        mentorContainer.innerHTML = `<h2>Mentors</h2>`;
-        if (mentors.length) {
-          mentorContainer.innerHTML += mentors.map(createMentorCard).join("");
-        } else {
-          mentorContainer.innerHTML += `<p>No mentors available.</p>`;
-        }
-        studentContainer.innerHTML = `<h2>Students</h2>`;
-        if (studentsList.length) {
-          studentContainer.innerHTML += studentsList.map(createStudentCard).join("");
-        } else {
-          studentContainer.innerHTML += `<p>No students available.</p>`;
-        }
+      if (role === 'student') {
+        document.getElementById('description').textContent = 'Connect with experienced alumni mentors from your institution.';
+        const mentors = alumniAsMentors[institution] || [];
+        mentorsList.innerHTML = mentors.length ? mentors.map(createMentorCard).join('') : '<p>No mentors available.</p>';
+        studentsList.innerHTML = '';
+      } else if (role === 'alumni') {
+        document.getElementById('description').textContent = 'Connect with students seeking mentorship from your institution.';
+        const students = studentsAsMentees[institution] || [];
+        studentsList.innerHTML = students.length ? students.map(createStudentCard).join('') : '<p>No students available for mentorship.</p>';
+        mentorsList.innerHTML = '';
+      } else if (role === 'admin') {
+        document.getElementById('description').textContent = 'Manage both mentors (alumni) and students mentorship connections.';
+        const mentors = alumniAsMentors[institution] || [];
+        const students = studentsAsMentees[institution] || [];
+        mentorsList.innerHTML = '<h2>Mentors (Alumni)</h2>' + (mentors.length ? mentors.map(createMentorCard).join('') : '<p>No mentors available.</p>');
+        studentsList.innerHTML = '<h2>Students</h2>' + (students.length ? students.map(createStudentCard).join('') : '<p>No students available.</p>');
       }
 
+      // Add event listeners after content is rendered
       setTimeout(() => {
-        document
-          .querySelectorAll(".requestMentorshipBtn")
-          .forEach((btn) => {
-            btn.addEventListener("click", () => {
-              if (role !== "student") {
-                alert(translations[lang].alertNotAllowed);
-                return;
-              }
+        document.querySelectorAll('.request-mentorship-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            if (role === 'student') {
               resetChat();
-              chatbox.style.display = "flex";
-              addMessage(translations[lang].chatWelcome, "bot");
-            });
+              chatbox.style.display = 'flex';
+              addMessage('Please fill your details to start mentorship request.', 'bot');
+            } else {
+              alert('Feature not for alumni or admin.');
+            }
           });
+        });
       }, 0);
 
-      logoutBtn.addEventListener("click", () => {
+      logoutBtn.addEventListener('click', () => {
         sessionStorage.clear();
-        window.location.href = "login.html";
+        window.location.href = 'login.html';
       });
     });
 
-    function addMessage(text, sender) {
-      const div = document.createElement("div");
-      div.textContent = text;
-      div.className = `msg ${sender}`;
-      messagesDiv.appendChild(div);
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }
-
-    function clearMessages() {
-      messagesDiv.innerHTML = "";
-    }
-
-    function resetChat() {
-      clearMessages();
-      nameInput.value = "";
-      yearInput.value = "";
-      courseInput.value = "";
-      detailsForm.style.display = "block";
-      chatInput.style.display = "none";
-      sendBtn.style.display = "none";
-    }
-
-    closeChatBtn.addEventListener("click", () => {
-      chatbox.style.display = "none";
+    closeChatBtn.addEventListener('click', () => {
+      chatbox.style.display = 'none';
     });
 
-    detailsForm.addEventListener("submit", (e) => {
+    detailsForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      if (
-        !nameInput.value.trim() ||
-        !yearInput.value.trim() ||
-        !courseInput.value.trim()
-      ) {
-        alert(translations[currentLang].alertFill);
+      if (!nameInput.value.trim() || !yearInput.value.trim() || !courseInput.value.trim()) {
+        alert('Please fill all details.');
         return;
       }
-      detailsForm.style.display = "none";
-      chatInput.style.display = "inline-block";
-      sendBtn.style.display = "inline-block";
+      detailsForm.style.display = 'none';
+      chatInput.style.display = 'inline-block';
+      sendBtn.style.display = 'inline-block';
       clearMessages();
-      addMessage(
-        `${translations[currentLang].alertThanks}`,
-        "bot"
-      );
+      addMessage(`Thank you, ${nameInput.value.trim()}. Type 'hello' to start conversation with the mentor.`, 'bot');
       chatInput.focus();
     });
 
-    sendBtn.addEventListener("click", () => {
-      let input = chatInput.value.trim();
-      if (!input) return;
-      addMessage(input, "user");
-      chatInput.value = "";
-      if (input.toLowerCase() === "hello") {
+    sendBtn.addEventListener('click', () => {
+      const userText = chatInput.value.trim();
+      if (!userText) return;
+      addMessage(userText, 'user');
+      chatInput.value = '';
+      if (userText.toLowerCase() === 'hello') {
         setTimeout(() => {
-          addMessage(translations[currentLang].chatApproved, "bot");
+          addMessage('Mentor will connect with you soon.', 'bot');
         }, 500);
         setTimeout(() => {
-          chatbox.style.display = "none";
+          chatbox.style.display = 'none';
         }, 2500);
       } else {
         setTimeout(() => {
-          addMessage(translations[currentLang].chatPrompt, "bot");
+          addMessage("Please type 'hello' to start the conversation.", 'bot');
         }, 500);
       }
     });
 
-    chatInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
         e.preventDefault();
         sendBtn.click();
       }
     });
-    window.addEventListener("DOMContentLoaded", () => {
-  const institution = sessionStorage.getItem("loggedInInstitution");
-  const role = sessionStorage.getItem("loggedInRole");
-  const email = sessionStorage.getItem("loggedInEmail");
-
-  if (!institution || !role || !email) {
-    // Redirect to login if not logged in properly
-    window.location.href = "login.html";
-    return;
-  }
-
-  // Load translations, replace this with your existing applyLanguage if you have
-  const lang = sessionStorage.getItem("preferredLanguage") || "en";
-  applyLanguage(lang); // your translation function
-
-  // Prepare mentor and student containers
-  const mentorsList = document.getElementById("mentors-list");
-  const studentsList = document.getElementById("students-list");
-  const chatbox = document.getElementById("chatbox");
-
-  if (role === "student") {
-    // Show mentors for student
-    const mentors = alumniAsMentors[institution] || [];
-    if (mentors.length === 0) {
-      mentorsList.innerHTML = "<p>No mentors available.</p>";
-    } else {
-      mentorsList.innerHTML = mentors.map(createMentorCard).join("");
-    }
-    studentsList.innerHTML = "";
-  } else if (role === "alumni") {
-    // Show students for alumni
-    const students = studentsAsMentees[institution] || [];
-    if (students.length === 0) {
-      studentsList.innerHTML = "<p>No students available.</p>";
-    } else {
-      studentsList.innerHTML = students.map(createStudentCard).join("");
-    }
-    mentorsList.innerHTML = "";
-  } else if (role === "admin") {
-    // Show both for admin
-    const mentors = alumniAsMentors[institution] || [];
-    const students = studentsAsMentees[institution] || [];
-    mentorsList.innerHTML = "<h2>Mentors</h2>" + (mentors.length ? mentors.map(createMentorCard).join("") : "<p>No mentors available.</p>");
-    studentsList.innerHTML = "<h2>Students</h2>" + (students.length ? students.map(createStudentCard).join("") : "<p>No students available.</p>");
-  }
-
-  // Attach event listeners on request buttons
-  document.querySelectorAll(".request-mentorship-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      if (role !== "student") {
-        alert("Feature not available for your role.");
-        return;
-      }
-      chatbox.style.display = "flex";
-      resetChat();
-      addMessage("Fill your details to start mentorship request", "bot");
-    });
-  });
-});
-
   </script>
 </body>
 </html>
