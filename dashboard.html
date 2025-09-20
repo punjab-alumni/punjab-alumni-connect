@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Dashboard - Punjab Alumni Connect</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css"/>
   <style>
     .card {
       background: rgba(36, 147, 255, 0.07);
@@ -54,7 +54,6 @@
       color: #101927;
       font-weight: bold;
     }
-    /* Container fix for text visibility */
     .container {
       background-color: #121F33;
       border-radius: 1em;
@@ -63,7 +62,6 @@
       margin: 2rem auto;
       color: #eaf6ff;
     }
-    /* Header styling for consistent black-blue background */
     header {
       display: flex;
       align-items: center;
@@ -243,63 +241,6 @@
       }
     };
 
-    function displayDashboard(institution) {
-      const info = institutionsInfo[institution];
-      const institutionNameEl = document.getElementById('institution-name');
-      const institutionInfoEl = document.getElementById('institution-info');
-      const statsCardsEl = document.getElementById('stats-cards');
-      const newsCardsEl = document.getElementById('news-cards');
-      const quickLinksEl = document.getElementById('quick-links');
-      
-      const currentLang = sessionStorage.getItem('preferredLanguage') || 'en';
-      const dict = translations[currentLang] || translations.en;
-      
-      institutionNameEl.textContent = institution + " " + dict['dashboard-title'];
-      if (!info) {
-        institutionInfoEl.textContent = dict['no-info-available'];
-        statsCardsEl.innerHTML = "";
-        newsCardsEl.innerHTML = "";
-        quickLinksEl.innerHTML = "";
-        return;
-      }
-      institutionInfoEl.innerHTML = `
-        <p><strong>${dict['location']}:</strong> ${info.location}</p>
-        <p><strong>${dict['established']}:</strong> ${info.established}</p>
-        <p><strong>${dict['students']}:</strong> ${info.students.toLocaleString()}</p>
-        <p><strong>${dict['alumni']}:</strong> ${info.alumni.toLocaleString()}+</p>
-        <p><strong>${dict['website']}:</strong> <a href="${info.website}" target="_blank" rel="noopener">${info.website}</a></p>`;
-      statsCardsEl.innerHTML = `
-        <div class="card">
-          <h3>${dict['platform-statistics']}</h3>
-          <ul>
-            <li><strong>${dict['alumni-network']}:</strong> ${info.stats.alumniNetwork}</li>
-            <li><strong>${dict['active-institutions']}:</strong> ${info.stats.activeInstitutions}</li>
-            <li><strong>${dict['connections-made']}:</strong> ${info.stats.connectionsMade}</li>
-            <li><strong>${dict['job-placements']}:</strong> ${info.stats.jobPlacements}</li>
-            <li><strong>${dict['mentorship-sessions']}:</strong> ${info.stats.mentorshipSessions}</li>
-          </ul>
-        </div>`;
-      newsCardsEl.innerHTML = `
-        <div class="card">
-          <h3>${dict['recent-news-events']}</h3>
-          <ul>
-            ${info.news.map(item => `<li>${item}</li>`).join("")}
-          </ul>
-        </div>`;
-      quickLinksEl.innerHTML = `
-        <div class="card">
-          <h3>${dict['quick-links']}</h3>
-          <ul>
-            <li><a href="alumni.html">${dict['alumni-directory']}</a></li>
-            <li><a href="jobs.html">${dict['job-opportunities']}</a></li>
-            <li><a href="mentorship.html">${dict['mentorship-program']}</a></li>
-            <li><a href="donations.html">${dict['support-donations']}</a></li>
-          </ul>
-        </div>
-      `;
-    }
-
-    // EXPANDED Translation dictionary
     const translations = {
       en: {
         'nav-home': 'Home',
@@ -311,8 +252,6 @@
         'nav-collaborative': 'Collaborative Spaces',
         'nav-donations': 'Donations',
         'nav-settings': 'Settings',
-        'institution-name': 'Institution Dashboard',
-        'institution-info': 'Loading institution details...',
         'dashboard-title': 'Dashboard',
         'location': 'Location',
         'established': 'Established',
@@ -337,14 +276,12 @@
         'nav-home': 'ਘਰ',
         'nav-dashboard': 'ਡੈਸ਼ਬੋਰਡ',
         'nav-alumni': 'ਸਾਬਕਾ ਵਿਦਿਆਰਥੀ',
-        'nav-events': 'ਇਵੈਂਟਸ',
+        'nav-events': 'ਕਾਰਜਕ੍ਰਮ',
         'nav-jobs': 'ਨੌਕਰੀਆਂ',
         'nav-mentorship': 'ਮਾਰਗਦਰਸ਼ਨ',
         'nav-collaborative': 'ਸਹਿਯੋਗੀ ਸਥਾਨ',
         'nav-donations': 'ਦਾਨ',
         'nav-settings': 'ਸੈਟਿੰਗਜ਼',
-        'institution-name': 'ਸੰਸਥਾ ਡੈਸ਼ਬੋਰਡ',
-        'institution-info': 'ਚੁਣੇ ਗਈ ਸੰਸਥਾ ਦੇ ਵੇਰਵੇ ਲੋਡ ਕੀਤੇ ਜਾ ਰਹੇ ਹਨ...',
         'dashboard-title': 'ਡੈਸ਼ਬੋਰਡ',
         'location': 'ਸਥਿਤੀ',
         'established': 'ਸਥਾਪਿਤ',
@@ -358,7 +295,7 @@
         'job-placements': 'ਨੌਕਰੀ ਪਲੇਸਮੈਂਟਸ',
         'mentorship-sessions': 'ਮਾਰਗਦਰਸ਼ਨ ਸੈਸ਼ਨਜ਼',
         'recent-news-events': 'ਤਾਜ਼ਾ ਖ਼ਬਰਾਂ ਅਤੇ ਇਵੈਂਟਸ',
-        'quick-links': 'ਤੇਜ਼ ਲਿੰਕਸ',
+        'quick-links': 'ਤੇਜ਼ ਲਿੰਕ',
         'alumni-directory': 'ਸਾਬਕਾ ਵਿਦਿਆਰਥੀ ਡਾਇਰੈਕਟਰੀ',
         'job-opportunities': 'ਨੌਕਰੀ ਦੇ ਮੌਕੇ',
         'mentorship-program': 'ਮਾਰਗਦਰਸ਼ਨ ਪ੍ਰੋਗਰਾਮ',
@@ -375,8 +312,6 @@
         'nav-collaborative': 'सहयोगी स्थान',
         'nav-donations': 'दान',
         'nav-settings': 'सेटिंग्स',
-        'institution-name': 'संस्थान डैशबोर्ड',
-        'institution-info': 'चयनित संस्थान का विवरण लोड किया जा रहा है...',
         'dashboard-title': 'डैशबोर्ड',
         'location': 'स्थान',
         'established': 'स्थापित',
@@ -388,53 +323,96 @@
         'active-institutions': 'सक्रिय संस्थान',
         'connections-made': 'बनाए गए कनेक्शन',
         'job-placements': 'नौकरी प्लेसमेंट',
-        'mentorship-sessions': 'मेंटरशिप सत्र',
+        'mentorship-sessions': 'मार्गदर्शन सत्र',
         'recent-news-events': 'हाल की खबरें और कार्यक्रम',
         'quick-links': 'त्वरित लिंक',
         'alumni-directory': 'पूर्व छात्र निर्देशिका',
         'job-opportunities': 'नौकरी के अवसर',
-        'mentorship-program': 'मेंटरशिप कार्यक्रम',
+        'mentorship-program': 'मार्गदर्शन कार्यक्रम',
         'support-donations': 'सहायता और दान',
         'no-info-available': 'चयनित संस्थान के लिए जानकारी उपलब्ध नहीं है।'
       }
     };
 
     function applyLanguage(lang) {
-      const dict = translations[lang] || {};
-      Object.entries(dict).forEach(([id, text]) => {
+      const dict = translations[lang] || translations.en;
+      [
+        'nav-home', 'nav-dashboard', 'nav-alumni', 'nav-events', 'nav-jobs',
+        'nav-mentorship', 'nav-collaborative', 'nav-donations', 'nav-settings'
+      ].forEach(id => {
         const el = document.getElementById(id);
-        if (el) el.textContent = text;
+        if (el) el.textContent = dict[id];
       });
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      // Language application - apply saved language or redirect to home
-      const savedLang = sessionStorage.getItem('preferredLanguage');
-      if (savedLang && translations[savedLang]) {
-        applyLanguage(savedLang);
-      } else {
-        // If no language is set, redirect to home page to choose language
-        window.location.href = 'index.html';
+    function displayDashboard(institution) {
+      const info = institutionsInfo[institution];
+      const lang = sessionStorage.getItem('preferredLanguage') || localStorage.getItem('preferredLanguage') || 'en';
+      const dict = translations[lang] || translations.en;
+
+      document.getElementById('institution-name').textContent = institution + " " + dict['dashboard-title'];
+
+      if (!info) {
+        document.getElementById('institution-info').textContent = dict['no-info-available'];
+        document.getElementById('stats-cards').innerHTML = "";
+        document.getElementById('news-cards').innerHTML = "";
+        document.getElementById('quick-links').innerHTML = "";
         return;
       }
-      
-      // Original dashboard logic
+
+      document.getElementById('institution-info').innerHTML = `
+        <p><strong>${dict['location']}:</strong> ${info.location}</p>
+        <p><strong>${dict['established']}:</strong> ${info.established}</p>
+        <p><strong>${dict['students']}:</strong> ${info.students.toLocaleString()}</p>
+        <p><strong>${dict['alumni']}:</strong> ${info.alumni.toLocaleString()}+</p>
+        <p><strong>${dict['website']}:</strong> <a href="${info.website}" target="_blank" rel="noopener">${info.website}</a></p>`;
+
+      document.getElementById('stats-cards').innerHTML = `
+        <div class="card">
+          <h3>${dict['platform-statistics']}</h3>
+          <ul>
+            <li><strong>${dict['alumni-network']}:</strong> ${info.stats.alumniNetwork}</li>
+            <li><strong>${dict['active-institutions']}:</strong> ${info.stats.activeInstitutions}</li>
+            <li><strong>${dict['connections-made']}:</strong> ${info.stats.connectionsMade}</li>
+            <li><strong>${dict['job-placements']}:</strong> ${info.stats.jobPlacements}</li>
+            <li><strong>${dict['mentorship-sessions']}:</strong> ${info.stats.mentorshipSessions}</li>
+          </ul>
+        </div>`;
+
+      document.getElementById('news-cards').innerHTML = `
+        <div class="card">
+          <h3>${dict['recent-news-events']}</h3>
+          <ul>
+            ${info.news.map(item => `<li>${item}</li>`).join("")}
+          </ul>
+        </div>`;
+
+      document.getElementById('quick-links').innerHTML = `
+        <div class="card">
+          <h3>${dict['quick-links']}</h3>
+          <ul>
+            <li><a href="alumni.html">${dict['alumni-directory']}</a></li>
+            <li><a href="jobs.html">${dict['job-opportunities']}</a></li>
+            <li><a href="mentorship.html">${dict['mentorship-program']}</a></li>
+            <li><a href="donations.html">${dict['support-donations']}</a></li>
+          </ul>
+        </div>`;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Get language from sessionStorage or localStorage, fallback to English
+      const lang = sessionStorage.getItem('preferredLanguage') || localStorage.getItem('preferredLanguage') || 'en';
+      applyLanguage(lang);
+
       const institution = sessionStorage.getItem('loggedInInstitution');
       const email = sessionStorage.getItem('loggedInEmail');
       const role = sessionStorage.getItem('loggedInRole');
       if (!institution || !email || !role) {
-        window.location.href = 'login.html'; // Not logged in, redirect
+        window.location.href = 'login.html';
         return;
       }
       displayDashboard(institution);
-      // Update navigation links for session persistence
-      document.getElementById('alumni-link').href = 'alumni.html';
-      document.getElementById('jobs-link').href = 'jobs.html';
-      document.getElementById('events-link').href = 'events.html';
-      document.getElementById('mentorship-link').href = 'mentorship.html';
-      document.getElementById('donations-link').href = 'donations.html';
-      document.getElementById('settings-link').href = 'settings.html';
-      // Logout
+
       document.getElementById('logout-btn').addEventListener('click', () => {
         sessionStorage.clear();
         window.location.href = 'login.html';
