@@ -4,80 +4,68 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dashboard - Punjab Alumni Connect</title>
-  <link rel="stylesheet" href="styles.css" />
   <style>
     body {
       background: #101927;
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    .card {
-      background: rgba(36, 147, 255, 0.07);
-      padding: 1rem;
-      border-radius: 10px;
-      margin-bottom: 1.5rem;
       color: #eaf6ff;
-      transition: background 0.3s ease;
     }
-    .card:hover {
-      background: rgba(36, 147, 255, 0.14);
+    nav {
+      background: #121823;
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
-    .card ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-    .card ul li {
-      padding: 0.3rem 0;
-    }
-    nav ul.nav-list {
+    ul.nav-list {
       list-style: none;
+      margin: 0; padding: 0;
       display: flex;
-      gap: 12px;
-      padding: 0;
-      background: transparent !important;
-      border-radius: 8px;
-      margin: 0 0 1rem;
-      align-items: center;
+      gap: 15px;
+      font-weight: 700;
     }
-    nav ul.nav-list li a,
-    nav ul.nav-list li button {
-      color: #2493ff;
+    ul.nav-list li a,
+    ul.nav-list li button {
+      color: #2499ff;
       text-decoration: none;
-      padding: 0.5rem 1rem;
-      display: block;
+      padding: 8px 14px;
       border-radius: 6px;
       background: none;
       border: none;
       cursor: pointer;
       font-size: 1rem;
-      font-family: inherit;
     }
-    nav ul.nav-list li a.active,
-    nav ul.nav-list li a:hover,
-    nav ul.nav-list li button:hover {
-      background: #2493ff;
-      color: #101927;
-      font-weight: bold;
+    ul.nav-list li a.active,
+    ul.nav-list li a:hover,
+    ul.nav-list li button:hover {
+      background: #2499ff;
+      color: #101827;
+      font-weight: 700;
     }
     .container {
-      background-color: #121F33;
+      background-color: #121823;
       border-radius: 1em;
-      padding: 2rem;
+      margin: 20px auto;
       max-width: 1200px;
-      margin: 2rem auto;
-      color: #eaf6ff;
+      padding: 20px;
     }
-    header {
-      display: flex;
-      align-items: center;
-      padding: 10px 20px;
-      background-color: #101927;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+    .card {
+      background: rgba(36, 147, 255, 0.1);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
     }
-    h1, p, ul {
-      color: #eaf6ff;
+    .card h3 {
+      margin-top: 0;
+      color: #2499ff;
+    }
+    .card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .card ul li {
+      padding: 4px 0;
     }
     a {
       color: #76beff;
@@ -89,34 +77,31 @@
   </style>
 </head>
 <body>
-  <header>
-    <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
-    <nav style="flex-grow: 1;">
-      <ul class="nav-list">
-        <li><a href="index.html" id="nav-home">Home</a></li>
-        <li><a href="dashboard.html" id="nav-dashboard" class="active">Dashboard</a></li>
-        <li><a href="alumni.html" id="nav-alumni">Alumni</a></li>
-        <li><a href="events.html" id="nav-events">Events</a></li>
-        <li><a href="jobs.html" id="nav-jobs">Jobs</a></li>
-        <li><a href="mentorship.html" id="nav-mentorship">Mentorship</a></li>
-        <li><a href="collaborative.html" id="nav-collaborative">Collaborative Spaces</a></li>
-        <li><a href="donations.html" id="nav-donations">Donations</a></li>
-        <li><a href="settings.html" id="nav-settings">Settings</a></li>
-        <li><button id="logout-btn">Logout</button></li>
-      </ul>
-    </nav>
-  </header>
-  <main class="container dashboard-content">
-    <section>
-      <h1 id="institution-name">Institution Dashboard</h1>
-      <p id="institution-info">Loading institution details...</p>
-      <div id="stats-cards"></div>
-      <div id="news-cards"></div>
-      <div id="quick-links"></div>
-    </section>
-  </main>
+  <nav>
+    <ul class="nav-list">
+      <li><a href="index.html" id="nav-home">Home</a></li>
+      <li><a href="dashboard.html" id="nav-dashboard" class="active">Dashboard</a></li>
+      <li><a href="alumni.html" id="nav-alumni">Alumni</a></li>
+      <li><a href="events.html" id="nav-events">Events</a></li>
+      <li><a href="jobs.html" id="nav-jobs">Jobs</a></li>
+      <li><a href="mentorship.html" id="nav-mentorship">Mentorship</a></li>
+      <li><a href="collaborative.html" id="nav-collaborative">Collaborative Spaces</a></li>
+      <li><a href="donations.html" id="nav-donations">Donations</a></li>
+      <li><a href="settings.html" id="nav-settings">Settings</a></li>
+      <li><button id="logout-btn">Logout</button></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h1 id="institution-name">Institution Dashboard</h1>
+    <p id="institution-info">Loading information...</p>
+    <div id="stats-cards"></div>
+    <div id="news-cards"></div>
+    <div id="quick-links"></div>
+  </div>
+
   <script>
-    const institutionsInfo = {
+    const institutionsData = {
       "Punjab University": {
         location: "Chandigarh",
         established: 1882,
@@ -281,115 +266,108 @@
       pa: {
         'nav-home': 'ਘਰ',
         'nav-dashboard': 'ਡੈਸ਼ਬੋਰਡ',
-        'nav-alumni': 'ਸਾਬਕਾ ਵਿਦਿਆਰਥੀ',
+        'nav-alumni': 'ਸਾਬਕਾ',
         'nav-events': 'ਕਾਰਜਕ੍ਰਮ',
         'nav-jobs': 'ਨੌਕਰੀਆਂ',
         'nav-mentorship': 'ਮਾਰਗਦਰਸ਼ਨ',
-        'nav-collaborative': 'ਸਹਿਯੋਗੀ ਸਥਾਨ',
+        'nav-collaborative': 'ਸਹਯੋਗ ਸਥਾਨ',
         'nav-donations': 'ਦਾਨ',
-        'nav-settings': 'ਸੈਟਿੰਗਜ਼',
-        'logout': 'ਲਾਗਆਉਟ',
+        'nav-settings': 'ਸੈਟਿੰਗਸ',
+        'logout': 'ਲਾਗਆਊਟ',
         'dashboard-title': 'ਡੈਸ਼ਬੋਰਡ',
         'location': 'ਸਥਿਤੀ',
-        'established': 'ਸਥਾਪਿਤ',
+        'established': 'ਅਸਥਾਪਿਤ',
         'students': 'ਵਿਦਿਆਰਥੀ',
-        'alumni': 'ਸਾਬਕਾ ਵਿਦਿਆਰਥੀ',
+        'alumni': 'ਸਾਬਕਾ',
         'website': 'ਵੈੱਬਸਾਈਟ',
         'platform-statistics': 'ਪਲੇਟਫਾਰਮ ਅੰਕੜੇ',
-        'alumni-network': 'ਸਾਬਕਾ ਵਿਦਿਆਰਥੀ ਨੈਟਵਰਕ',
-        'active-institutions': 'ਸਰਗਰਮ ਸੰਸਥਾਨ',
-        'connections-made': 'ਬਣਾਏ ਗਏ ਸੰਪਰਕ',
-        'job-placements': 'ਨੌਕਰੀ ਪਲੇਸਮੈਂਟਸ',
-        'mentorship-sessions': 'ਮਾਰਗਦਰਸ਼ਨ ਸੈਸ਼ਨਜ਼',
-        'recent-news-events': 'ਤਾਜ਼ਾ ਖ਼ਬਰਾਂ ਅਤੇ ਇਵੈਂਟਸ',
+        'alumni-network': 'ਸਾਬਕਾ ਨੈੱਟਵਰਕ',
+        'active-institutions': 'ਸਰਗਰਮ ਸਥਾਨ',
+        'connections-made': 'ਜੁੜੇ ਸੰਪਰਕ',
+        'job-placements': 'ਨੌਕਰੀ ਪਾਇਆ',
+        'mentorship-sessions': 'ਮਾਰਗਦਰਸ਼ਨ ਕਲਾਸਾਂ',
+        'recent-news-events': 'ਤਾਜ਼ਾ ਖਬਰਾਂ ਤੇ ਇਵੈਂਟ',
         'quick-links': 'ਤੇਜ਼ ਲਿੰਕ',
-        'alumni-directory': 'ਸਾਬਕਾ ਵਿਦਿਆਰਥੀ ਡਾਇਰੈਕਟਰੀ',
-        'job-opportunities': 'ਨੌਕਰੀ ਦੇ ਮੌਕੇ',
-        'mentorship-program': 'ਮਾਰਗਦਰਸ਼ਨ ਪ੍ਰੋਗਰਾਮ',
-        'support-donations': 'ਸਹਾਇਤਾ ਅਤੇ ਦਾਨ',
-        'no-info-available': 'ਚੁਣੇ ਗਏ ਸੰਸਥਾਨ ਲਈ ਜਾਣਕਾਰੀ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।'
+        'alumni-directory': 'ਸਾਬਕਾ ਡਾਇਰੈਕਟਰੀ',
+        'job-opportunities': 'ਨੌਕਰੀਆਂ ਦੇ ਮੌਕੇ',
+        'mentorship-program': 'ਮਾਰਗਦਰਸ਼ਨ ਕਾਰਜਕ੍ਰਮ',
+        'support-donations': 'ਸਹਿਯੋਗ ਅਤੇ ਦਾਨ',
+        'no-info-available': 'ਸੰਸਥਾ ਬਾਰੇ ਜਾਣਕਾਰੀ ਨਹੀ ਹੈ।'
       },
       hi: {
-        'nav-home': 'मुख्य पृष्ठ',
+        'nav-home': 'मुख्य',
         'nav-dashboard': 'डैशबोर्ड',
         'nav-alumni': 'पूर्व छात्र',
-        'nav-events': 'कार्यक्रम',
+        'nav-events': 'ईवेंट्स',
         'nav-jobs': 'नौकरियां',
         'nav-mentorship': 'मार्गदर्शन',
-        'nav-collaborative': 'सहयोगी स्थान',
+        'nav-collaborative': 'सहयोग स्थान',
         'nav-donations': 'दान',
-        'nav-settings': 'सेटिंग्स',
+        'nav-settings': 'सेटिंग',
         'logout': 'लॉगआउट',
         'dashboard-title': 'डैशबोर्ड',
-        'location': 'स्थान',
+        'location': 'स्थिति',
         'established': 'स्थापित',
         'students': 'छात्र',
         'alumni': 'पूर्व छात्र',
         'website': 'वेबसाइट',
-        'platform-statistics': 'प्लेटफॉर्म सांख्यिकी',
+        'platform-statistics': 'प्लेटफ़ॉर्म आँकड़े',
         'alumni-network': 'पूर्व छात्र नेटवर्क',
         'active-institutions': 'सक्रिय संस्थान',
-        'connections-made': 'बनाए गए कनेक्शन',
+        'connections-made': 'जुड़े संपर्क',
         'job-placements': 'नौकरी प्लेसमेंट',
         'mentorship-sessions': 'मार्गदर्शन सत्र',
-        'recent-news-events': 'हाल की खबरें और कार्यक्रम',
+        'recent-news-events': 'हाल के समाचार व आयोजन',
         'quick-links': 'त्वरित लिंक',
         'alumni-directory': 'पूर्व छात्र निर्देशिका',
-        'job-opportunities': 'नौकरी के अवसर',
+        'job-opportunities': 'रोजगार के अवसर',
         'mentorship-program': 'मार्गदर्शन कार्यक्रम',
-        'support-donations': 'सहायता और दान',
-        'no-info-available': 'चयनित संस्थान के लिए जानकारी उपलब्ध नहीं है।'
+        'support-donations': 'सहयोग व दान',
+        'no-info-available': 'चयनित संस्थान की जानकारी उपलब्ध नहीं है।'
       }
     };
 
-    function getStoredLanguage() {
-      // Check sessionStorage first, then localStorage, fallback to English
-      return sessionStorage.getItem('preferredLanguage') || 
-             localStorage.getItem('preferredLanguage') || 
-             'en';
+    function getLanguage() {
+      return sessionStorage.getItem('preferredLanguage') || localStorage.getItem('preferredLanguage') || 'en';
     }
 
     function applyLanguage(lang) {
       const dict = translations[lang] || translations.en;
-      
-      // Apply navigation translations
-      document.getElementById('nav-home').textContent = dict['nav-home'];
-      document.getElementById('nav-dashboard').textContent = dict['nav-dashboard'];
-      document.getElementById('nav-alumni').textContent = dict['nav-alumni'];
-      document.getElementById('nav-events').textContent = dict['nav-events'];
-      document.getElementById('nav-jobs').textContent = dict['nav-jobs'];
-      document.getElementById('nav-mentorship').textContent = dict['nav-mentorship'];
-      document.getElementById('nav-collaborative').textContent = dict['nav-collaborative'];
-      document.getElementById('nav-donations').textContent = dict['nav-donations'];
-      document.getElementById('nav-settings').textContent = dict['nav-settings'];
-      document.getElementById('logout-btn').textContent = dict['logout'];
+      const navItems = [
+        'nav-home', 'nav-dashboard', 'nav-alumni', 'nav-events',
+        'nav-jobs', 'nav-mentorship', 'nav-collaborative',
+        'nav-donations', 'nav-settings'
+      ];
+      navItems.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = dict[id];
+      });
+      document.getElementById('logout-btn').textContent = dict.logout;
     }
 
     function displayDashboard(institution) {
-      const info = institutionsInfo[institution];
-      const lang = getStoredLanguage();
+      const info = institutionsData[institution];
+      const lang = getLanguage();
       const dict = translations[lang] || translations.en;
 
-      // Set institution name with dashboard title
-      document.getElementById('institution-name').textContent = institution + " " + dict['dashboard-title'];
+      document.getElementById('institution-name').textContent = institution + ' ' + dict['dashboard-title'];
 
       if (!info) {
         document.getElementById('institution-info').textContent = dict['no-info-available'];
-        document.getElementById('stats-cards').innerHTML = "";
-        document.getElementById('news-cards').innerHTML = "";
-        document.getElementById('quick-links').innerHTML = "";
+        document.getElementById('stats-cards').innerHTML = '';
+        document.getElementById('news-cards').innerHTML = '';
+        document.getElementById('quick-links').innerHTML = '';
         return;
       }
 
-      // Institution information
       document.getElementById('institution-info').innerHTML = `
-        <p><strong>${dict['location']}:</strong> ${info.location}</p>
-        <p><strong>${dict['established']}:</strong> ${info.established}</p>
-        <p><strong>${dict['students']}:</strong> ${info.students.toLocaleString()}</p>
-        <p><strong>${dict['alumni']}:</strong> ${info.alumni.toLocaleString()}+</p>
-        <p><strong>${dict['website']}:</strong> <a href="${info.website}" target="_blank" rel="noopener">${info.website}</a></p>`;
+        <p><strong>${dict.location}:</strong> ${info.location}</p>
+        <p><strong>${dict.established}:</strong> ${info.established}</p>
+        <p><strong>${dict.students}:</strong> ${info.students.toLocaleString()}</p>
+        <p><strong>${dict.alumni}:</strong> ${info.alumni.toLocaleString()}+</p>
+        <p><strong>${dict.website}:</strong> <a href="${info.website}" target="_blank" rel="noopener">${info.website}</a></p>
+      `;
 
-      // Platform statistics
       document.getElementById('stats-cards').innerHTML = `
         <div class="card">
           <h3>${dict['platform-statistics']}</h3>
@@ -400,18 +378,16 @@
             <li><strong>${dict['job-placements']}:</strong> ${info.stats.jobPlacements}</li>
             <li><strong>${dict['mentorship-sessions']}:</strong> ${info.stats.mentorshipSessions}</li>
           </ul>
-        </div>`;
+        </div>
+      `;
 
-      // Recent news and events
       document.getElementById('news-cards').innerHTML = `
         <div class="card">
           <h3>${dict['recent-news-events']}</h3>
-          <ul>
-            ${info.news.map(item => `<li>${item}</li>`).join("")}
-          </ul>
-        </div>`;
+          <ul>${info.news.map(item => `<li>${item}</li>`).join('')}</ul>
+        </div>
+      `;
 
-      // Quick links
       document.getElementById('quick-links').innerHTML = `
         <div class="card">
           <h3>${dict['quick-links']}</h3>
@@ -421,33 +397,28 @@
             <li><a href="mentorship.html">${dict['mentorship-program']}</a></li>
             <li><a href="donations.html">${dict['support-donations']}</a></li>
           </ul>
-        </div>`;
+        </div>
+      `;
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      // Check if user is logged in
+      const lang = getLanguage();
+      applyLanguage(lang);
+
       const institution = sessionStorage.getItem('loggedInInstitution');
       const email = sessionStorage.getItem('loggedInEmail');
       const role = sessionStorage.getItem('loggedInRole');
-      
+
       if (!institution || !email || !role) {
         window.location.href = 'login.html';
         return;
       }
 
-      // Get and apply language
-      const lang = getStoredLanguage();
-      applyLanguage(lang);
-      
-      // Display dashboard content
       displayDashboard(institution);
 
-      // Logout functionality
       document.getElementById('logout-btn').addEventListener('click', () => {
         sessionStorage.clear();
-        localStorage.removeItem('loggedInInstitution');
-        localStorage.removeItem('loggedInEmail');
-        localStorage.removeItem('loggedInRole');
+        localStorage.clear();
         window.location.href = 'login.html';
       });
     });
