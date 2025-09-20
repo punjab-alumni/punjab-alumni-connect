@@ -78,15 +78,14 @@
     <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
     <nav>
       <ul class="nav-list">
-        <li><a href="index.html" id="nav-home">Home</a></li>
-        <li><a href="dashboard.html" id="nav-dashboard">Dashboard</a></li>
-        <li><a href="alumni.html" id="nav-alumni">Alumni</a></li>
-        <li><a href="events.html" id="nav-events" class="active">Events</a></li>
-        <li><a href="jobs.html" id="nav-jobs">Jobs</a></li>
-        <li><a href="mentorship.html" id="nav-mentorship">Mentorship</a></li>
-        <li><a href="collaborative.html" id="nav-collaborative">Collaborative Spaces</a></li>
-        <li><a href="donations.html" id="nav-donations">Donations</a></li>
-        <li><a href="settings.html" id="nav-settings">Settings</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="alumni.html">Alumni</a></li>
+        <li><a href="events.html" class="active">Events</a></li>
+        <li><a href="jobs.html">Jobs</a></li>
+        <li><a href="mentorship.html">Mentorship</a></li>
+        <li><a href="donations.html">Donations</a></li>
+        <li><a href="settings.html">Settings</a></li>
         <li><button id="logout-btn">Logout</button></li>
       </ul>
     </nav>
@@ -151,98 +150,20 @@
       }
     };
 
-    // ADDED: Comprehensive translation dictionary
-    const translations = {
-      en: {
-        'nav-home': 'Home',
-        'nav-dashboard': 'Dashboard',
-        'nav-alumni': 'Alumni',
-        'nav-events': 'Events',
-        'nav-jobs': 'Jobs',
-        'nav-mentorship': 'Mentorship',
-        'nav-collaborative': 'Collaborative Spaces',
-        'nav-donations': 'Donations',
-        'nav-settings': 'Settings',
-        'page-title': 'Upcoming Events',
-        'student-events': 'Student Events',
-        'alumni-events': 'Alumni Events',
-        'no-events': 'No events available.',
-        'date': 'Date',
-        'location': 'Location'
-      },
-      pa: {
-        'nav-home': 'ਘਰ',
-        'nav-dashboard': 'ਡੈਸ਼ਬੋਰਡ',
-        'nav-alumni': 'ਸਾਬਕਾ ਵਿਦਿਆਰਥੀ',
-        'nav-events': 'ਇਵੈਂਟਸ',
-        'nav-jobs': 'ਨੌਕਰੀਆਂ',
-        'nav-mentorship': 'ਮਾਰਗਦਰਸ਼ਨ',
-        'nav-collaborative': 'ਸਹਿਯੋਗੀ ਸਥਾਨ',
-        'nav-donations': 'ਦਾਨ',
-        'nav-settings': 'ਸੈਟਿੰਗਜ਼',
-        'page-title': 'ਆਉਣ ਵਾਲੇ ਇਵੈਂਟਸ',
-        'student-events': 'ਵਿਦਿਆਰਥੀ ਇਵੈਂਟਸ',
-        'alumni-events': 'ਸਾਬਕਾ ਵਿਦਿਆਰਥੀ ਇਵੈਂਟਸ',
-        'no-events': 'ਕੋਈ ਇਵੈਂਟ ਉਪਲਬਧ ਨਹੀਂ ਹੈ।',
-        'date': 'ਤਰੀਕ',
-        'location': 'ਸਥਾਨ'
-      },
-      hi: {
-        'nav-home': 'मुख्य पृष्ठ',
-        'nav-dashboard': 'डैशबोर्ड',
-        'nav-alumni': 'पूर्व छात्र',
-        'nav-events': 'कार्यक्रम',
-        'nav-jobs': 'नौकरियां',
-        'nav-mentorship': 'मार्गदर्शन',
-        'nav-collaborative': 'सहयोगी स्थान',
-        'nav-donations': 'दान',
-        'nav-settings': 'सेटिंग्स',
-        'page-title': 'आगामी कार्यक्रम',
-        'student-events': 'छात्र कार्यक्रम',
-        'alumni-events': 'पूर्व छात्र कार्यक्रम',
-        'no-events': 'कोई कार्यक्रम उपलब्ध नहीं है।',
-        'date': 'तारीख',
-        'location': 'स्थान'
-      }
-    };
-
-    // ADDED: Function to apply translations
-    function applyLanguage(lang) {
-      const dict = translations[lang] || translations.en;
-      Object.entries(dict).forEach(([id, text]) => {
-        const el = document.getElementById(id);
-        if (el) {
-          el.textContent = text;
-        }
-      });
-    }
-
-    function createEventCard(event, lang) {
-      const dict = translations[lang] || translations.en;
+    function createEventCard(event) {
       return `
         <div class="event-card">
           <h3>${event.title}</h3>
-          <p><strong>${dict['date']}:</strong> ${event.date}</p>
-          <p><strong>${dict['location']}:</strong> ${event.location}</p>
+          <p><strong>Date:</strong> ${event.date}</p>
+          <p><strong>Location:</strong> ${event.location}</p>
           <p>${event.description}</p>
         </div>`;
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      // ADDED: Language application - apply saved language or redirect to home
-      const savedLang = sessionStorage.getItem('preferredLanguage');
-      if (savedLang && translations[savedLang]) {
-        applyLanguage(savedLang);
-      } else {
-        // If no language is set, redirect to home page to choose language
-        window.location.href = 'index.html';
-        return;
-      }
-
       const institution = sessionStorage.getItem("loggedInInstitution");
       const role = sessionStorage.getItem("loggedInRole");
       const email = sessionStorage.getItem("loggedInEmail");
-      const dict = translations[savedLang] || translations.en;
 
       if (!institution || !role || !email) {
         // If unauthenticated, show all events of all institutions combined (optional)
@@ -250,42 +171,41 @@
         const allEvents = Object.values(eventsData).reduce((acc, inst) => {
           return acc.concat(inst.studentEvents, inst.alumniEvents);
         }, []);
+
         if (allEvents.length > 0) {
           document.getElementById("events-list").innerHTML = allEvents
-            .map(event => createEventCard(event, savedLang))
+            .map(createEventCard)
             .join("");
         } else {
           document.getElementById("events-list").innerHTML =
-            `<p>${dict['no-events']}</p>`;
+            "<p>No events available.</p>";
         }
         return;
       }
 
       // If logged in, show events based on institution and role
-      document.getElementById("page-title").textContent = `${institution} - ${dict['page-title']}`;
+      document.getElementById("page-title").textContent = `${institution} - Upcoming Events`;
       const data = eventsData[institution];
       if (!data) {
-        document.getElementById("events-list").innerHTML = `<p>${dict['no-events']}</p>`;
+        document.getElementById("events-list").innerHTML = "<p>No events available.</p>";
         return;
       }
-
       if (role === "student") {
         document.getElementById("events-list").innerHTML = data.studentEvents
-          .map(event => createEventCard(event, savedLang))
+          .map(createEventCard)
           .join("");
       } else if (role === "alumni") {
         document.getElementById("events-list").innerHTML = data.alumniEvents
-          .map(event => createEventCard(event, savedLang))
+          .map(createEventCard)
           .join("");
       } else if (role === "admin") {
         document.getElementById("events-list").innerHTML =
-          `<h2>${dict['student-events']}</h2>` +
-          data.studentEvents.map(event => createEventCard(event, savedLang)).join("") +
-          `<h2>${dict['alumni-events']}</h2>` +
-          data.alumniEvents.map(event => createEventCard(event, savedLang)).join("");
+          "<h2>Student Events</h2>" +
+          data.studentEvents.map(createEventCard).join("") +
+          "<h2>Alumni Events</h2>" +
+          data.alumniEvents.map(createEventCard).join("");
       }
-
-      // Logout button logic
+      // You can keep logout button logic as is or adjust as per your flow
       document.getElementById("logout-btn").addEventListener("click", () => {
         sessionStorage.clear();
         window.location.href = "login.html";
