@@ -44,16 +44,16 @@
       font-weight: 700;
     }
     .container {
-      background-color: #121823;
-      border-radius: 1em;
-      margin: 20px auto;
       max-width: 1200px;
+      background: #121823;
+      border-radius: 15px;
+      margin: 20px auto;
       padding: 20px;
     }
     .card {
       background: rgba(36, 147, 255, 0.1);
+      padding: 20px;
       border-radius: 12px;
-      padding: 16px;
       margin-bottom: 20px;
     }
     .card h3 {
@@ -65,7 +65,7 @@
       padding-left: 0;
     }
     .card ul li {
-      padding: 4px 0;
+      margin-bottom: 8px;
     }
     a {
       color: #76beff;
@@ -94,7 +94,7 @@
 
   <div class="container">
     <h1 id="institution-name">Institution Dashboard</h1>
-    <p id="institution-info">Loading information...</p>
+    <p id="institution-info">Loading...</p>
     <div id="stats-cards"></div>
     <div id="news-cards"></div>
     <div id="quick-links"></div>
@@ -232,112 +232,108 @@
     };
 
     const translations = {
-      en: {
-        'nav-home': 'Home',
-        'nav-dashboard': 'Dashboard',
-        'nav-alumni': 'Alumni',
-        'nav-events': 'Events',
-        'nav-jobs': 'Jobs',
-        'nav-mentorship': 'Mentorship',
-        'nav-collaborative': 'Collaborative Spaces',
-        'nav-donations': 'Donations',
-        'nav-settings': 'Settings',
-        'logout': 'Logout',
-        'dashboard-title': 'Dashboard',
-        'location': 'Location',
-        'established': 'Established',
-        'students': 'Students',
-        'alumni': 'Alumni',
-        'website': 'Website',
-        'platform-statistics': 'Platform Statistics',
-        'alumni-network': 'Alumni Network',
-        'active-institutions': 'Active Institutions',
-        'connections-made': 'Connections Made',
-        'job-placements': 'Job Placements',
-        'mentorship-sessions': 'Mentorship Sessions',
-        'recent-news-events': 'Recent News & Events',
-        'quick-links': 'Quick Links',
-        'alumni-directory': 'Alumni Directory',
-        'job-opportunities': 'Job Opportunities',
-        'mentorship-program': 'Mentorship Program',
-        'support-donations': 'Support & Donations',
-        'no-info-available': 'Information not available for selected institution.'
+      "en": {
+        "nav-home": "Home",
+        "nav-dashboard": "Dashboard",
+        "nav-alumni": "Alumni",
+        "nav-events": "Events",
+        "nav-jobs": "Jobs",
+        "nav-mentorship": "Mentorship",
+        "nav-collaborative": "Collaborative Spaces",
+        "nav-donations": "Donations",
+        "nav-settings": "Settings",
+        "logout": "Logout",
+        "dashboard-title": "Dashboard",
+        "location": "Location",
+        "established": "Established",
+        "students": "Students",
+        "alumni": "Alumni",
+        "website": "Website",
+        "platform-statistics": "Platform Statistics",
+        "alumni-network": "Alumni Network",
+        "active-institutions": "Active Institutions",
+        "connections-made": "Connections Made",
+        "job-placements": "Job Placements",
+        "mentorship-sessions": "Mentorship Sessions",
+        "recent-news-events": "Recent News & Events",
+        "quick-links": "Quick Links",
+        "alumni-directory": "Alumni Directory",
+        "job-opportunities": "Job Opportunities",
+        "mentorship-program": "Mentorship Program",
+        "support-donations": "Support & Donations",
+        "no-info-available": "Information not available for selected institution."
       },
-      pa: {
-        'nav-home': 'ਘਰ',
-        'nav-dashboard': 'ਡੈਸ਼ਬੋਰਡ',
-        'nav-alumni': 'ਸਾਬਕਾ',
-        'nav-events': 'ਕਾਰਜਕ੍ਰਮ',
-        'nav-jobs': 'ਨੌਕਰੀਆਂ',
-        'nav-mentorship': 'ਮਾਰਗਦਰਸ਼ਨ',
-        'nav-collaborative': 'ਸਹਯੋਗ ਸਥਾਨ',
-        'nav-donations': 'ਦਾਨ',
-        'nav-settings': 'ਸੈਟਿੰਗਸ',
-        'logout': 'ਲਾਗਆਊਟ',
-        'dashboard-title': 'ਡੈਸ਼ਬੋਰਡ',
-        'location': 'ਸਥਿਤੀ',
-        'established': 'ਅਸਥਾਪਿਤ',
-        'students': 'ਵਿਦਿਆਰਥੀ',
-        'alumni': 'ਸਾਬਕਾ',
-        'website': 'ਵੈੱਬਸਾਈਟ',
-        'platform-statistics': 'ਪਲੇਟਫਾਰਮ ਅੰਕੜੇ',
-        'alumni-network': 'ਸਾਬਕਾ ਨੈੱਟਵਰਕ',
-        'active-institutions': 'ਸਰਗਰਮ ਸਥਾਨ',
-        'connections-made': 'ਜੁੜੇ ਸੰਪਰਕ',
-        'job-placements': 'ਨੌਕਰੀ ਪਾਇਆ',
-        'mentorship-sessions': 'ਮਾਰਗਦਰਸ਼ਨ ਕਲਾਸਾਂ',
-        'recent-news-events': 'ਤਾਜ਼ਾ ਖਬਰਾਂ ਤੇ ਇਵੈਂਟ',
-        'quick-links': 'ਤੇਜ਼ ਲਿੰਕ',
-        'alumni-directory': 'ਸਾਬਕਾ ਡਾਇਰੈਕਟਰੀ',
-        'job-opportunities': 'ਨੌਕਰੀਆਂ ਦੇ ਮੌਕੇ',
-        'mentorship-program': 'ਮਾਰਗਦਰਸ਼ਨ ਕਾਰਜਕ੍ਰਮ',
-        'support-donations': 'ਸਹਿਯੋਗ ਅਤੇ ਦਾਨ',
-        'no-info-available': 'ਸੰਸਥਾ ਬਾਰੇ ਜਾਣਕਾਰੀ ਨਹੀ ਹੈ।'
+      "pa": {
+        "nav-home": "ਘਰ",
+        "nav-dashboard": "ਡੈਸ਼ਬੋਰਡ",
+        "nav-alumni": "ਸਾਬਕਾ",
+        "nav-events": "ਇਵੈਂਟਸ",
+        "nav-jobs": "ਨੌਕਰੀਆਂ",
+        "nav-mentorship": "ਮਾਰਗਦਰਸ਼ਨ",
+        "nav-collaborative": "ਸਹਿਯੋਗੀ ਸਥਾਨ",
+        "nav-donations": "ਦਾਨ",
+        "nav-settings": "ਸੈੱਟਿੰਗਸ",
+        "logout": "ਲਾਗਆਉਟ",
+        "dashboard-title": "ਡੈਸ਼ਬੋਰਡ",
+        "location": "ਸਥਾਨ",
+        "established": "ਸਥਾਪਨਾ",
+        "students": "ਵਿਦਿਆਰਥੀ",
+        "alumni": "ਸਾਬਕਾ",
+        "website": "ਵੈਬਸਾਈਟ",
+        "platform-statistics": "ਪਲੇਟਫਾਰਮ ਅੰਕੜੇ",
+        "alumni-network": "ਸਾਬਕਾ ਨੈੱਟਵਰਕ",
+        "active-institutions": "ਸਰਗਰਮ ਸੰਸਥਾਵਾਂ",
+        "connections-made": "ਬਣਾਏ ਗਏ ਸੰਪਰਕ",
+        "job-placements": "ਨੌਕਰੀਆਂ",
+        "mentorship-sessions": "ਮਾਰਗਦਰਸ਼ਨ ਕਲਾਸਾਂ",
+        "recent-news-events": "ਤਾਜਾ ਖ਼ਬਰਾਂ ਅਤੇ ਸਮਾਰੋਹ",
+        "quick-links": "ਤੇਜ਼ ਲਿੰਕ",
+        "alumni-directory": "ਸਾਬਕਾ ਡਾਇਰੈਕਟਰੀ",
+        "job-opportunities": "ਨੌਕਰੀ ਦੇ ਮੌਕੇ",
+        "mentorship-program": "ਮਾਰਗਦਰਸ਼ਨ ਪ੍ਰੋਗਰਾਮ",
+        "support-donations": "ਸਹਾਇਤਾ ਅਤੇ ਦਾਨ",
+        "no-info-available": "ਚੁਣੀ ਹੋਈ ਸੰਸਥਾ ਦੀ ਜਾਣਕਾਰੀ ਉਪਲੱਬਧ ਨਹੀ ਹੈ।"
       },
-      hi: {
-        'nav-home': 'मुख्य',
-        'nav-dashboard': 'डैशबोर्ड',
-        'nav-alumni': 'पूर्व छात्र',
-        'nav-events': 'ईवेंट्स',
-        'nav-jobs': 'नौकरियां',
-        'nav-mentorship': 'मार्गदर्शन',
-        'nav-collaborative': 'सहयोग स्थान',
-        'nav-donations': 'दान',
-        'nav-settings': 'सेटिंग',
-        'logout': 'लॉगआउट',
-        'dashboard-title': 'डैशबोर्ड',
-        'location': 'स्थिति',
-        'established': 'स्थापित',
-        'students': 'छात्र',
-        'alumni': 'पूर्व छात्र',
-        'website': 'वेबसाइट',
-        'platform-statistics': 'प्लेटफ़ॉर्म आँकड़े',
-        'alumni-network': 'पूर्व छात्र नेटवर्क',
-        'active-institutions': 'सक्रिय संस्थान',
-        'connections-made': 'जुड़े संपर्क',
-        'job-placements': 'नौकरी प्लेसमेंट',
-        'mentorship-sessions': 'मार्गदर्शन सत्र',
-        'recent-news-events': 'हाल के समाचार व आयोजन',
-        'quick-links': 'त्वरित लिंक',
-        'alumni-directory': 'पूर्व छात्र निर्देशिका',
-        'job-opportunities': 'रोजगार के अवसर',
-        'mentorship-program': 'मार्गदर्शन कार्यक्रम',
-        'support-donations': 'सहयोग व दान',
-        'no-info-available': 'चयनित संस्थान की जानकारी उपलब्ध नहीं है।'
+      "hi": {
+        "nav-home": "मुख्यपृष्ठ",
+        "nav-dashboard": "डैशबोर्ड",
+        "nav-alumni": "पूर्व छात्र",
+        "nav-events": "कार्यक्रम",
+        "nav-jobs": "नौकरी",
+        "nav-mentorship": "मार्गदर्शन",
+        "nav-collaborative": "सहयोगी स्थान",
+        "nav-donations": "दान",
+        "nav-settings": "सेटिंग्स",
+        "logout": "लॉगआउट",
+        "dashboard-title": "डैशबोर्ड",
+        "location": "स्थान",
+        "established": "स्थापना",
+        "students": "छात्र",
+        "alumni": "पूर्व छात्र",
+        "website": "वेबसाइट",
+        "platform-statistics": "प्लेटफ़ॉर्म आँकड़े",
+        "alumni-network": "पूर्व छात्र नेटवर्क",
+        "active-institutions": "सक्रिय संस्थान",
+        "connections-made": "संवाद की संख्या",
+        "job-placements": "नौकरी प्लेसमेंट",
+        "mentorship-sessions": "मार्गदर्शन सत्र",
+        "recent-news-events": "हाल की खबरें और कार्यक्रम",
+        "quick-links": "त्वरित लिंक",
+        "alumni-directory": "पूर्व छात्र निर्देशिका",
+        "job-opportunities": "नौकरी अवसर",
+        "mentorship-program": "मार्गदर्शन कार्यक्रम",
+        "support-donations": "सहायता और दान",
+        "no-info-available": "चयनित संस्थान की जानकारी उपलब्ध नहीं है।"
       }
     };
 
-    function getLanguage() {
+    function getStoredLanguage() {
       return sessionStorage.getItem('preferredLanguage') || localStorage.getItem('preferredLanguage') || 'en';
     }
 
     function applyLanguage(lang) {
       const dict = translations[lang] || translations.en;
-      const navItems = [
-        'nav-home', 'nav-dashboard', 'nav-alumni', 'nav-events',
-        'nav-jobs', 'nav-mentorship', 'nav-collaborative',
-        'nav-donations', 'nav-settings'
-      ];
+      const navItems = ['nav-home', 'nav-dashboard', 'nav-alumni', 'nav-events', 'nav-jobs', 'nav-mentorship', 'nav-collaborative', 'nav-donations', 'nav-settings'];
       navItems.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.textContent = dict[id];
@@ -347,16 +343,16 @@
 
     function displayDashboard(institution) {
       const info = institutionsData[institution];
-      const lang = getLanguage();
+      const lang = getStoredLanguage();
       const dict = translations[lang] || translations.en;
 
-      document.getElementById('institution-name').textContent = institution + ' ' + dict['dashboard-title'];
+      document.getElementById('institution-name').textContent = institution + " " + dict['dashboard-title'];
 
       if (!info) {
         document.getElementById('institution-info').textContent = dict['no-info-available'];
-        document.getElementById('stats-cards').innerHTML = '';
-        document.getElementById('news-cards').innerHTML = '';
-        document.getElementById('quick-links').innerHTML = '';
+        document.getElementById('stats-cards').innerHTML = "";
+        document.getElementById('news-cards').innerHTML = "";
+        document.getElementById('quick-links').innerHTML = "";
         return;
       }
 
@@ -384,7 +380,9 @@
       document.getElementById('news-cards').innerHTML = `
         <div class="card">
           <h3>${dict['recent-news-events']}</h3>
-          <ul>${info.news.map(item => `<li>${item}</li>`).join('')}</ul>
+          <ul>
+            ${info.news.map(item => `<li>${item}</li>`).join('')}
+          </ul>
         </div>
       `;
 
@@ -402,7 +400,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      const lang = getLanguage();
+      const lang = getStoredLanguage();
       applyLanguage(lang);
 
       const institution = sessionStorage.getItem('loggedInInstitution');
@@ -423,5 +421,6 @@
       });
     });
   </script>
+
 </body>
 </html>
