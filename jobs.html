@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Job Opportunities - Punjab Alumni Connect</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
@@ -19,46 +19,37 @@
     }
     .job-card h3 {
       margin-top: 0;
-      color: #2499de;
-    }
-    .job-card p {
-      margin: 4px 0;
-    }
-    .job-card ul {
-      margin: 4px 0 0 20px;
-      padding: 0;
-    }
-    .job-card ul li {
-      margin-bottom: 4px;
+      color: #2493ff;
     }
     .job-tag {
       display: inline-block;
-      background: #2497de;
-      color: #121923;
+      background: #2493ff;
+      color: #101927;
       padding: 0.2rem 0.6rem;
       border-radius: 15px;
       font-size: 0.8rem;
-      margin: 0 5px 5px 0;
+      margin-right: 5px;
+      margin-top: 5px;
     }
     .apply-btn {
       margin-top: 10px;
-      background: #2499de;
+      background: #2493ff;
       border: none;
       border-radius: 20px;
-      padding: 0.7rem 1.2rem;
-      color: #121923;
+      padding: 0.7rem 1.5rem;
+      color: #101927;
       font-weight: 700;
       cursor: pointer;
       transition: background 0.3s ease;
     }
     .apply-btn:hover {
-      background: #1667ba;
+      background: #165ea8;
     }
     header {
       display: flex;
       align-items: center;
       padding: 10px 20px;
-      background: #121922;
+      background-color: #101927;
       position: sticky;
       top: 0;
       z-index: 1000;
@@ -73,92 +64,106 @@
       padding: 0;
       margin: 0;
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 1rem;
       align-items: center;
+      background: transparent;
     }
     nav ul.nav-list li a,
     nav ul.nav-list li button {
-      color: #2499de;
+      color: #2493ff;
       text-decoration: none;
-      padding: 0.4rem 0.9rem;
-      border-radius: 7px;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
       background: none;
       border: none;
       cursor: pointer;
       font-family: inherit;
+      font-size: 1rem;
     }
     nav ul.nav-list li a.active,
     nav ul.nav-list li a:hover,
     nav ul.nav-list li button:hover {
-      background: #2499de;
-      color: #121923;
-      font-weight: 700;
+      background: #2493ff;
+      color: #101927;
+      font-weight: bold;
     }
     .container {
-      background: #121922;
-      border-radius: 20px;
-      padding: 20px 30px;
+      background-color: #121F33;
+      border-radius: 1em;
+      padding: 2rem;
       max-width: 1200px;
-      margin: 40px auto 60px;
-      color: #e1e9f0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 2rem auto;
+      color: #eaf6ff;
     }
-    #application-interface {
+    /* Modal styles */
+    #application-modal {
       display: none;
-      background: #1b2541;
-      border-radius: 20px;
-      padding: 20px 30px;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    #application-modal .modal-content {
+      background-color: #121F33;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      border-radius: 10px;
+      width: 90%;
       max-width: 400px;
-      margin: 40px auto;
-      box-shadow: 0 0 20px rgb(146 147 148 / 0.36);
-      color: #e1e9f0;
-    }
-    #application-interface h2 {
-      color: #2b7efc;
-      margin-bottom: 20px;
-    }
-    #application-interface label {
-      display: block;
-      margin: 12px 0 6px;
-    }
-    #application-interface input,
-    #application-interface textarea {
-      width: 100%;
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      background: #121922;
-      color: #e1e9f0;
+      color: #eaf6ff;
       font-family: inherit;
-      font-size: 1rem;
-      resize: none;
     }
-    #application-interface textarea {
-      height: 90px;
+    #application-modal h2 {
+      margin-top: 0;
+      color: #2493ff;
     }
-    #application-interface button.submit-btn {
-      margin-top: 20px;
+    #application-modal label {
+      display: block;
+      margin: 12px 0 5px;
+    }
+    #application-modal input, #application-modal select, #application-modal textarea {
       width: 100%;
-      background: #2499de;
+      padding: 8px;
+      border-radius: 6px;
       border: none;
-      color: #121923;
-      font-weight: 700;
-      font-size: 1.1rem;
-      padding: 12px 0;
-      border-radius: 30px;
+      background-color: #222d48;
+      color: #eaf6ff;
+      resize: vertical;
+      font-family: inherit;
+    }
+    #application-modal textarea {
+      height: 80px;
+    }
+    #application-modal button {
+      margin-top: 15px;
+      width: 100%;
+      background: #2493ff;
+      border: none;
+      border-radius: 20px;
+      padding: 0.7rem 0;
       cursor: pointer;
-    }
-    #application-interface button.submit-btn:hover {
-      background: #1667ba;
-    }
-    .alert-message {
-      margin-top: 20px;
-      background: #2a3450;
-      padding: 12px 15px;
-      border-radius: 10px;
       font-weight: 700;
-      color: #68b7f2;
-      display: none;
+      color: #101927;
+      font-size: 1rem;
+    }
+    #application-modal button:hover {
+      background: #165ea8;
+    }
+    #close-modal-btn {
+      background: transparent;
+      color: #2493ff;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      float: right;
+      margin-top: -10px;
+      margin-right: -10px;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -167,128 +172,240 @@
     <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
     <nav>
       <ul class="nav-list">
-        <li><a href="index.html" id="navHome">Home</a></li>
-        <li><a href="dashboard.html" id="navDashboard">Dashboard</a></li>
-        <li><a href="alumni.html" id="navAlumni">Alumni</a></li>
-        <li><a href="events.html" id="navEvents">Events</a></li>
-        <li><a href="jobs.html" id="navJobs" class="active">Jobs</a></li>
-        <li><a href="mentorship.html" id="navMentorship">Mentorship</a></li>
-        <li><a href="collaborative.html" id="navCollaborative">Collaborative Spaces</a></li>
-        <li><a href="donations.html" id="navDonations">Donations</a></li>
-        <li><a href="settings.html" id="navSettings">Settings</a></li>
-        <li><button id="logoutBtn">Logout</button></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="alumni.html">Alumni</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="jobs.html" class="active">Jobs</a></li>
+        <li><a href="mentorship.html">Mentorship</a></li>
+        <li><a href="donations.html">Donations</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        <li><button id="logout-btn">Logout</button></li>
       </ul>
     </nav>
   </header>
   <main class="container">
-    <h1 id="pageTitle">Job Opportunities</h1>
-    <div id="jobList"></div>
+    <h1 id="page-title">Job Opportunities</h1>
+    <div id="job-list"></div>
   </main>
-  <div id="applicationInterface" style="display:none;">
-    <h2 id="applicationTitle">Job Application</h2>
-    <label for="appName" id="labelName">Full Name</label>
-    <input type="text" id="appName" placeholder="Enter your full name" required />
-    <label for="appGradYear" id="labelGradYear">Year of Graduation</label>
-    <input type="number" id="appGradYear" placeholder="Enter your graduation year" min="1950" max="2100" required />
-    <label for="appSkills" id="labelSkills">Skills / Experience</label>
-    <textarea id="appSkills" placeholder="List your relevant skills or experience" required></textarea>
-    <button id="submitApplicationBtn">Submit</button>
-    <div id="alertMessage" style="display:none; color:#29f; font-weight:700;"></div>
+
+  <!-- Application modal -->
+  <div id="application-modal">
+    <div class="modal-content">
+      <button id="close-modal-btn" title="Close">&times;</button>
+      <h2>Job Application</h2>
+      <form id="application-form">
+        <label for="graduation-year">Year of Graduation</label>
+        <input type="number" id="graduation-year" name="graduationYear" min="1950" max="2100" required />
+        <label for="course">Course</label>
+        <input type="text" id="course" name="course" required />
+        <label for="details">Additional Details</label>
+        <textarea id="details" name="details" placeholder="Tell us more about your skills or experience..." required></textarea>
+        <button type="submit">Submit Application</button>
+      </form>
+    </div>
   </div>
+
   <script>
     const jobsData = {
       "Punjab University": [
-        { title: "Senior Software Engineer", company: "Google India", location: "Bengaluru", salary: "₹25 LPA", description: "Join Google's cloud team focused on machine learning.", tags: ["Full-time", "Remote Possible"] },
-        { title: "Product Manager", company: "Flipkart", location: "Bengaluru", salary: "₹20 LPA", description: "Lead product strategy and development.", tags: ["Full-time", "Onsite"] }
+        {
+          title: "Senior Software Engineer",
+          company: "Google India",
+          location: "Bengaluru",
+          salary: "₹25 LPA",
+          description: "Join Google's cloud team focused on machine learning.",
+          requirements: ["3+ years experience", "Knowledge of ML frameworks", "Strong coding skills"],
+          tags: ["Full-time", "Remote Possible"]
+        },
+        {
+          title: "Product Manager",
+          company: "Flipkart",
+          location: "Bengaluru",
+          salary: "₹20 LPA",
+          description: "Lead product strategy and development.",
+          requirements: ["5+ years experience", "Strong leadership", "Agile methodology"],
+          tags: ["Full-time", "Onsite"]
+        }
       ],
       "Thapar University": [
-        { title: "Data Scientist", company: "Amazon", location: "Seattle", salary: "₹28 LPA", description: "Work on recommendation systems and customer analytics.", tags: ["Full-time", "Remote"] },
-        { title: "Civil Engineer", company: "L&T", location: "Chandigarh", salary: "₹10 LPA", description: "Infrastructure and construction projects.", tags: ["Full-time", "Onsite"] }
+        {
+          title: "Data Scientist",
+          company: "Amazon",
+          location: "Seattle",
+          salary: "₹28 LPA",
+          description: "Work on recommendation systems and customer analytics.",
+          requirements: ["2+ years experience", "Expertise in Python and R", "Statistics knowledge"],
+          tags: ["Full-time", "Remote"]
+        },
+        {
+          title: "Civil Engineer",
+          company: "L&T",
+          location: "Chandigarh",
+          salary: "₹10 LPA",
+          description: "Infrastructure and construction projects.",
+          requirements: ["4+ years experience", "AutoCAD proficiency", "Project Management skills"],
+          tags: ["Full-time", "Onsite"]
+        }
       ],
       "Lovely Professional University": [
-        { title: "Startup Founder & CEO", company: "TechStartup Inc.", location: "Punjab", salary: "Equity Based", description: "Leading a startup in the tech education sector.", tags: ["Full-time"] },
-        { title: "Marketing Head", company: "Infosys", location: "Bangalore", salary: "₹18 LPA", description: "Develop and lead marketing strategies.", tags: ["Full-time", "Remote Possible"] }
+        {
+          title: "Startup Founder & CEO",
+          company: "TechStartup Inc.",
+          location: "Punjab",
+          salary: "Equity Based",
+          description: "Leading a startup in the tech education sector.",
+          requirements: ["Entrepreneurship experience", "Strong networking", "Fundraising skills"],
+          tags: ["Full-time"]
+        },
+        {
+          title: "Marketing Head",
+          company: "Infosys",
+          location: "Bangalore",
+          salary: "₹18 LPA",
+          description: "Develop and lead marketing strategies.",
+          requirements: ["5+ years experience", "Digital marketing expertise", "Leadership skills"],
+          tags: ["Full-time", "Remote Possible"]
+        }
       ],
       "Punjab Engineering College": [
-        { title: "Engineering Consultant", company: "Siemens", location: "Mumbai", salary: "₹22 LPA", description: "Consult on advanced engineering projects.", tags: ["Contract", "Onsite"] }
+        {
+          title: "Engineering Consultant",
+          company: "Siemens",
+          location: "Mumbai",
+          salary: "₹22 LPA",
+          description: "Consult on advanced engineering projects.",
+          requirements: ["Experience in automation", "Project management", "Strong technical skills"],
+          tags: ["Contract", "Onsite"]
+        }
       ],
-      "Guru Nanak University": [
-        { title: "Research Scientist", company: "CSIR Labs", location: "New Delhi", salary: "₹15 LPA", description: "Research in nanotechnology and quantum physics.", tags: ["Full-time"] }
+      "Guru Nanak Dev University": [
+        {
+          title: "Research Scientist",
+          company: "CSIR Labs",
+          location: "New Delhi",
+          salary: "₹15 LPA",
+          description: "Research in nanotechnology and quantum physics.",
+          requirements: ["PhD preferred", "Publication record", "Strong analytical skills"],
+          tags: ["Full-time"]
+        }
       ],
       "Chandigarh University": [
-        { title: "Cloud Engineer", company: "SAP", location: "Pune", salary: "₹23 LPA", description: "Manage and deploy cloud infrastructure solutions.", tags: ["Full-time", "Remote"] }
+        {
+          title: "Cloud Engineer",
+          company: "SAP",
+          location: "Pune",
+          salary: "₹23 LPA",
+          description: "Manage and deploy cloud infrastructure solutions.",
+          requirements: ["Cloud certifications", "Experience with AWS/Azure", "Team collaboration"],
+          tags: ["Full-time", "Remote"]
+        }
       ],
       "Chitkara University": [
-        { title: "Research Associate", company: "Chitkara University R&D", location: "Rajpura", salary: "₹20 LPA", description: "Work on innovative research projects.", tags: ["Full-time", "Onsite"] },
-        { title: "Software Developer", company: "Infosys", location: "Bangalore", salary: "₹15 LPA", description: "Develop and maintain software solutions.", tags: ["Full-time", "Remote Possible"] }
+        {
+          title: "Research Associate",
+          company: "Chitkara University R&D",
+          location: "Rajpura",
+          salary: "₹20 LPA",
+          description: "Work on innovative research projects.",
+          requirements: ["Masters in relevant field", "Research experience", "Strong analytical skills"],
+          tags: ["Full-time", "Onsite"]
+        },
+        {
+          title: "Software Developer",
+          company: "Infosys",
+          location: "Bangalore",
+          salary: "₹15 LPA",
+          description: "Develop and maintain software solutions.",
+          requirements: ["Software development experience", "Knowledge of Java and Python"],
+          tags: ["Full-time", "Remote Possible"]
+        }
       ]
     };
-    window.addEventListener("DOMContentLoaded", () => {
-      const institution = sessionStorage.getItem("institution");
-      const role = (sessionStorage.getItem("role") || "").toLowerCase();
-      const jobList = document.getElementById("jobList");
-      const applicationInterface = document.getElementById("applicationInterface");
-      const alertMessage = document.getElementById("alertMessage");
-      if (!institution || !role) {
-        window.location.href = "/login.html";
+    const jobListEl = document.getElementById('job-list');
+    const pageTitle = document.getElementById('page-title');
+    const logoutBtn = document.getElementById('logout-btn');
+    const applicationModal = document.getElementById('application-modal');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+    const applicationForm = document.getElementById('application-form');
+
+    let currentUserRole = '';
+    let currentUserEmail = '';
+    let currentInstitution = '';
+    let currentJobTitle = '';
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const institution = sessionStorage.getItem('loggedInInstitution');
+      const email = sessionStorage.getItem('loggedInEmail');
+      const role = sessionStorage.getItem('loggedInRole');
+      currentUserRole = role;
+      currentUserEmail = email;
+      currentInstitution = institution;
+
+      if (!institution || !email || !role) {
+        window.location.href = 'login.html';
         return;
       }
+      pageTitle.textContent = `${institution} - Job Opportunities`;
       const jobs = jobsData[institution] || [];
-      if (!jobs.length) {
-        jobList.innerHTML = "<p>No job postings available.</p>";
+      if (jobs.length === 0) {
+        jobListEl.innerHTML = "<p>No job postings available for this institution.</p>";
         return;
       }
       let html = "";
       jobs.forEach(job => {
-        html += `
-          <div class="job-card">
-            <h3>${job.title}</h3>
-            <p><strong>Company:</strong> ${job.company}</p>
-            <p><strong>Location:</strong> ${job.location}</p>
-            <p><strong>Salary:</strong> ${job.salary}</p>
-            <p>${job.description}</p>
-            <p>${job.tags.map(tag => `<span class="job-tag">${tag}</span>`).join(" ")}</p>
-            <button class="apply-btn" data-title="${job.title}">Apply Now</button>
-          </div>
-        `;
+        html += `<div class="job-card">
+          <h3>${job.title}</h3>
+          <p><strong>Company:</strong> ${job.company}</p>
+          <p><strong>Location:</strong> ${job.location}</p>
+          <p><strong>Salary:</strong> ${job.salary}</p>
+          <p>${job.description}</p>
+          <p><strong>Requirements:</strong> <ul>${job.requirements.map(req => `<li>${req}</li>`).join('')}</ul></p>
+          <p>${job.tags.map(tag => `<span class="job-tag">${tag}</span>`).join('')}</p>
+          <button class="apply-btn" data-title="${job.title}">Apply Now</button>
+        </div>`;
       });
-      jobList.innerHTML = html;
-      document.querySelectorAll(".apply-btn").forEach(btn => {
-        btn.addEventListener("click", () => {
-          if (role === "student") {
-            alert("Feature not available for students.");
+      jobListEl.innerHTML = html;
+
+      document.querySelectorAll('.apply-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          const role = currentUserRole.toLowerCase();
+          if (role === 'student') {
+            alert('Feature not available for students.');
             return;
           }
-          if (role === "admin") {
-            alert("Feature not available for admins.");
+          if (role === 'admin') {
+            alert('Feature not available for admins.');
             return;
           }
-          applicationInterface.style.display = "block";
-          alertMessage.style.display = "none";
-          applicationInterface.scrollIntoView({ behavior: "smooth" });
-          window.selectedJobTitle = btn.getAttribute("data-title");
+          // Show form modal for alumni or other roles
+          currentJobTitle = button.getAttribute('data-title');
+          applicationModal.style.display = 'block';
+          applicationForm.reset();
         });
       });
-      document.getElementById("submitApplicationBtn").addEventListener("click", () => {
-        const name = document.getElementById("appName").value.trim();
-        const year = document.getElementById("appGradYear").value.trim();
-        const skills = document.getElementById("appSkills").value.trim();
-        if (!name || !year || !skills) {
-          alertMessage.textContent = "Please fill all fields.";
-          alertMessage.style.display = "block";
-          return;
-        }
-        alertMessage.style.display = "none";
-        alert("Thank you for applying. We will connect with you soon.");
-        applicationInterface.style.display = "none";
-        document.getElementById("appName").value = "";
-        document.getElementById("appGradYear").value = "";
-        document.getElementById("appSkills").value = "";
-      });
-      document.getElementById("logoutBtn").addEventListener("click", () => {
-        sessionStorage.clear();
-        window.location.href = "/login.html";
-      });
+    });
+
+    closeModalBtn.addEventListener('click', () => {
+      applicationModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+      if (event.target === applicationModal) {
+        applicationModal.style.display = 'none';
+      }
+    });
+
+    applicationForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // Optionally you can collect form data here for backend submission later
+      applicationModal.style.display = 'none';
+      alert(`Thank you for applying for the position of "${currentJobTitle}". We will get back to you soon!`);
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      sessionStorage.clear();
+      window.location.href = 'login.html';
     });
   </script>
 </body>
