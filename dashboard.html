@@ -2,13 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Dashboard - Punjab  Alumni Connect</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard - Punjab Alumni Connect</title>
+  <link rel="stylesheet" href="styles.css" />
   <style>
-    body {
-      background: #101927;
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    .card {
+      background: rgba(36, 147, 255, 0.07);
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      color: #eaf6ff;
+      transition: background 0.3s ease;
+    }
+    .card:hover {
+      background: rgba(36, 147, 255, 0.14);
+    }
+    .card ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .card ul li {
+      padding: 0.3rem 0;
+    }
+    nav ul.nav-list {
+      list-style: none;
+      display: flex;
+      gap: 12px;
+      padding: 0;
+      background: transparent !important;
+      border-radius: 8px;
+      margin: 0 0 1rem;
+      align-items: center;
+    }
+    nav ul.nav-list li a,
+    nav ul.nav-list li button {
+      color: #2493ff;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      display: block;
+      border-radius: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+    nav ul.nav-list li a.active,
+    nav ul.nav-list li a:hover,
+    nav ul.nav-list li button:hover {
+      background: #2493ff;
+      color: #101927;
+      font-weight: bold;
+    }
+    .container {
+      background-color: #121F33;
+      border-radius: 1em;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 2rem auto;
       color: #eaf6ff;
     }
     header {
@@ -20,67 +71,8 @@
       top: 0;
       z-index: 1000;
     }
-    .logo {
-      height: 60px;
-      margin-right: 20px;
-    }
-    nav {
-      flex-grow: 1;
-    }
-    ul.nav-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      gap: 15px;
-      font-weight: 700;
-    }
-    ul.nav-list li {
-      display: inline-flex;
-      align-items: center;
-    }
-    ul.nav-list li a,
-    ul.nav-list li button {
-      color: #2499ff;
-      text-decoration: none;
-      padding: 8px 14px;
-      border-radius: 6px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      font-family: inherit;
-    }
-    ul.nav-list li a.active,
-    ul.nav-list li a:hover,
-    ul.nav-list li button:hover {
-      background: #2499ff;
-      color: #101827;
-      font-weight: 700;
-    }
-    .container {
-      background-color: #121823;
-      border-radius: 1em;
-      margin: 20px auto;
-      max-width: 1200px;
-      padding: 20px;
-    }
-    .card {
-      background: rgba(36, 147, 255, 0.1);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 20px;
-    }
-    .card h3 {
-      margin-top: 0;
-      color: #2499ff;
-    }
-    .card ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    .card ul li {
-      padding: 4px 0;
+    h1, p, ul {
+      color: #eaf6ff;
     }
     a {
       color: #76beff;
@@ -93,8 +85,8 @@
 </head>
 <body>
   <header>
-    <img src="logo.jpg" alt="Punjab Alumni Connect Logo" class="logo" />
-    <nav>
+    <img src="logo.jpg" alt="Punjab Alumni Connect Logo" style="height: 60px; margin-right: 20px;" />
+    <nav style="flex-grow: 1;">
       <ul class="nav-list">
         <li><a href="index.html" id="nav-home">Home</a></li>
         <li><a href="dashboard.html" id="nav-dashboard" class="active">Dashboard</a></li>
@@ -109,15 +101,17 @@
       </ul>
     </nav>
   </header>
-  <div class="container">
-    <h1 id="institution-name">Institution Dashboard</h1>
-    <p id="institution-info">Loading information...</p>
-    <div id="stats-cards"></div>
-    <div id="news-cards"></div>
-    <div id="quick-links"></div>
-  </div>
+  <main class="container dashboard-content">
+    <section>
+      <h1 id="institution-name">Institution Dashboard</h1>
+      <p id="institution-info">Loading institution details...</p>
+      <div id="stats-cards"></div>
+      <div id="news-cards"></div>
+      <div id="quick-links"></div>
+    </section>
+  </main>
   <script>
-    const institutions = {
+    const institutionsInfo = {
       "Punjab University": {
         location: "Chandigarh",
         established: 1882,
@@ -160,13 +154,13 @@
         established: 2005,
         students: 30000,
         alumni: 45000,
-        website: "https://lpu.in",
+        website: "https://www.lpu.co.in",
         stats: {
           alumniNetwork: "45,000+",
           activeInstitutions: 7,
           connectionsMade: "15,000+",
-          jobPlacements: "3,500+",
-          mentorshipSessions: "4,200+"
+          jobPlacements: "2,800+",
+          mentorshipSessions: "3,500+"
         },
         news: [
           "Virtual Global Alumni Meet - Jan 30, 2026",
@@ -178,7 +172,7 @@
         established: 1921,
         students: 3000,
         alumni: 25000,
-        website: "http://www.pec.ac.in",
+        website: "http://www.pec.edu.in",
         stats: {
           alumniNetwork: "25,000+",
           activeInstitutions: 3,
@@ -196,7 +190,7 @@
         established: 1969,
         students: 25000,
         alumni: 40000,
-        website: "https://gndu.ac.in",
+        website: "http://www.gndu.ac.in",
         stats: {
           alumniNetwork: "40,000+",
           activeInstitutions: 6,
@@ -214,7 +208,7 @@
         established: 2012,
         students: 28000,
         alumni: 35000,
-        website: "https://www.cuchd.in",
+        website: "https://www.chandigarhuniversity.ac.in",
         stats: {
           alumniNetwork: "35,000+",
           activeInstitutions: 4,
@@ -232,7 +226,7 @@
         established: 2010,
         students: 15000,
         alumni: 20000,
-        website: "https://chitkara.edu.in",
+        website: "https://www.chitkara.edu.in",
         stats: {
           alumniNetwork: "20,000+",
           activeInstitutions: 5,
@@ -248,59 +242,53 @@
     };
 
     window.addEventListener('DOMContentLoaded', () => {
-      const institution = sessionStorage.getItem('institution');
-      const email = sessionStorage.getItem('email');
-      const role = sessionStorage.getItem('role');
+      const institution = sessionStorage.getItem('loggedInInstitution');
+      const email = sessionStorage.getItem('loggedInEmail');
+      const role = sessionStorage.getItem('loggedInRole');
       if (!institution || !email || !role) {
         window.location.href = 'login.html';
         return;
       }
-
       document.getElementById('institution-name').textContent = `${institution} Dashboard`;
-      const info = institutions[institution];
+      const info = institutionsInfo[institution];
       if (!info) {
         document.getElementById('institution-info').textContent = 'Information not available for selected institution.';
         return;
       }
-
       document.getElementById('institution-info').innerHTML =
-          `<p><strong>Location:</strong> ${info.location}</p>` +
-          `<p><strong>Established:</strong> ${info.established}</p>` +
-          `<p><strong>Students:</strong> ${info.students.toLocaleString()}</p>` +
-          `<p><strong>Alumni:</strong> ${info.alumni.toLocaleString()}+</p>` +
-          `<p><strong>Website:</strong> <a href="${info.website}" target="_blank">${info.website}</a></p>`;
-
+        `<p><strong>Location:</strong> ${info.location}</p>` +
+        `<p><strong>Established:</strong> ${info.established}</p>` +
+        `<p><strong>Students:</strong> ${info.students.toLocaleString()}</p>` +
+        `<p><strong>Alumni:</strong> ${info.alumni.toLocaleString()}+</p>` +
+        `<p><strong>Website:</strong> <a href="${info.website}" target="_blank" rel="noopener">${info.website}</a></p>`;
       document.getElementById('stats-cards').innerHTML =
-          `<div class="card">` +
-            `<h3>Platform Statistics</h3>` +
-            `<ul>` +
-              `<li><strong>Alumni Network:</strong> ${info.stats.alumniNetwork}</li>` +
-              `<li><strong>Active Institutions:</strong> ${info.stats.activeInstitutions}</li>` +
-              `<li><strong>Connections Made:</strong> ${info.stats.connectionsMade}</li>` +
-              `<li><strong>Job Placements:</strong> ${info.stats.jobPlacements}</li>` +
-              `<li><strong>Mentorship Sessions:</strong> ${info.stats.mentorshipSessions}</li>` +
-            `</ul>` +
-          `</div>`;
-
+        `<div class="card">` +
+          `<h3>Platform Statistics</h3>` +
+          `<ul>` +
+            `<li><strong>Alumni Network:</strong> ${info.stats.alumniNetwork}</li>` +
+            `<li><strong>Active Institutions:</strong> ${info.stats.activeInstitutions}</li>` +
+            `<li><strong>Connections Made:</strong> ${info.stats.connectionsMade}</li>` +
+            `<li><strong>Job Placements:</strong> ${info.stats.jobPlacements}</li>` +
+            `<li><strong>Mentorship Sessions:</strong> ${info.stats.mentorshipSessions}</li>` +
+          `</ul>` +
+        `</div>`;
       document.getElementById('news-cards').innerHTML =
-          `<div class="card">` +
-            `<h3>Recent News & Events</h3>` +
-            `<ul>` +
-              info.news.map(item => `<li>${item}</li>`).join('') +
-            `</ul>` +
-          `</div>`;
-
+        `<div class="card">` +
+          `<h3>Recent News & Events</h3>` +
+          `<ul>` +
+            info.news.map(item => `<li>${item}</li>`).join('') +
+          `</ul>` +
+        `</div>`;
       document.getElementById('quick-links').innerHTML =
-          `<div class="card">` +
-            `<h3>Quick Links</h3>` +
-            `<ul>` +
-              `<li><a href="alumni.html">Alumni Directory</a></li>` +
-              `<li><a href="jobs.html">Job Opportunities</a></li>` +
-              `<li><a href="mentorship.html">Mentorship Program</a></li>` +
-              `<li><a href="donations.html">Support & Donations</a></li>` +
-            `</ul>` +
-          `</div>`;
-
+        `<div class="card">` +
+          `<h3>Quick Links</h3>` +
+          `<ul>` +
+            `<li><a href="alumni.html">Alumni Directory</a></li>` +
+            `<li><a href="jobs.html">Job Opportunities</a></li>` +
+            `<li><a href="mentorship.html">Mentorship Program</a></li>` +
+            `<li><a href="donations.html">Support & Donations</a></li>` +
+          `</ul>` +
+        `</div>`;
       document.getElementById('logout-btn').addEventListener('click', () => {
         sessionStorage.clear();
         window.location.href = 'login.html';
